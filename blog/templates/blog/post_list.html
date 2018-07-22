@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% for post in posts %}
+    {% if post.visiable.name != 'private' or user.is_authenticated %}
+    <hr/><hr/>
+    <div class="post">
+        <h1><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h1>
+            <p>{{ post.text|safe|linebreaksbr|truncatechars:50 }}</p>
+        </div>
+        <br>
+        {% if post.category %}
+        <div class="category">
+            类别: {{ post.category.name }};
+        </div>
+        {% endif %}
+        {% if post.tag.all %}
+        <div class="tag">标签:
+            {% for t in post.tag.all %}
+            {{ t.name }};  
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="date">
+            {{ post.created_date|date }} - 由{{post.author}}
+        </div>
+    {% endif %}
+{% endfor %}
+<hr/><hr/>
+<div class='pagination'>
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}">&laquo;上一页</a>
+        {% endif %}
+
+        <span class="current">
+             {{ posts.number }} / {{ posts.paginator.num_pages }}
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">下一页 &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

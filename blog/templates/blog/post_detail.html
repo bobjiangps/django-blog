@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<a href="/bobjiang">返回首页</a>
+<h1>{{  post.title  }}</h1>
+<div class="date">
+    {{ post.created_date|date }} - 由{{post.author}}
+</div>
+<h3>{{  post.text|safe|linebreaksbr  }}</h3>
+{% endblock %}
