@@ -7,4 +7,20 @@
     {{ post.created_date|date }} - 由{{post.author}}
 </div>
 <h3>{{  post.text|safe|linebreaksbr  }}</h3>
+
+<ul>
+    {% for c in post.comments %}
+    <li>
+        {% include 'blog/comment.html' with comment=c level=1 counter=forloop.revcounter %}
+        <ul>
+            {% for cc in c.children.all|dictsort:'created_time' %}
+            <li>
+                {% include 'blog/comment.html' with comment=cc level=2 %}
+            </li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
+
 {% endblock %}
