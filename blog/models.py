@@ -49,18 +49,3 @@ class Post(models.Model):
         return self.title
 
 
-class Comment(models.Model):
-    #user = models.ForeignKey(User)
-    user = models.CharField(max_length=50)
-    content = models.TextField()
-    #parent为该评论的父评论，所以第一个参数为'self',当为空时表示为第一层级的评论
-    #指定related_name='children'，这样可以父评论通过comment.children获取子评论，默认是通过comment.comment_set获取
-    parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.SET_NULL)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    created_time = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.content
-
-    class Meta:
-        ordering = ['-created_time']

@@ -8,19 +8,65 @@
 </div>
 <h3>{{  post.text|safe|linebreaksbr  }}</h3>
 
-<ul>
-    {% for c in post.comments %}
-    <li>
-        {% include 'blog/comment.html' with comment=c level=1 counter=forloop.revcounter %}
-        <ul>
-            {% for cc in c.children.all|dictsort:'created_time' %}
-            <li>
-                {% include 'blog/comment.html' with comment=cc level=2 %}
-            </li>
-            {% endfor %}
-        </ul>
-    </li>
-    {% endfor %}
-</ul>
+<hr />
+<hr />
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Comment</h4>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'comments:post_comment' post.id %}" method="post" class="comment-form">
+          {% csrf_token %}
+            <div class="form-group">
+              <label for="id_name">名字</label>
+              <input class="form-control" id="id_name" name="name" placeholder="Name" type="text" required="">
+            </div>
+            <div class="form-group">
+              <label for="id_email">邮箱地址</label>
+              <input class="form-control" id="id_email" name="email" placeholder="Email" type="text" required="">
+            </div>
+            <div class="form-group">
+              <label for="id_content">评论内容</label>
+              <input class="form-control" id="id_content" name="content" placeholder="Content" row="3" type="text" required="">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single Comment -->
+  <div class="media mb-4">
+    <h4 class="mt-0">
+      <!--Comments({{ post.comment_set.count }})-->
+      共有{{ post.comment_set.count }}条评论<br><br>
+      <a href="#" class="btn btn-primary" role="button" data-toggle="modal" data-target="#myModal">添加评论</a>
+    </h4>
+  </div>
+  {% for comment in post.comments %}
+  <div class="media mb-4" style="border:1px solid gray;">
+    <img class="d-flex mr-3 rounded-circle" src="/media/head/niming-no-gender.png" alt="" width="50" height="50">
+    <div class="media-body">
+      <h5 class="mt-0"><b>{{ comment.name }}</b></h5>
+        {{ comment.content }}
+    </div>
+  </div>
+  {% empty %}
+  <div class="media mb-4">
+    <div class="media-body">
+      <h5 class="mt-0">暂无评论</h5>
+    </div>
+  </div>
+  {% endfor %}
 
 {% endblock %}

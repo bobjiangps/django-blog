@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'comments',
     'ckeditor',
     'ckeditor_uploader',
 ]
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'bobjiang.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dj-bobjiang',
+        'NAME': 'dj-bobjiang-v2',
         'USER': 'root',
         'PASSWORD': 'Jiangbo86',
         'HOST': '127.0.0.1',
