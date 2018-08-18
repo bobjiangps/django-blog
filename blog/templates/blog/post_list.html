@@ -3,10 +3,15 @@
 {% block content %}
 {% for post in posts %}
     {% if post.visiable.name != 'private' or user.is_authenticated %}
-    <hr/><hr/>
-    <div class="post">
+        <hr/><hr/>
+        <div class="post">
         <h1><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h1>
             <p>{{ post.text|safe|linebreaksbr|truncatechars:50 }}</p>
+        </div>
+        <br>
+        <div class='read-more'>
+        <!--<a href="{{ post.get_absolute_url }}" class="btn btn-primary">查看更多&rarr;</a>-->
+        <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">查看更多&rarr;</a>
         </div>
         <br>
         {% if post.category %}
