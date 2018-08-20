@@ -1,4 +1,5 @@
 - add xadmin
+- support edit function in front page
 - add archives to show articles by time period
 - add categroy group to show articles by category
 - add about

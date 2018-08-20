@@ -2,7 +2,11 @@
 
 {% block content %}
 <a href="/bobjiang">返回首页</a>
-<h1>{{  post.title  }}</h1>
+{% if post.visiable.name == 'private' %}
+  <h1>[private] - {{  post.title  }}</h1>
+{% else %}
+  <h1>{{ post.title }}</h1>
+{% endif %}
 <div class="date">
     {{ post.created_date|date }} - 由{{post.author}}
 </div>

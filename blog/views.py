@@ -7,7 +7,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    try:
+        login_user = request.user
+        if str(login_user) == 'AnonymousUser':
+            raise
+        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    except:
+        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('published_date').reverse()
     paginator = Paginator(posts, 5)
     page = request.GET.get('page',1)
     try:

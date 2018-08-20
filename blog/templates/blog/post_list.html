@@ -5,8 +5,12 @@
     {% if post.visiable.name != 'private' or user.is_authenticated %}
         <hr/><hr/>
         <div class="post">
-        <h1><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|safe|linebreaksbr|truncatechars:50 }}</p>
+        {% if post.visiable.name == 'private' %}
+          <h1><a href="{% url 'post_detail' post.id %}">[private] - {{ post.title }}</a></h1>
+        {% else %}
+          <h1><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a><h1>
+        {% endif %}
+            <p>{{ post.text|safe|linebreaksbr|truncatechars:150 }}</p>
         </div>
         <br>
         <div class='read-more'>
