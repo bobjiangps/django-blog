@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'comments',
     'ckeditor',
     'ckeditor_uploader',
+    #'xadmin',
+    #'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -161,3 +163,4 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': 'codesnippet',
     }
 }
+

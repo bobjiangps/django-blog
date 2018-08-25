@@ -48,4 +48,10 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-
+    # 阅读数（>0的数）
+    views = models.PositiveIntegerField(default=0)
+    # 增加阅读数的方法
+    def increase_views(self):
+        self.views +=1
+        # update_fields 只更新数据库中的views
+        self.save(update_fields=['views'])

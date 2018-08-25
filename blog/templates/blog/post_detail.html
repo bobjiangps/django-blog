@@ -3,12 +3,13 @@
 {% block content %}
 <a href="/bobjiang">返回首页</a>
 {% if post.visiable.name == 'private' %}
-  <h1>[private] - {{  post.title  }}</h1>
+  <h3>[private] - {{  post.title  }}</h3>
 {% else %}
-  <h1>{{ post.title }}</h1>
+  <h3>{{ post.title }}</h3>
 {% endif %}
 <div class="date">
-    {{ post.created_date|date }} - 由{{post.author}}
+    {{ post.created_date|date }} - 由{{post.author}} &emsp; &emsp; 
+    <span class='view-count'>{{ post.views }} 阅读</span>
 </div>
 <h3>{{  post.text|safe|linebreaksbr  }}</h3>
 

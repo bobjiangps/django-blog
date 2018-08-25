@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-#import ckeditor_uploader
+##import ckeditor_uploader
 from django.conf.urls.static import static
 from django.conf import settings
+#import xadmin
 
 
 urlpatterns = [
     path('bobjiang/admin/', admin.site.urls),
+    #path('bobjiang/admin', xadmin.site.urls),
     path('bobjiang/', include('blog.urls')),
     path('bobjiang/', include('comments.urls', namespace='comments')),
     path('ckeditor/', include('ckeditor_uploader.urls')),

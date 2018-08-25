@@ -30,6 +30,7 @@ def post_list(request):
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     post.comments = post.comment_set.all().filter().order_by('-created_time')
+    post.increase_views()
     return render(request, 'blog/post_detail.html', {'post': post})
 
 def create_new(request):
