@@ -11,6 +11,6 @@
 - add new header and footer
 - show popover to say "already comment", auto disappear
 - view count on post - DONE
-- visitor statistic data and chart
+- visitor statistic data and chart - django-tracking-analyzer or django-tracking2
 - http turn to https
 - add sign in and sign out

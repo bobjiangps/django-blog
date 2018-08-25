@@ -14,18 +14,7 @@ def post_list(request):
         posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     except:
         posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('published_date').reverse()
-    paginator = Paginator(posts, 5)
-    page = request.GET.get('page',1)
-    try:
-        part_posts = paginator.page(page)
-    except PageNotAnInteger:
-        #if page is not an integer, deliver first page.
-        part_posts = paginator.page(1)
-    except EmptyPage:
-        #if page is out of range, deliver last page of results
-        part_posts = paginator.page(paginator.num_pages)
-    #return render(request, 'blog/post_list.html', {'posts':posts})
-    return render(request, 'blog/post_list.html', {'posts':part_posts})
+    return pagination(request,posts)
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -48,4 +37,38 @@ def create_new(request):
     else:
         form = PostForm()
     return render(request, 'blog/create_new.html', {'form': form})
+
+def archives(request):
+    try:
+        login_user = request.user
+        if str(login_user) == 'AnonymousUser':
+            raise
+        date_list = Post.objects.dates('published_date', 'month', order='DESC')
+    except:
+        date_list = Post.objects.filter(visiable__name='public').dates('published_date', 'month', order='DESC')
+    return render(request, 'blog/archives.html', context={'date_list': date_list})
+
+def archives_date(request, year, month):
+    try:
+        login_user = request.user
+        if str(login_user) == 'AnonymousUser':
+            raise
+        posts = Post.objects.filter(published_date__year=year,published_date__month=month).order_by('published_date').reverse()
+    except:
+        posts = Post.objects.filter(visiable__name='public').filter(published_date__year=year,published_date__month=month).order_by('published_date').reverse()
+    return pagination(request,posts)
+
+def pagination(request,filter_posts):
+    paginator = Paginator(filter_posts, 5)
+    page = request.GET.get('page',1)
+    try:
+        part_posts = paginator.page(page)
+    except PageNotAnInteger:
+        #if page is not an integer, deliver first page.
+        part_posts = paginator.page(1)
+    except EmptyPage:
+        #if page is out of range, deliver last page of results
+        part_posts = paginator.page(paginator.num_pages)
+    #return render(request, 'blog/post_list.html', {'posts':posts})
+    return render(request, 'blog/post_list.html', {'posts':part_posts})
 
