@@ -39,14 +39,32 @@ def create_new(request):
     return render(request, 'blog/create_new.html', {'form': form})
 
 def archives(request):
+    all_category = []
+    all_tag = []
     try:
         login_user = request.user
         if str(login_user) == 'AnonymousUser':
             raise
         date_list = Post.objects.dates('published_date', 'month', order='DESC')
+        posts = Post.objects.all()
+        for p in posts:
+            if p.category.name not in all_category:
+                all_category.append(p.category.name)
+            for t in p.tag.all():
+                if t.name not in all_tag:
+                    all_tag.append(t.name)
     except:
         date_list = Post.objects.filter(visiable__name='public').dates('published_date', 'month', order='DESC')
-    return render(request, 'blog/archives.html', context={'date_list': date_list})
+        posts = Post.objects.filter(visiable__name='public')
+        for p in posts:
+            if p.category.name not in all_category:
+                all_category.append(p.category.name)
+            for t in p.tag.all():
+                if t.name not in all_tag:
+                    all_tag.append(t.name)
+    all_category.sort()
+    all_tag.sort()
+    return render(request, 'blog/archives.html', context={'date_list': date_list, 'category_list': all_category, 'tag_list': all_tag})
 
 def archives_date(request, year, month):
     try:
@@ -56,6 +74,26 @@ def archives_date(request, year, month):
         posts = Post.objects.filter(published_date__year=year,published_date__month=month).order_by('published_date').reverse()
     except:
         posts = Post.objects.filter(visiable__name='public').filter(published_date__year=year,published_date__month=month).order_by('published_date').reverse()
+    return pagination(request,posts)
+
+def archives_category(request, category_name):
+    try:
+        login_user = request.user
+        if str(login_user) == 'AnonymousUser':
+            raise
+        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('published_date').reverse()
+    except:
+        posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('published_date').reverse()
+    return pagination(request,posts)
+
+def archives_tag(request, tag_name):
+    try:
+        login_user = request.user
+        if str(login_user) == 'AnonymousUser':
+            raise
+        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('published_date').reverse()
+    except:
+        posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('published_date').reverse()
     return pagination(request,posts)
 
 def pagination(request,filter_posts):
@@ -71,4 +109,7 @@ def pagination(request,filter_posts):
         part_posts = paginator.page(paginator.num_pages)
     #return render(request, 'blog/post_list.html', {'posts':posts})
     return render(request, 'blog/post_list.html', {'posts':part_posts})
+
+def about_site_me(request):
+    return render(request, 'blog/about.html')
 
