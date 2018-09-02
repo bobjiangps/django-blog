@@ -18,13 +18,8 @@ def post_comment(request, post_id):
             comment.post = post
             comment.save()
             print("valid in if")
-            #return HttpResponseRedirect('/bobjiang')
             return redirect(post_detail,post_id=post_id)
         else:
-            #comment_list = post.comment_set.all()
-            #return render(request, 'post.html', context={'post': post,
-            #                                             'form': form,
-            #                                             'comment_list':comment_list})
             print("not valid")
             
     print("not post method")

@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.http import HttpResponse
 from django.utils import timezone
 from .models import Post
 from .forms import PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth import authenticate, login as d_login, logout as d_logout
 
 
 def post_list(request):
@@ -113,3 +115,30 @@ def pagination(request,filter_posts):
 def about_site_me(request):
     return render(request, 'blog/about.html')
 
+def do_login(request):
+    if request.method == 'GET':
+        request.session['login_from'] = request.META.get('HTTP_REFERER', '/') 
+        request.session['login_error'] = False
+        user = request.user
+        if user.is_authenticated:
+            return redirect(reverse("post_list"))
+        else:
+            return render(request, 'blog/login.html')
+    elif request.method == "POST":
+        userName = request.POST['user-name']
+        userPassword = request.POST['user-pw']
+        user = authenticate(username=userName, password=userPassword)
+        if user is not None: 
+            if user.is_active:
+                d_login(request, user)
+                return redirect(request.session['login_from'])  # go back to page before login
+            else:
+                request.session['login_error'] = "未激活用户"
+                return render(request,'blog/login.html',{'username':userName,'password':userPassword})
+        else:
+            request.session['login_error'] = "错误的用户名或密码"
+            return render(request,'blog/login.html',{'username':userName,'password':userPassword})
+
+def do_logout(request):
+    d_logout(request)
+    return redirect(reverse('post_list'))

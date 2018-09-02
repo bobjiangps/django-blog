@@ -1,8 +1,9 @@
 - add xadmin
 - support edit function in front page
-- add archives to show articles by time period
-- add categroy group to show articles by category
-- add about
+- add archives to show articles by time period - DONE
+- add categroy group to show articles by category - DONE
+- add about - DONE
+- add calendar
 - add blog post with preview and read-more - DONE
 - add comment to blog - DONE
 - comment to other's comment
@@ -13,4 +14,5 @@
 - view count on post - DONE
 - visitor statistic data and chart - django-tracking-analyzer or django-tracking2
 - http turn to https
-- add sign in and sign out
+- add sign in and sign out - DONE
+- add 404, 500 page etc
