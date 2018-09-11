@@ -24,6 +24,21 @@ def post_detail(request, post_id):
     post.increase_views()
     return render(request, 'blog/post_detail.html', {'post': post})
 
+def post_edit(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            try:
+                post.author = request.user
+            except ValueError:
+                return HttpResponse('<h1>please login first</h1>')
+            post.save()
+            return redirect(post_detail, post_id=post.id)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'blog/post_edit.html', {'form': form})
+
 def create_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)

@@ -1,5 +1,5 @@
 - add xadmin
-- support edit function in front page
+- support edit function in front page - DONE
 - add archives to show articles by time period - DONE
 - add categroy group to show articles by category - DONE
 - add about - DONE
@@ -13,6 +13,8 @@
 - show popover to say "already comment", auto disappear
 - view count on post - DONE
 - visitor statistic data and chart - django-tracking-analyzer or django-tracking2
-- http turn to https
+- http turn to https - DONE, but only free for 1 year
 - add sign in and sign out - DONE
 - add 404, 500 page etc
+- set some post to top
+- show different good sentence when open page or refresh
