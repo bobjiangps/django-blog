@@ -1,11 +1,9 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<br>
-<div class="row">
 <div class="col-md-4">
 
-  <h3>日期</h3>
+  <h2 class="my-4">日期</h2>
 
   <!-- Blog Post -->
   <ul class="list-group">
@@ -23,25 +21,7 @@
 
 <div class="col-md-4">
 
-  <h3>标签</h3>
-
-  <!-- Blog Post -->
-  <ul class="list-group">
-    {% for tag in tag_list %}
-      <li class="list-group-item ">
-      <a href="{% url 'archives_tag' tag %}">{{ tag }}</a>
-      </li>
-    {% empty %}
-    <li class="list-group-item ">
-      Not Available
-    </li>
-    {% endfor %}
-    </ul>
-</div>
-
-<div class="col-md-4">
-
-  <h3>类别</h3>
+  <h2 class="my-4">类别</h2>
 
   <!-- Blog Post -->
   <ul class="list-group">
@@ -57,6 +37,22 @@
     </ul>
 </div>
 
+<div class="col-md-4">
+
+  <h2 class="my-4">标签</h2>
+
+  <!-- Blog Post -->
+  <ul class="list-group">
+    {% for tag in tag_list %}
+      <li class="list-group-item ">
+      <a href="{% url 'archives_tag' tag %}">{{ tag }}</a>
+      </li>
+    {% empty %}
+    <li class="list-group-item ">
+      Not Available
+    </li>
+    {% endfor %}
+    </ul>
 </div>
-<br><br>
+
 {% endblock %}

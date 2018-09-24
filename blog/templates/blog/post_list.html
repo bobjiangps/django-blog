@@ -2,58 +2,56 @@
 
 {% block content %}
 {% for post in posts %}
+    <div class="col-md-10">
     {% if post.visiable.name != 'private' or user.is_authenticated %}
         <hr/>
         <div class="post-area" style="border:1px solid #ccc; padding:20px;">
         <div class="date">
-            {{ post.created_date|date }} - 由{{post.author}}  &emsp; &emsp; 
-            <span class='comment-count'>{{ post.comment_set.count }} 评论</span> &emsp; &emsp;  
+            {{ post.created_date|date }} - 由{{post.author}} &ensp;&ensp; 
+            <span class='comment-count'>{{ post.comment_set.count }} 评论</span> &ensp;&ensp;  
             <span class='view-count'>{{ post.views }} 阅读</span>
         </div>
         <div class="post-content">
-        {% if post.visiable.name == 'private' %}
-          <h3><a href="{% url 'post_detail' post.id %}">[private] - {{ post.title }}</a></h3>
-        {% else %}
-          <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a><h3>
-        {% endif %}
+            {% if post.visiable.name == 'private' %}
+              <h3><a href="{% url 'post_detail' post.id %}">[private] - {{ post.title }}</a></h3>
+            {% else %}
+            <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a><h3>
+            {% endif %}
             <h5>{{ post.text|safe|linebreaksbr|truncatechars:150 }}<h5>
         </div>
         <div class="read-more">
-        <!--<a href="{{ post.get_absolute_url }}" class="btn btn-primary">查看更多&rarr;</a>-->
-        <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">继续阅读</a>
+            <!--<a href="{{ post.get_absolute_url }}" class="btn btn-primary">查看更多&rarr;</a>-->
+            <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">继续阅读</a>
         </div>
         <br>
         {% if post.category %}
-        <div class="category">
+            <div class="category">
             类别: {{ post.category.name }};
-        </div>
+            </div>
         {% endif %}
         {% if post.tag.all %}
-        <div class="tag">标签:
+            <div class="tag">标签:
             {% for t in post.tag.all %}
-            {{ t.name }};  
+                {{ t.name }};  
             {% endfor %}
-        </div>
-        </div>
+            </div>
         {% endif %}
+        </div>
+    </div>
     {% endif %}
 {% empty %}
   <h1>您搜索的条件没有数据</h1>
 {% endfor %}
 <hr/>
-<div class='pagination'>
-    <span class="step-links">
-        {% if posts.has_previous %}
-            <a href="?page={{ posts.previous_page_number }}">&laquo;上一页</a>
-        {% endif %}
+<ul class='pagination'>
+    {% if posts.has_previous %}
+        <li class="page-item"><a href="?page={{ posts.previous_page_number }}">&laquo;上一页&emsp;</a></li>
+    {% endif %}
 
-        <span class="current">
-             {{ posts.number }} / {{ posts.paginator.num_pages }}
-        </span>
+    {{ posts.number }} / {{ posts.paginator.num_pages }}
 
-        {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}">下一页 &raquo;</a>
-        {% endif %}
-    </span>
+    {% if posts.has_next %}
+        <li class="page-item"><a href="?page={{ posts.next_page_number }}">&emsp;下一页 &raquo;</a></li>
+    {% endif %}
 </div>
 {% endblock %}

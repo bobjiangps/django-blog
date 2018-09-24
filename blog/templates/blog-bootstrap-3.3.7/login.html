@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <form action="{% url 'do_login' %}" method="post">
+      {% csrf_token %}
+      <div id="header">
+        <h3 id="site-name"><a href="/bobjiang/admin/">用户登录</a></h3>
+      </div>
+      <label for="username">用户名：</label><br>
+      <input id="username" type="text" name="user-name" value="{{ username }}" class='required' placeholder='Name'><p></p>
+      <label for="password">密码：</label><br>
+      <input id="password" type="password" name="user-pw" value="{{ password }}" class='required' placeholder='Password'><p></p>
+      <input type="submit" value="登录">
+      {% if request.session.login_error %}
+      <p style="color:red">{{request.session.login_error}}</p>
+      {% endif %}
+{% endblock %}

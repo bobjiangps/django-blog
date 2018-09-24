@@ -2,8 +2,6 @@
 
 {% block content %}
 <a href="/bobjiang">返回首页</a>
-
-<div class="col-md-8">
 {% if post.visiable.name == 'private' %}
   <h3>[private] - {{  post.title  }}</h3>
 {% else %}
@@ -16,7 +14,6 @@
       <a href="{% url 'post_edit' post.id %}">Edit</a>
     {% endif %}
 </div>
-<br>
 <h5>{{  post.text|safe|linebreaksbr  }}</h5>
 
 <hr />
@@ -81,5 +78,4 @@
   </div>
   {% endfor %}
 
-</div>
 {% endblock %}
