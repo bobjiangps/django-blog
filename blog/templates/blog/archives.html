@@ -3,60 +3,50 @@
 {% block content %}
 <br>
 <div class="row">
-<div class="col-md-4">
-
-  <h3>日期</h3>
-
-  <!-- Blog Post -->
-  <ul class="list-group">
-    {% for date in date_list %}
+  <div class="col-md-4">
+    <h3>日期</h3>
+    <ul class="list-group">
+      {% for date in date_list %}
+        <li class="list-group-item ">
+        <a href="{% url 'archives_date' date.year date.month %}">{{ date.year }} 年 {{ date.month}} 月</a>
+        </li>
+      {% empty %}
       <li class="list-group-item ">
-      <a href="{% url 'archives_date' date.year date.month %}">{{ date.year }} 年 {{ date.month}} 月</a>
+        Not Available
       </li>
-    {% empty %}
-    <li class="list-group-item ">
-      Not Available
-    </li>
-    {% endfor %}
-    </ul>
-</div>
+      {% endfor %}
+      </ul>
+  </div>
 
-<div class="col-md-4">
-
-  <h3>标签</h3>
-
-  <!-- Blog Post -->
-  <ul class="list-group">
-    {% for tag in tag_list %}
+  <div class="col-md-4">
+    <h3>标签</h3>
+    <ul class="list-group">
+      {% for tag in tag_list %}
+        <li class="list-group-item ">
+        <a href="{% url 'archives_tag' tag %}">{{ tag }}</a>
+        </li>
+      {% empty %}
       <li class="list-group-item ">
-      <a href="{% url 'archives_tag' tag %}">{{ tag }}</a>
+        Not Available
       </li>
-    {% empty %}
-    <li class="list-group-item ">
-      Not Available
-    </li>
-    {% endfor %}
-    </ul>
-</div>
+      {% endfor %}
+      </ul>
+  </div>
 
-<div class="col-md-4">
-
-  <h3>类别</h3>
-
-  <!-- Blog Post -->
-  <ul class="list-group">
-    {% for category in category_list %}
+  <div class="col-md-4">
+    <h3>类别</h3>
+    <ul class="list-group">
+      {% for category in category_list %}
+        <li class="list-group-item ">
+        <a href="{% url 'archives_category' category %}">{{ category }}</a>
+        </li>
+      {% empty %}
       <li class="list-group-item ">
-      <a href="{% url 'archives_category' category %}">{{ category }}</a>
+        Not Available
       </li>
-    {% empty %}
-    <li class="list-group-item ">
-      Not Available
-    </li>
-    {% endfor %}
-    </ul>
-</div>
-
+      {% endfor %}
+      </ul>
+  </div>
 </div>
 <br><br>
 {% endblock %}
