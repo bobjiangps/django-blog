@@ -2,7 +2,7 @@
 
 {% block content %}
 {% for post in posts %}
-    <div class="col-md-10">
+    <article class="col-md-10">
     {% if post.visiable.name != 'private' or user.is_authenticated %}
         <hr/>
         <div class="card">
@@ -40,12 +40,12 @@
             </div>
         </div>
     {% endif %}
-    </div>
+    </article>
 {% empty %}
   <h1>您搜索的条件没有数据</h1>
 {% endfor %}
 <hr/>
-<ul class='pagination'>
+<ul class='pagination justify-content-center'>
     {% if posts.has_previous %}
         <li class="page-item"><a href="?page={{ posts.previous_page_number }}">&laquo;上一页&emsp;</a></li>
     {% endif %}
