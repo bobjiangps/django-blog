@@ -1,11 +1,11 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<br>
 <div class="row">
   <div class="col-md-4">
-    <h3>日期</h3>
+    <h3>&emsp;</h3>
     <ul class="list-group">
+      <li class="list-group-item list-group-item-primary" style="font-weight:bold;">日期</li>
       {% for date in date_list %}
         <li class="list-group-item ">
         <a href="{% url 'archives_date' date.year date.month %}">{{ date.year }} 年 {{ date.month}} 月</a>
@@ -19,8 +19,9 @@
   </div>
 
   <div class="col-md-4">
-    <h3>标签</h3>
+    <h3>&emsp;</h3>
     <ul class="list-group">
+      <li class="list-group-item list-group-item-primary" style="font-weight:bold;">标签</li>
       {% for tag in tag_list %}
         <li class="list-group-item ">
         <a href="{% url 'archives_tag' tag %}">{{ tag }}</a>
@@ -34,8 +35,9 @@
   </div>
 
   <div class="col-md-4">
-    <h3>类别</h3>
+    <h3>&emsp;</h3>
     <ul class="list-group">
+      <li class="list-group-item list-group-item-primary" style="font-weight:bold;">类别</li>
       {% for category in category_list %}
         <li class="list-group-item ">
         <a href="{% url 'archives_category' category %}">{{ category }}</a>

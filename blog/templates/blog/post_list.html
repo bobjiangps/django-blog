@@ -6,7 +6,7 @@
     {% if post.visiable.name != 'private' or user.is_authenticated %}
         <hr/>
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-light text-dark">
                 {{ post.created_date|date }} - 由{{post.author}} &ensp;&ensp;
                 <span class='comment-count'>{{ post.comment_set.count }} 评论</span> &ensp;&ensp;
                 <span class='view-count'>{{ post.views }} 阅读</span>
@@ -15,10 +15,10 @@
                 {% if post.visiable.name == 'private' %}
                   <h3><a href="{% url 'post_detail' post.id %}">[private] - {{ post.title }}</a></h3>
                 {% else %}
-                <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a><h3>
+                  <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a><h3>
                 {% endif %}
-                <h5>{{ post.text|safe|linebreaksbr|truncatechars:150}}<h5>
-                <!--<a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Read More</a>-->
+                <h6>{{ post.text|safe|truncatechars:120}}</h6>
+                <!--<h6>{{ post.text|safe|linebreaksbr|truncatechars:150}}</h6>-->
             </div>
             <div class="read-more" style="padding:20px;">
                 <!--<a href="{{ post.get_absolute_url }}" class="btn btn-primary">查看更多&rarr;</a>-->
@@ -27,13 +27,13 @@
             <div class="card-footer">
                 {% if post.category %}
                     <div class="category">
-                    类别: {{ post.category.name }};
+                      类别: <span class="badge badge-success">{{ post.category.name }};</span>
                     </div>
                 {% endif %}
                 {% if post.tag.all %}
                     <div class="tag">标签:
                     {% for t in post.tag.all %}
-                        {{ t.name }};
+                        <span class="badge badge-info">{{ t.name }};</span>
                     {% endfor %}
                     </div>
                 {% endif %}
