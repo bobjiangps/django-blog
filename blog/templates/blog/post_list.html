@@ -6,7 +6,7 @@
     {% if post.visiable.name != 'private' or user.is_authenticated %}
         <hr/>
         <div class="card">
-            <div class="card-header bg-light text-dark">
+            <div class="card-header" style="background-color:#b8daff;">
                 {{ post.created_date|date }} - 由{{post.author}} &ensp;&ensp;
                 <span class='comment-count'>{{ post.comment_set.count }} 评论</span> &ensp;&ensp;
                 <span class='view-count'>{{ post.views }} 阅读</span>
@@ -24,7 +24,7 @@
                 <!--<a href="{{ post.get_absolute_url }}" class="btn btn-primary">查看更多&rarr;</a>-->
                 <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">继续阅读</a>
             </div>
-            <div class="card-footer">
+            <div class="card-footer bg-light text-dark">
                 {% if post.category %}
                     <div class="category">
                       类别: <span class="badge badge-success">{{ post.category.name }};</span>
