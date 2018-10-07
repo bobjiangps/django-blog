@@ -4,6 +4,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
         <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
@@ -38,7 +39,7 @@
 
     <div class="content container-fluid">
         {% if user.is_authenticated %}
-            <a href="{% url 'create_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus">添加新文章</span></a>
+            <a href="{% url 'create_new' %}" class="top-menu"><i class="fa fa-plus" aria-hidden="true">添加新文章</i></a>
         {% endif %}
         <div class="col-md-12">
             {% block content %}
