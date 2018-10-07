@@ -36,17 +36,30 @@
 	    <a class="nav-link" href="/bobjiang/about/">关于</a>
           </li>
         </ul>
+        <hr width=90% style="border:2px solid #b8daff;"/>
 
     <div class="content container-fluid">
         {% if user.is_authenticated %}
             <a href="{% url 'create_new' %}" class="top-menu"><i class="fa fa-plus" aria-hidden="true">添加新文章</i></a>
         {% endif %}
         <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-8" name="post-container">
             {% block content %}
             {% endblock %}
+            </div>
+            <div class="col-md-4" name="widget-container">
+              <hr width="30%" style="border:2px solid #F0E68C;"/>
+              <section id="search" align="center">
+                <input type="search" placeholder="请输入内容" required>
+                <button type="submit"><i class="fa fa-search" aria-hidden="true">搜索</i></button>
+              </section>
+            </div>
+          </div>
         </div>
     </div>
 
+    <hr width=90% style="border:2px solid #b8daff;"/>
     <footer class="navbar-fixed-bottom">
         <ul class="list-inline text-center">
             <li>友情链接:&emsp; <a href='http://www.byincd.com/diary'>日记游记</a>&emsp;|&emsp;<a href="http://www.byincd.com:8888/">在线练习代码</a></li>
