@@ -51,8 +51,10 @@
             <div class="col-md-4" name="widget-container">
               <hr width="30%" style="border:2px solid #F0E68C;"/>
               <section id="search" align="center">
-                <input type="search" placeholder="请输入内容" required>
-                <button type="submit"><i class="fa fa-search" aria-hidden="true">搜索</i></button>
+                  <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
+                    <input type="search" name="q" placeholder="请输入内容" required>
+                    <button type="submit"><i class="fa fa-search" aria-hidden="true">搜索</i></button>
+                  </form>
               </section>
             </div>
           </div>

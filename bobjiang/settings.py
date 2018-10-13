@@ -33,6 +33,7 @@ APPEND_SLASH = True
 # Application definition
 
 INSTALLED_APPS = [
+    'haystack',
     'blog.apps.BlogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -164,4 +165,14 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': 'codesnippet',
     }
 }
+
+# haystack
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
