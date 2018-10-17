@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <form action="{% url 'do_login' %}" method="post">
+    <form action="{% url 'do_login' %}" method="post" align="center">
       {% csrf_token %}
       <div id="header">
         <h3 id="site-name"><a href="/bobjiang/admin/">用户登录</a></h3>

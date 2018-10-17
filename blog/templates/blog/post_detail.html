@@ -10,6 +10,7 @@
 {% endif %}
 <div class="date">
     <p>{{ post.created_date|date }} - 由{{post.author}} &emsp; &emsp; 
+    <span class="comment-count">{{ post.comment_set.count }} 评论</span>&emsp; &emsp;
     <span class='view-count'>{{ post.views }} 阅读</span>&emsp; &emsp;
     {% if user.is_authenticated %}
       <a href="{% url 'post_edit' post.id %}">Edit</a>
