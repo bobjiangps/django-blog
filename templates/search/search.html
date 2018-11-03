@@ -15,11 +15,11 @@
             </div>
             <div class="card-body">
                 {% if post.object.visiable.name == 'private' %}
-                  <h3><a href="{% url 'post_detail' post.object.id %}">[private] - {{ post.object.title }}</a></h3>
+                  <h3><a href="{% url 'post_detail' post.object.id %}">[private] - {% highlight post.object.title with query %}</a></h3>
                 {% else %}
-                  <h3><a href="{% url 'post_detail' post.object.id %}">{{ post.object.title }}</a><h3>
+                  <h3><a href="{% url 'post_detail' post.object.id %}">{% highlight post.object.title with query %}</a><h3>
                 {% endif %}
-                <h6>{{ post.object.text|safe|truncatechars:120}}</h6>
+                <h6>{% highlight post.object.text with query max_length 40 %}</h6>
             </div>
             <div class="read-more" style="padding:20px;">
                 <a href="{% url 'post_detail' post.object.id %}" class="btn btn-primary">继续阅读</a>

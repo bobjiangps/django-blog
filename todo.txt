@@ -8,6 +8,7 @@
 - add comment to blog - DONE
 - comment to other's comment
 - add search post - DONE
+- highlight the search keyword in search result - DONE
 - make it beautiful
 - change to bootstrap4.0 or higher - DONE
 - add new header and footer
@@ -20,3 +21,5 @@
 - set some post to top
 - sort by view count, by tag, by category
 - show different good sentence when open page or refresh
+- change the top pictures automatically
+- support MarkDown to edit blog post
