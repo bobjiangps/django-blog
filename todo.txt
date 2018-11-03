@@ -23,3 +23,4 @@
 - show different good sentence when open page or refresh
 - change the top pictures automatically
 - support MarkDown to edit blog post
+- add widget to show the cpu/memory, etc
