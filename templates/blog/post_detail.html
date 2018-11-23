@@ -16,6 +16,13 @@
       <a href="{% url 'post_edit' post.id %}">Edit</a>
     {% endif %}
     </p>
+    {% if post.tag.all %}
+      <div class="tag">标签:
+      {% for t in post.tag.all %}
+          <span class="badge badge-info">{{ t.name }};</span>
+      {% endfor %}
+      </div>
+    {% endif %}
 <hr>
 {{ post.text|safe }}
 
