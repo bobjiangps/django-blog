@@ -25,3 +25,4 @@
 - support MarkDown to edit blog post
 - add widget to show the cpu/memory, etc
 - separate front-end and backend (maybe vue or maybe django rest)
+- add widget to show category with wordcloud

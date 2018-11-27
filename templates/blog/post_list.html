@@ -27,13 +27,14 @@
             <div class="card-footer bg-light text-dark">
                 {% if post.category %}
                     <div class="category">
-                      类别: <span class="badge badge-success">{{ post.category.name }};</span>
+                      <img src="/media/icons/icons8-category-40px-1.png" width="20" height="20">
+                      <span class="badge badge-success">{{ post.category.name }}</span>
                     </div>
                 {% endif %}
                 {% if post.tag.all %}
-                    <div class="tag">标签:
+                    <div class="tag"><img src="/media/icons/icons8-tag-64px-1.png" width="20" height="20">
                     {% for t in post.tag.all %}
-                        <span class="badge badge-info">{{ t.name }};</span>
+                        <span class="badge badge-info">{{ t.name }}</span>
                     {% endfor %}
                     </div>
                 {% endif %}
