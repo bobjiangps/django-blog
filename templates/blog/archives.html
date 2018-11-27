@@ -5,7 +5,7 @@
   <div class="col-md-4">
     <h3>&emsp;</h3>
     <ul class="list-group">
-      <li class="list-group-item list-group-item-primary" style="font-weight:bold;">日期</li>
+      <li class="list-group-item list-group-item-primary" style="font-weight:bold;"><img src="/media/icons/icons8-calendar-64px-1.png" width="30" height="30">&ensp;日期</li>
       {% for date in date_list %}
         <li class="list-group-item ">
         <a href="{% url 'archives_date' date.year date.month %}">{{ date.year }} 年 {{ date.month}} 月</a>
@@ -21,7 +21,7 @@
   <div class="col-md-4">
     <h3>&emsp;</h3>
     <ul class="list-group">
-      <li class="list-group-item list-group-item-primary" style="font-weight:bold;">标签</li>
+      <li class="list-group-item list-group-item-primary" style="font-weight:bold;"><img src="/media/icons/icons8-tag-64px-1.png" width="30" height="30">&ensp;标签</li>
       {% for tag in tag_list %}
         <li class="list-group-item ">
         <a href="{% url 'archives_tag' tag %}">{{ tag }}</a>
@@ -37,7 +37,7 @@
   <div class="col-md-4">
     <h3>&emsp;</h3>
     <ul class="list-group">
-      <li class="list-group-item list-group-item-primary" style="font-weight:bold;">类别</li>
+      <li class="list-group-item list-group-item-primary" style="font-weight:bold;"><img src="/media/icons/icons8-category-40px-1.png" width="30" height="30">&ensp;类别</li>
       {% for category in category_list %}
         <li class="list-group-item ">
         <a href="{% url 'archives_category' category %}">{{ category }}</a>
