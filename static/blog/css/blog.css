@@ -1,8 +1,12 @@
 #body {background-color: blue;}
 #body {
-#    background: url(./gray-background.jpg) no-repeat fixed center; 
+#    background: url(/static/blog/css/gray-background.jpg) no-repeat fixed center; 
 #    background-size: cover; 
 #}
+
+body {
+    background-color: #F5F5F5;
+}
 
 h1 a {
     font-family: "Raleway", "HYLeMiaoTi","KaiTi","Microsoft Yahei";

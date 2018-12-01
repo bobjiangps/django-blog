@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<title>JS判断各种浏览器，根据判断动态引入不同的CSS文件、JS文件</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/base.css" />
+</head>
+<body>
+<div id="scroll-bar" class="scroll-bar"></div>
+<div id="scroll-bar2" class="scroll-bar"></div>
+<script type="text/javascript">
+function getBrowser() {
+    var ua = window.navigator.userAgent;
+    var isIE = window.ActiveXObject != undefined && ua.indexOf("MSIE") != -1;
+    var isFirefox = ua.indexOf("Firefox") != -1;
+    var isOpera = window.opr != undefined;
+    var isChrome = ua.indexOf("Chrome") && window.chrome;
+    var isSafari = ua.indexOf("Safari") != -1 && ua.indexOf("Version") != -1;
+    if (isIE) {
+        return "IE";
+    } else if (isFirefox) {
+        return "Firefox";
+    } else if (isOpera) {
+        return "Opera";
+    } else if (isChrome) {
+        return "Chrome";
+    } else if (isSafari) {
+        return "Safari";
+    } else {
+        return "Unkown";
+    }
+}
+
+function getuseragent() {
+    return window.navigator.userAgent;
+}
+
+var linkNode = document.createElement("link"),scriptNode = document.createElement("script");
+linkNode.setAttribute("rel","stylesheet");
+linkNode.setAttribute("type","text/css");
+scriptNode.setAttribute("type", "text/javascript");
+
+if(getBrowser()=="IE"){
+	linkNode.setAttribute("href","css/index-ie.css");
+	scriptNode.setAttribute("src", "js/index-ie.js");
+}else if(getBrowser()=="Firefox"){
+	linkNode.setAttribute("href","css/index-firefox.css");
+	scriptNode.setAttribute("src", "js/index-firefox.js");
+}else if(getBrowser()=="Opera"){
+	linkNode.setAttribute("href","css/index-opera.css");
+	scriptNode.setAttribute("src", "js/index-opera.js");
+}else if(getBrowser()=="Chrome"){
+	linkNode.setAttribute("href","css/index-chrome.css");
+	scriptNode.setAttribute("src", "js/index-chrome.js");
+}else if(getBrowser()=="Safari"){
+	linkNode.setAttribute("href","css/index-safari.css");
+	scriptNode.setAttribute("src", "js/index-safari.js");
+}
+document.head.appendChild(linkNode);
+document.head.appendChild(scriptNode);
+document.getElementById("scroll-bar").innerHTML = "您的浏览器是："+getBrowser();
+document.getElementById("scroll-bar2").innerHTML = "您的user agent是："+getuseragent();
+</script>
+</body>
+</html>

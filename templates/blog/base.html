@@ -20,66 +20,73 @@
         </style>
     </head>
     <body>
-        <div class="page-header" style="background-image: url(https://www.byincd.com/diary/wp-content/uploads/2018/09/agriculture-bright-clouds-cut-768x243.png);background-size:100% 100%;padding:20px;">
-            <h1><a href="/bobjiang/"><b style="color:white;">云与树</b></a><br><small>向往一种简单的生活</small></h1><br><br><br><br>
-            <div class="login-logout" style="position:absolute; right:10%; top:5%;">
-              {% if user.is_authenticated %}
-                <a href="/bobjiang/logout" style="color:white;">注销</a>
-            {% else %}
-                <a href="/bobjiang/login" style="color:white;">登录</a>
-            {% endif %}
-            </div>      
-        </div><br>
-
-	<ul class="nav nav-pills justify-content-center">
-	  <li class="nav-item">
-	    <a class="nav-link" href="/bobjiang/">首页</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" href="/bobjiang/categorization/">文章分类</a>
-	  </li>
-          <li class="nav-item">
-	    <a class="nav-link" href="/bobjiang/about/">关于</a>
-          </li>
-        </ul>
-        <hr width=90% style="border:2px solid #b8daff;"/>
-
     <div class="content container-fluid">
-        {% if user.is_authenticated %}
-            <a href="{% url 'create_new' %}" class="top-menu"><i class="fa fa-plus" aria-hidden="true">添加新文章</i></a>
-        {% endif %}
         <div class="col-md-12">
           <div class="row">
-            <div class="col-md-8" name="post-container">
-            {% block content %}
-            {% endblock %}
-            </div>
             <div class="col-md-4" name="widget-container">
-              <hr width="30%" style="border:2px solid #F0E68C;"/>
-              <section id="search" align="center">
-                  <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
-                    <input type="search" name="q" placeholder="请输入内容">
-                    <button type="submit"><i class="fa fa-search" aria-hidden="true">搜索</i></button>
+              <div name="widgets" style="position: fixed; top: 15%; margin: 0; padding: 0;">
+                <nav class="navbar navbar-light">
+                  <a class="navbar-brand" href="/" style="margin: 0px auto; font-size: 28px">
+                  <img src="/media/icons/icons8-rocket-64px-1.png" width="40" height="40" class="d-inline-block align-top" alt="">&ensp;BJ's Blog</a>
+                </nav>
+                <nav class="navbar navbar-light">
+                  <ul class="navbar-nav" style="margin: 0px auto;">
+                    <li class="nav-item">
+                      <a class="nav-link" href="/bobjiang/">首页</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/bobjiang/categorization/">分类</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/bobjiang/about/">关于</a>
+                    </li>
+                    <li class="nav-item">
+                      {% if user.is_authenticated %}
+                        <a class="nav-link" href="/bobjiang/logout/">注销</a>
+                      {% else %}
+                        <a class="nav-link" href="/bobjiang/login/">登录</a>
+                      {% endif %}
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li>
+                      <a href="{% url 'create_new' %}"><i class="fa fa-plus" aria-hidden="true">新增文章</i></a>
+                    </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+                <section id="search" align="center">
+                  <hr width="30%" style="border:2px solid #F0E68C;"/>
+                  <form class="form-inline my-2 my-lg-0" role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
+                    <div name="search-elements" style="margin: 0px auto;">
+                      <input class="form-control mr-sm-2" type="search" name="q" placeholder="请输入内容">
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true">搜索</i></button>
+                    </div>
                   </form>
-              </section>
+                </section>
+                <!--<hr width=90% style="border:2px solid #F5F5F5; height: 50px;"/>-->
+                <h3 style="height:30px;"> </h3>
+                <hr width=90% style="border:2px solid #b8daff;"/>
+                <footer class="navbar-fixed-bottom">
+                  <ul class="list-inline text-center">
+                    <li>友情链接:&emsp; <a href="/diary/">日记游记</a>&emsp;|&emsp;<a href="http://www.byincd.com:8888/">在线练习代码</a></li>
+                  </ul>
+                  <ul class="list-inline text-center">
+                    <li>By &copy; BobJiang</li>
+                  </ul>
+                </footer>
+              </div>
+            </div>
+            <div class="col-md-8" name="post-container">
+              {% block content %}
+              {% endblock %}
             </div>
           </div>
         </div>
     </div>
 
-    <hr width=90% style="border:2px solid #b8daff;"/>
-    <footer class="navbar-fixed-bottom">
-        <ul class="list-inline text-center">
-            <li>友情链接:&emsp; <a href='http://www.byincd.com/diary'>日记游记</a>&emsp;|&emsp;<a href="http://www.byincd.com:8888/">在线练习代码</a></li>
-        </ul>
-        <ul class="list-inline text-center">
-            <li>By &copy; BobJiang</li>
-        </ul>
-    </footer>
-
 <script>
     $(function () {
-        $(".nav-pills").find("li").each(function () {
+        $(".navbar-nav").find("li").each(function () {
             var a = $(this).find("a:first")[0];
             if ($(a).attr("href") === location.pathname) {
                 $(a).addClass("active");

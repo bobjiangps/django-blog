@@ -1,6 +1,8 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<div class="post_detail">
+<h3 style="height: 10px;"></h3>
 <a href="/bobjiang">返回首页</a>
 
 {% if post.visiable.name == 'private' %}
@@ -88,5 +90,6 @@
   </div>
   {% endfor %}
 
+</div>
 </div>
 {% endblock %}
