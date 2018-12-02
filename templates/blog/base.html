@@ -24,13 +24,25 @@
         <div class="col-md-12">
           <div class="row">
             <div class="col-md-4" name="widget-container">
+              {% if device_type != 'mobile' %}
               <div name="widgets" style="position: fixed; top: 15%; margin: 0; padding: 0;">
+              {% else %}
+              <div name="widgets">
+              {% endif %}
                 <nav class="navbar navbar-light">
                   <a class="navbar-brand" href="/" style="margin: 0px auto; font-size: 28px">
                   <img src="/media/icons/icons8-rocket-64px-1.png" width="40" height="40" class="d-inline-block align-top" alt="">&ensp;BJ's Blog</a>
                 </nav>
+                {% if device_type != 'mobile' %}
                 <nav class="navbar navbar-light">
+                {% else %}
+                <nav class="navbar navbar-light navbar-expand-sm">
+                {% endif %}
+                  {% if device_type != 'mobile' %}
                   <ul class="navbar-nav" style="margin: 0px auto;">
+                  {% else %}
+                  <ul class="nav nav-pills justify-content-center" style="margin: 0px auto;>
+                  {% endif %}
                     <li class="nav-item">
                       <a class="nav-link" href="/bobjiang/">首页</a>
                     </li>
@@ -64,15 +76,19 @@
                   </form>
                 </section>
                 <!--<hr width=90% style="border:2px solid #F5F5F5; height: 50px;"/>-->
+                {% if device_type != 'mobile' %}
                 <h3 style="height:30px;"> </h3>
+                {% endif %}
                 <hr width=90% style="border:2px solid #b8daff;"/>
                 <footer class="navbar-fixed-bottom">
                   <ul class="list-inline text-center">
                     <li>友情链接:&emsp; <a href="/diary/">日记游记</a>&emsp;|&emsp;<a href="http://www.byincd.com:8888/">在线练习代码</a></li>
                   </ul>
+                  {% if device_type != 'mobile' %}
                   <ul class="list-inline text-center">
                     <li>By &copy; BobJiang</li>
                   </ul>
+                  {% endif %}
                 </footer>
               </div>
             </div>

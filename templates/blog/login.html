@@ -8,9 +8,9 @@
         <h3 id="site-name"><a href="/bobjiang/admin/">用户登录</a></h3>
       </div>
       <label for="username">用户名：</label><br>
-      <input id="username" type="text" name="user-name" value="{{ username }}" class='form-control mr-sm-2 required' placeholder='Name' style="width:30%;"><p></p>
+      <input id="username" type="text" name="user-name" value="{{ username }}" class='form-control mr-sm-2 required' placeholder='Name' style="width:50%;"><p></p>
       <label for="password">密码：</label><br>
-      <input id="password" type="password" name="user-pw" value="{{ password }}" class='form-control mr-sm-2 required' placeholder='Password' style="width:30%;"><p></p>
+      <input id="password" type="password" name="user-pw" value="{{ password }}" class='form-control mr-sm-2 required' placeholder='Password' style="width:50%;"><p></p>
       <button class="btn btn-outline-info my-2 my-sm-0" type="submit">登录</button>
       {% if request.session.login_error %}
       <p style="color:red">{{request.session.login_error}}</p>
