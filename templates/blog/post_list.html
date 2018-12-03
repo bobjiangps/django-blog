@@ -2,9 +2,8 @@
 
 {% block content %}
 {% for post in posts %}
-    <article>
+    <article style="box-shadow: darkgrey 10px 10px 30px 5px;">
     {% if post.visiable.name != 'private' or user.is_authenticated %}
-        <hr/>
         <div class="card">
             <div class="card-header" style="background-color:#b8daff;">
                 {{ post.created_date|date }} - 由{{post.author}} &ensp;&ensp;
@@ -42,6 +41,7 @@
         </div>
     {% endif %}
     </article>
+    <p style="height: 20px;"></p>
 {% empty %}
   <h1>您搜索的条件没有数据</h1>
 {% endfor %}
