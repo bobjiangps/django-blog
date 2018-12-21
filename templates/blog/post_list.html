@@ -1,6 +1,16 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+{% if user.is_authenticated %}
+<!--<label for="sortarticle">文章排序</label>
+<span class="badge badge-primary" style="font-size: 15px;">文章排序</span>-->
+<select autofocus class="form-control" id="sortarticle" style="width:130px;">
+  <option value="select type">文章排序</option>
+  <option value="publish date">按发布日期</option>
+  <option value="view count">按阅读量</option>
+</select>
+<p></p>
+{% endif %}
 {% for post in posts %}
     <article style="box-shadow: darkgrey 10px 10px 30px 5px;">
     {% if post.visiable.name != 'private' or user.is_authenticated %}
@@ -46,7 +56,7 @@
   <h1>您搜索的条件没有数据</h1>
 {% endfor %}
 <hr/>
-<ul class='pagination justify-content-center'>
+<ul class='pagination justify-content-center' style="line-height:30px;">
     {% if posts.has_previous %}
         <li class="page-item"><a href="?page={{ posts.previous_page_number }}">&laquo;上一页&emsp;</a></li>
     {% endif %}

@@ -92,7 +92,11 @@
                 </footer>
               </div>
             </div>
+            {% if device_type != 'mobile' %}
+            <div class="col-md-8" name="post-container" style="padding: 20px 30px 20px 0px;">
+            {% else %}
             <div class="col-md-8" name="post-container" style="padding: 20px;">
+            {% endif %}
               {% block content %}
               {% endblock %}
             </div>
@@ -109,6 +113,20 @@
             } else {
                 $(a).removeClass("active");
             }
+        });
+
+        $('#sortarticle').change(function(){
+            var a = $(this).children('option:selected').val();
+            if (a !== "select type") {
+                if (a === "publish date") {
+                  window.location.href="/bobjiang/sort-by-date";
+                  $("#sortarticle").find("option[value='publish date']").attr("selected", true);
+                }
+                else if (a === "view count") {
+                  window.location.href="/bobjiang/sort-by-view";
+                  $("#sortarticle").find("option[value='view count']").attr("selected", true);
+                }
+            } 
         });
     })
 </script>

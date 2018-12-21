@@ -19,6 +19,22 @@ def post_list(request):
         posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('published_date').reverse()
     return pagination(request,posts)
 
+def post_list_sort(request, sort_type):
+    try:
+        login_user = request.user
+        if str(login_user) == 'AnonymousUser':
+            raise
+        if sort_type == 'date':
+            posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+        elif sort_type == 'view':
+            posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
+    except:
+        if sort_type == 'date':
+            posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('published_date').reverse()
+        elif sort_type == 'view':
+            posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('views').reverse()
+    return pagination(request,posts)
+
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     post.comments = post.comment_set.all().filter().order_by('-created_time')

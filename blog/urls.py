@@ -6,6 +6,7 @@ urlpatterns = [
     path('about/', views.about_site_me, name='about_site_me'),
     path('login/', views.do_login, name='do_login'),
     path('logout/', views.do_logout, name='do_logout'),
+    path('sort-by-<str:sort_type>/', views.post_list_sort, name='post_list_sort'),
     path('article-01<int:post_id>/', views.post_detail, name='post_detail'),
     path('article-01<int:post_id>/edit', views.post_edit, name='post_edit'),
     path('create-new/', views.create_new, name='create_new'),
