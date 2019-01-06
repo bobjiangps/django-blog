@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-{% if user.is_authenticated %}
+{% if post.visiable.name != 'private' or user.is_authenticated %}
 <div class="post_detail" style="background-color: #FFF; padding: 30px; box-shadow: darkgrey 10px 10px 30px 5px;">
 <h3 style="height: 10px;"></h3>
 <a href="javascript:history.go(-1)">返回上页</a>&ensp;
