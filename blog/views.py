@@ -149,6 +149,21 @@ def about_site_me(request):
     return render(request, 'blog/about.html')
 
 def about_me(request):
+    import jieba
+    import wordcloud
+    import os
+
+    wc_file_name = "./media/wordcloud/aboutme_wordcloud.png"
+    if os.path.exists(wc_file_name):
+        os.remove(wc_file_name)
+    with open("./media/wordcloud/string_source.txt","r", encoding='UTF-8') as f:
+        text = f.read()
+    cut = jieba.cut(text)
+    strings = ' '.join(cut)
+
+    w = wordcloud.WordCloud(font_path = './media/wordcloud/simhei.ttf',width = 1000,height = 700,background_color = 'white')
+    w.generate(strings)
+    w.to_file(wc_file_name)
     return render(request, 'blog/about_me.html')
 
 def about_site(request):
