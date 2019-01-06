@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
     path('', views.post_list, name='post_list'),
-    path('about/', views.about_site_me, name='about_site_me'),
+    #path('about_site_me/', views.about_site_me, name='about_site_me'),
+    path('about_me/', views.about_me, name='about_me'),
+    path('about_site/', views.about_site, name='about_site'),
     path('login/', views.do_login, name='do_login'),
     path('logout/', views.do_logout, name='do_logout'),
     path('sort-by-<str:sort_type>/', views.post_list_sort, name='post_list_sort'),

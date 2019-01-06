@@ -148,6 +148,12 @@ def pagination(request,filter_posts):
 def about_site_me(request):
     return render(request, 'blog/about.html')
 
+def about_me(request):
+    return render(request, 'blog/about_me.html')
+
+def about_site(request):
+    return render(request, 'blog/about_site.html')
+
 def do_login(request):
     if request.method == 'GET':
         request.session['login_from'] = request.META.get('HTTP_REFERER', '/') 

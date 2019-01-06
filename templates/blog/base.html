@@ -51,7 +51,7 @@
                       <a class="nav-link" href="/bobjiang/categorization/">分类</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/bobjiang/about/">关于</a>
+                      <a class="nav-link" href="/bobjiang/about_me/">关于</a>
                     </li>
                     <li class="nav-item">
                       {% if user.is_authenticated %}
@@ -108,6 +108,15 @@
 <script>
     $(function () {
         $(".navbar-nav").find("li").each(function () {
+            var a = $(this).find("a:first")[0];
+            if ($(a).attr("href") === location.pathname) {
+                $(a).addClass("active");
+            } else {
+                $(a).removeClass("active");
+            }
+        });
+
+        $(".nav-tabs").find("li").each(function () {
             var a = $(this).find("a:first")[0];
             if ($(a).attr("href") === location.pathname) {
                 $(a).addClass("active");
