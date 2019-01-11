@@ -12,25 +12,81 @@
   //#right{width:49.5%; height:100%; background:#00FF00; float:right}
   #right{width:49.9%; height:100%; float:right}
 
+  @media only screen and (max-width: 480px) {
+    body {
+      background-image: url(https://www.byincd.com/diary/wp-content/uploads/2019/01/album-announcement-background-1089842-768x1086.jpg);background-size:100% 100%;
+    }
+
+    #biji {
+      position: absolute; top: 22%; left: 15%;
+    }
+
+    #riji {
+      position: absolute; top: 37%; left: 15%;
+    }
+
+    #daima {
+      position: absolute; top: 52%; left: 14%;
+    }
+
+    h1 {
+      top: 15%; font-size: 21px;
+    }
+
+    h2 a {
+      color:#000000;
+    }
+
+    h2 {
+      top: 90%;
+      left: 28%;
+    }
+  }
+
+  @media only screen and (min-width: 480px) {
+    body {
+      background-image: url(https://www.byincd.com/diary/wp-content/uploads/2018/09/architecture-blur-book-205317-1024x683.jpg);background-size:100% 100%;
+    }
+
+    #biji {
+      position: absolute; top: 12%; left: 36%;
+    }
+
+    #riji {
+      position: absolute; top: 30%; left: 36%;
+    }
+
+    #daima {
+      position: absolute; top: 48%; left: 36%;
+    }
+
+    h1 {
+      top: 90%; font-size: 28px;
+    }
+
+    h2 a {
+      color:#FFE4C4;
+    }
+
+    h2 {
+      top: 90%;
+      right: 0%;
+    }
+  }
+
   h2{position: fixed;
-  top: 93%;
-  right: 0%;
+
   text-align: center;
   font-family: "KaiTi","Microsoft Yahei";
   font-size: 13px;
   padding: 0 20px;
   color: #000000;
   }
-
-  h2 a {
-    color: #000000;
-  }
   
   h1{
   font-family:"Raleway", "HYLeMiaoTi","KaiTi","Microsoft Yahei";
   text-transform: uppercase;
   display: block;
-  font-size: 28px;
   color: #f1ebe5;
   text-shadow: 0 4px 5px #c4b59d, 0px -2px 1px #fff;
   font-weight: bold;
@@ -38,7 +94,6 @@
   text-align: center;
   position: fixed;
   padding: 0 20px;
-  top: 90%;
   left: 50%;
   transform: translate(-50%,-50%);
   border-radius: 20px;
@@ -153,25 +208,25 @@ nav a:focus {
 }
 </style>
 </head>
-<body style="background-image: url(https://www.byincd.com/diary/wp-content/uploads/2018/09/architecture-blur-book-205317-1024x683.jpg);background-size:100% 100%;">
+<body>
   <h1 id="ourtime"></h1>
   <h2 id="beian">
-    <a href="http://www.miitbeian.gov.cn/" target="_blank" style="color:#FFE4C4;">蜀ICP备18017146号</a>
-    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51012202000327" style="color:#FFE4C4;"><img src="https://www.byincd.com/diary/wp-content/uploads/2018/07/gonganbu.png"/>川公网安备 51012202000327号</a>
+    <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备18017146号</a><br>
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51012202000327"><img src="https://www.byincd.com/diary/wp-content/uploads/2018/07/gonganbu.png"/>川公网安备 51012202000327号</a>
   </h2>
 
   <div class="container">
-	  <section class="color-9" style="position: absolute; top: 12%; left: 36%;">
+	  <section id="biji" class="color-9">
 	  	<nav class="cl-effect-9">
 			<a href="/bobjiang"><span>★ &emsp;工作笔记</span><span>python,django</span></a>
 		</nav>
           </section>
-      <section class="color-9" style="position: absolute; top: 48%; left: 36%;">
+      <section id="daima" class="color-9">
           <nav class="cl-effect-9">
               <a href="http://www.byincd.com:8888" style="color:#9ACD32;"><span>❖  在线代码练习</span><span style="color:#9ACD32;">python,ruby</span></a>
           </nav>
       </section>
-      <section class="color-9" style="position: absolute; top: 30%; left: 36%;">
+      <section id="riji" class="color-9">
 	  	<nav class="cl-effect-9">
 			<a href="/diary" style="color:#FFB6C1;"><span>♥ &emsp;日记游记</span><span style="color:#FFB6C1;">php,wordpress</span></a>
 		</nav>
