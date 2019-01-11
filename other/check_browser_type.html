@@ -9,6 +9,10 @@
 <body>
 <div id="scroll-bar" class="scroll-bar"></div>
 <div id="scroll-bar2" class="scroll-bar"></div>
+<div id="scroll-bar3" class="scroll-bar"></div>
+<div id="scroll-bar4" class="scroll-bar"></div>
+<div id="scroll-bar5" class="scroll-bar"></div>
+<div id="scroll-bar6" class="scroll-bar"></div>
 <script type="text/javascript">
 function getBrowser() {
     var ua = window.navigator.userAgent;
@@ -61,6 +65,10 @@ document.head.appendChild(linkNode);
 document.head.appendChild(scriptNode);
 document.getElementById("scroll-bar").innerHTML = "您的浏览器是："+getBrowser();
 document.getElementById("scroll-bar2").innerHTML = "您的user agent是："+getuseragent();
+document.getElementById("scroll-bar3").innerHTML = "您的browser window width是："+window.outerWidth;
+document.getElementById("scroll-bar4").innerHTML = "您的browser window height是："+window.outerHeight;
+document.getElementById("scroll-bar5").innerHTML = "您的screen width是："+screen.width;
+document.getElementById("scroll-bar6").innerHTML = "您的screen height是："+screen.height;
 </script>
 </body>
 </html>
