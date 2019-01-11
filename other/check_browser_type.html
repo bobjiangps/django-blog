@@ -19,7 +19,7 @@ function getBrowser() {
     var isIE = window.ActiveXObject != undefined && ua.indexOf("MSIE") != -1;
     var isFirefox = ua.indexOf("Firefox") != -1;
     var isOpera = window.opr != undefined;
-    var isChrome = ua.indexOf("Chrome") && window.chrome;
+    var isChrome = ua.indexOf("Chrome") != -1;
     var isSafari = ua.indexOf("Safari") != -1 && ua.indexOf("Version") != -1;
     if (isIE) {
         return "IE";
