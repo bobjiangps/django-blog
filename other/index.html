@@ -12,7 +12,7 @@
   //#right{width:49.5%; height:100%; background:#00FF00; float:right}
   #right{width:49.9%; height:100%; float:right}
 
-  @media only screen and (max-device-width: 480px) {
+  @media only screen and (orientation:portrait) {
     body {
       background-image: url(https://www.byincd.com/diary/wp-content/uploads/2019/01/album-announcement-background-1089842-768x1086.jpg);background-size:100% 100%;
     }
@@ -44,21 +44,21 @@
     }
   }
 
-  @media only screen and (min-device-width: 480px) {
+  @media only screen and (orientation:landscape) and (max-device-width:840px) {
     body {
       background-image: url(https://www.byincd.com/diary/wp-content/uploads/2018/09/architecture-blur-book-205317-1024x683.jpg);background-size:100% 100%;
     }
 
     #biji {
-      position: absolute; top: 12%; left: 36%;
+      position: absolute; top: 12%; left: 34%;
     }
 
     #riji {
-      position: absolute; top: 30%; left: 36%;
+      position: absolute; top: 30%; left: 34%;
     }
 
     #daima {
-      position: absolute; top: 48%; left: 36%;
+      position: absolute; top: 48%; left: 34%;
     }
 
     h1 {
@@ -70,7 +70,39 @@
     }
 
     h2 {
-      top: 90%;
+      top: 88%;
+      right: 0%;
+      font-size: 13px;
+    }
+  }
+
+  @media only screen and (orientation:landscape) and (min-device-width:840px) {
+    body {
+      background-image: url(https://www.byincd.com/diary/wp-content/uploads/2018/09/architecture-blur-book-205317-1024x683.jpg);background-size:100% 100%;
+    }
+
+    #biji {
+      position: absolute; top: 13%; left: 38%;
+    }
+
+    #riji {
+      position: absolute; top: 31%; left: 38%;
+    }
+
+    #daima {
+      position: absolute; top: 49%; left: 38%;
+    }
+
+    h1 {
+      top: 90%; font-size: 28px;
+    }
+
+    h2 a {
+      color:#FFE4C4;
+    }
+
+    h2 {
+      top: 88%;
       right: 0%;
       font-size: 13px;
     }
