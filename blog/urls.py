@@ -16,4 +16,5 @@ urlpatterns = [
     path('categorization/<int:year>/<int:month>/', views.archives_date, name='archives_date'),
     path('categorization/category/<str:category_name>/', views.archives_category, name='archives_category'),
     path('categorization/tag/<str:tag_name>/', views.archives_tag, name='archives_tag'),
+    path('show_view_record/', views.show_view_record, name='show_view_record')
 ]

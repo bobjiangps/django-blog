@@ -196,3 +196,54 @@ def do_login(request):
 def do_logout(request):
     d_logout(request)
     return redirect(reverse('post_list'))
+
+def show_view_record(request):
+    days = request.POST.get('day_period')
+    #view_string = "<thead><tr><th scope='col'>#</th><th scope='col'>name1</th><th scope='col'>name2</th><th scope='col'>name3</th></tr></thead>"
+    import codecs
+    with codecs.open("/home/test/record_view/count_record_views.csv",encoding="utf8") as f:
+        data = f.readlines()
+
+    seq_sort = []
+    start_flag = False
+    start_seq = 0
+    end_seq = 0
+    for seq, line in enumerate(data):
+        if len(line) > 1 and start_flag == False:
+            start_seq = seq
+            start_flag = True
+        elif len(line) <= 1 and start_flag == True:
+            end_seq = seq-1
+            seq_sort.append((start_seq, end_seq))
+            start_flag = False
+    seq_sort.reverse()
+    seq_sort = seq_sort[:5]
+
+    temp_head_string = ""
+    for number_list in seq_sort:
+        temp_head_string += "<th scope='col'>%s</th>" % data[number_list[0]][:10]
+    thead_string = "<thead><tr><th scope='col'>#</th>%s</tr></thead>" % temp_head_string
+
+    recorded_post_ids = data[int(seq_sort[0][0]) + 1].strip().split(",")
+    recorded_post_values = [1, 2, 3, 4, 5]
+    for num in range(len(seq_sort)):
+        title_view_dict = {}
+        id_list = data[int(seq_sort[num][0]) + 1].strip().split(",")
+        name_list = data[int(seq_sort[num][0]) + 2].strip().split(",")
+        views_list = data[int(seq_sort[num][1])].strip().split(",")
+        for id_num in range(len(id_list)):
+            title_view_dict[id_list[id_num]] = {"title": name_list[id_num], "views": views_list[id_num]}
+        recorded_post_values[num] = title_view_dict
+    tbody_string = "<tbody></tbody>"
+    for post_id in recorded_post_ids:
+        temp_tbody_td_string = ""
+        for value_id in range(len(recorded_post_values)):
+            try:
+                temp_tbody_td_string += "<td>%s</td>" % recorded_post_values[value_id][post_id]["views"]
+            except:
+                temp_tbody_td_string += "<td>no data</td>"
+        temp_tbody_string = "<tr><th scope='row'>%s</th>%s</tr>" % (recorded_post_values[0][post_id]["title"],temp_tbody_td_string)
+        tbody_string += temp_tbody_string
+
+    view_string = thead_string + tbody_string
+    return HttpResponse('{"status":"success", "view_string":"%s"}' % view_string, content_type='application/json')

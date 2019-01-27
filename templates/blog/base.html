@@ -105,6 +105,7 @@
         </div>
     </div>
 
+<script>$.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});</script>
 <script>
     $(function () {
         $(".navbar-nav").find("li").each(function () {
@@ -138,6 +139,26 @@
                 }
             } 
         });
+
+        $('#show-view-record').click(function(){
+            var table = document.getElementById("view-count-table");
+            $.ajax({
+                type: "POST",
+                data: {day_period: 5},
+                url: "{% url 'show_view_record' %}",
+                cache: false,
+                dataType: "json",
+                success: function (result) {
+                    if (result.status == "success") {
+                    table.innerHTML = result.view_string;
+                    }
+                },
+                error: function () {
+                    table.innerHTML = "get something wrong. please check your ajax code";
+                }
+            });
+        });
+
     })
 </script>
 </body>
