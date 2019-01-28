@@ -142,6 +142,7 @@
 
         $('#show-view-record').click(function(){
             var table = document.getElementById("view-count-table");
+            table.innerHTML = "<thead><tr><th scope='col'>#</th></tr></thead>"
             $.ajax({
                 type: "POST",
                 data: {day_period: 5},
