@@ -69,7 +69,7 @@ server {
         location /favicon.ico {
             root html;
         }
-
+        
         location ~ .php$ {
             fastcgi_pass   unix:/run/php/php7.0-fpm.sock;
             fastcgi_index  index.php;
@@ -97,6 +97,22 @@ server {
                 include uwsgi_params;
                 uwsgi_pass 127.0.0.1:8001;
                 uwsgi_param UWSGI_CHDIR /home/bob/djproject/bobjiang;
+        }
+
+        location /jupyter/ {
+            proxy_pass http://127.0.0.1:8888;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-Scheme $scheme;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        
+            # websocket support
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        
+            proxy_read_timeout 120s;
+            proxy_next_upstream error;
         }
 
 	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
