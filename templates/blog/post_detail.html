@@ -23,7 +23,7 @@
     {% if post.tag.all %}
       <div class="tag"><img src="/media/icons/icons8-tag-64px-1.png" width="20" height="20">
       {% for t in post.tag.all %}
-          <span class="badge badge-info">{{ t.name }};</span>
+          <span class="badge badge-info">{{ t.name }}</span>
       {% endfor %}
       </div>
     {% endif %}
