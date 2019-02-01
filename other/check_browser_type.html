@@ -5,6 +5,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="css/base.css" />
+<style>
+.test::after {
+    color: red;
+}
+
+@media only screen and (orientation: portrait) {
+    .test::after {
+        content: 'portrait';
+    }
+}
+
+@media only screen and (orientation:landscape) {
+    .test::after {
+        content: 'landscape';
+    }
+}
+</style>
 </head>
 <body>
 <div id="scroll-bar" class="scroll-bar"></div>
@@ -13,6 +30,7 @@
 <div id="scroll-bar4" class="scroll-bar"></div>
 <div id="scroll-bar5" class="scroll-bar"></div>
 <div id="scroll-bar6" class="scroll-bar"></div>
+<div class="test">now your device direction is: </div>
 <script type="text/javascript">
 function getBrowser() {
     var ua = window.navigator.userAgent;

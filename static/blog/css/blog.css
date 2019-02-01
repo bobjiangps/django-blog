@@ -4,27 +4,27 @@
 #    background-size: cover; 
 #}
 
-#@media only screen and (orientation:portrait) {
-#    body {
-#        background-color: #F5F5F5;
-#        background: url(https://www.byincd.com/diary/wp-content/uploads/2019/01/free-wallpaper-hd-wallpaper-leaves-1454794-03-576x1024.jpg) no-repeat fixed;
-#        -webkit-background-size: auto auto;
-#    }
-#}
-#@media only screen and (orientation:landscape) and (max-device-width:840px) {
-#    body {
-#        background-color: #F5F5F5;
-#        background: url(https://www.byincd.com/diary/wp-content/uploads/2019/01/free-wallpaper-hd-wallpaper-leaves-1454794-03-576x1024.jpg) no-repeat fixed;
-#        -webkit-background-size: auto auto;
-#    }
-#}
-#@media only screen and (orientation:landscape) and (min-device-width:840px) {
-#    body {
-#        background-color: #F5F5F5;
-#        background: url(https://www.byincd.com/diary/wp-content/uploads/2019/01/free-wallpaper-hd-wallpaper-leaves-1454794-02-1024x576.jpg) no-repeat fixed center rgba(0,0,0,0.1);
-#        background-size: 100% 100%;
-#    }
-#}
+@media only screen and (orientation:portrait) {
+    body {
+        background-color: #F5F5F5;
+        background: url(https://www.byincd.com/diary/wp-content/uploads/2019/01/free-wallpaper-hd-wallpaper-leaves-1454794-03-576x1024.jpg) no-repeat fixed;
+        -webkit-background-size: auto auto;
+    }
+}
+@media only screen and (orientation:landscape) and (max-device-width:840px) {
+    body {
+        background-color: #F5F5F5;
+        background: url(https://www.byincd.com/diary/wp-content/uploads/2019/01/free-wallpaper-hd-wallpaper-leaves-1454794-1024x576.jpg) no-repeat fixed;
+        -webkit-background-size: auto auto;
+    }
+}
+@media only screen and (orientation:landscape) and (min-device-width:840px) {
+    body {
+        background-color: #F5F5F5;
+        background: url(https://www.byincd.com/diary/wp-content/uploads/2019/01/free-wallpaper-hd-wallpaper-leaves-1454794-02-1024x576.jpg) no-repeat fixed center rgba(0,0,0,0.1);
+        background-size: 100% 100%;
+    }
+}
 
 h1 a {
     font-family: "Raleway", "HYLeMiaoTi","KaiTi","Microsoft Yahei";
