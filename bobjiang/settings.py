@@ -87,8 +87,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dj-bobjiang-v2',
-        'USER': 'root',
-        'PASSWORD': 'Jiangbo86',
+        'USER': 'blogeditor',
+        'PASSWORD': '20170218',
         'HOST': '127.0.0.1',
         'PORT': 3306,
         'OPTIONS': {
