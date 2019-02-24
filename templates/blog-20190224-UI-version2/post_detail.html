@@ -1,0 +1,99 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% if post.visiable.name != 'private' or user.is_authenticated %}
+<div class="post_detail" style="background-color: #FFF; padding: 30px; box-shadow: darkgrey 10px 10px 30px 5px;">
+<h3 style="height: 10px;"></h3>
+<a href="javascript:history.go(-1)">返回上页</a>&ensp;
+<a href="/bobjiang">首页</a>
+
+{% if post.visiable.name == 'private' %}
+  <h3>[private] - {{  post.title  }}</h3>
+{% else %}
+  <h3>{{ post.title }}</h3>
+{% endif %}
+<div class="date">
+    <p>{{ post.created_date|date }} - 由{{post.author}} &emsp; &emsp; 
+    <span class="comment-count">{{ post.comment_set.count }} 评论</span>&emsp; &emsp;
+    <span class='view-count'>{{ post.views }} 阅读</span>&emsp; &emsp;
+    {% if user.is_authenticated %}
+      <a href="{% url 'post_edit' post.id %}">Edit</a>
+    {% endif %}
+    </p>
+    {% if post.tag.all %}
+      <div class="tag"><img src="/media/icons/icons8-tag-64px-1.png" width="20" height="20">
+      {% for t in post.tag.all %}
+          <span class="badge badge-info">{{ t.name }}</span>
+      {% endfor %}
+      </div>
+    {% endif %}
+<hr>
+{{ post.text|safe }}
+
+<hr />
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Comment</h4>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'comments:post_comment' post.id %}" method="post" class="comment-form">
+          {% csrf_token %}
+            <div class="form-group">
+              <label for="id_name">名字</label>
+              <input class="form-control" id="id_name" name="name" placeholder="Name" type="text" required="">
+            </div>
+            <div class="form-group">
+              <label for="id_email">邮箱地址</label>
+              <input class="form-control" id="id_email" name="email" placeholder="Email" type="text" required="">
+            </div>
+            <div class="form-group">
+              <label for="id_content">评论内容</label>
+              <input class="form-control" id="id_content" name="content" placeholder="Content" row="3" type="text" required="">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single Comment -->
+  <div class="media mb-4">
+    <h4 class="mt-0">
+      <!--Comments({{ post.comment_set.count }})-->
+      共有{{ post.comment_set.count }}条评论<br><br>
+      <a href="#" class="btn btn-primary" role="button" data-toggle="modal" data-target="#myModal">添加评论</a>
+    </h4>
+  </div>
+  {% for comment in post.comments %}
+  <div class="media mb-4" style="border:1px solid #ccc;padding:10px;">
+    <img class="d-flex mr-3 rounded-circle" src="/media/head/niming-no-gender.png" alt="" width="50" height="50">
+    <div class="media-body">
+      <h5 class="mt-0"><b>{{ comment.name }}</b></h5>
+        {{ comment.created_time }}<br>
+        {{ comment.content }}
+    </div>
+  </div>
+  {% empty %}
+  <div class="media mb-4">
+    <div class="media-body">
+      <h5 class="mt-0">暂无评论</h5>
+    </div>
+  </div>
+  {% endfor %}
+
+</div>
+</div>
+{% else %}
+<h1 style="padding: 10%;">Please login in first to view this article</h1>
+{% endif %}
+{% endblock %}
