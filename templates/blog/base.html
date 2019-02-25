@@ -10,6 +10,8 @@
         <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+        <!--some css styles from https://github.com/BlackrockDigital/startbootstrap-clean-blog-->
+        <link rel="stylesheet" href="{% static 'blog/css/cleanblog.css' %}">
         <!--<link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">-->
         <!--<link rel="icon" href="/media/icons/tree1.ico" type="img/x-ico" />-->
         <link rel="icon" href="/media/icons/icons8-around-the-globe-512.png" type="images/png" />
@@ -31,89 +33,65 @@
         </script>
     </head>
     <body>
-    <div class="content container-fluid">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-3" name="widget-container">
-              {% if device_type != 'mobile' %}
-              <div name="widgets" style="position: fixed; top: 15%; margin: 15px 10px 5px 1.5%; padding: 0;">
-              {% else %}
-              <div name="widgets">
-              {% endif %}
-                <nav class="navbar navbar-light">
-                  <a class="navbar-brand" href="/" style="margin: 0px auto; font-size: 28px">
-                  <img src="/media/icons/icons8-rocket-64px-1.png" width="40" height="40" class="d-inline-block align-top" title="icon download from https://icons8.com/">&ensp;Bob's Blog</a>
-                </nav>
-                {% if device_type != 'mobile' %}
-                <nav class="navbar navbar-light">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+          <a class="navbar-brand" href="/bobjiang">工作笔记</a>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/bobjiang/">首页</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/bobjiang/categorization/">分类</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/bobjiang/about_me/">关于</a>
+              </li>
+              <li class="nav-item">
+                {% if user.is_authenticated %}
+                <a class="nav-link" href="/bobjiang/logout/">注销</a>
                 {% else %}
-                <nav class="navbar navbar-light navbar-expand-sm">
+                <a class="nav-link" href="/bobjiang/login/">登录</a>
                 {% endif %}
-                  {% if device_type != 'mobile' %}
-                  <ul class="navbar-nav" style="margin: 0px auto;">
-                  {% else %}
-                  <ul class="nav nav-pills justify-content-center" style="margin: 0px auto;">
-                  {% endif %}
-                    <li class="nav-item">
-                      <a class="nav-link" href="/bobjiang/">首页</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/bobjiang/categorization/">分类</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/bobjiang/about_me/">关于</a>
-                    </li>
-                    <li class="nav-item">
-                      {% if user.is_authenticated %}
-                        <a class="nav-link" href="/bobjiang/logout/">注销</a>
-                      {% else %}
-                        <a class="nav-link" href="/bobjiang/login/">登录</a>
-                      {% endif %}
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li>
-                      <a href="{% url 'create_new' %}"><i class="fa fa-plus" aria-hidden="true">新增文章</i></a>
-                    </li>
-                    {% endif %}
-                  </ul>
-                </nav>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Page Header -->
+      <header class="masthead" style="background-image: url('https://www.byincd.com/diary/wp-content/uploads/2019/02/computer-desk-laptop-7378.jpg')">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <div class="site-heading">
+                <h1>Bob's Blog</h1>
+                <span class="subheading">闲暇时记录一些工作的经验和感受</span>
                 <section id="search" align="center">
                   <hr width="30%" style="border:2px solid #F0E68C;"/>
                   <form class="form-inline my-2 my-lg-0" role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
                     <div name="search-elements" style="margin: 0px auto;">
                       <input class="form-control mr-sm-2" type="search" name="q" placeholder="请输入内容">
-                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true">搜索</i></button>
+                      <button class="btn btn-info my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true">搜索</i></button>
                     </div>
                   </form>
                 </section>
-                <!--<hr width=90% style="border:2px solid #F5F5F5; height: 50px;"/>-->
-                {% if device_type != 'mobile' %}
-                <h3 style="height:30px;"> </h3>
-                {% endif %}
-                <hr width=90% style="border:2px solid #b8daff;"/>
-                <footer class="navbar-fixed-bottom">
-                  <ul class="list-inline text-center">
-                    <li>同站链接:&emsp; <a href="/diary/">日记游记</a>&emsp;|&emsp;<a href="/jupyter/">在线练习代码</a></li>
-                  </ul>
-                  {% if device_type != 'mobile' %}
-                  <ul class="list-inline text-center">
-                    <li>By &copy; BobJiang</li>
-                  </ul>
-                  {% endif %}
-                </footer>
               </div>
-            </div>
-            {% if device_type != 'mobile' %}
-            <div class="col-md-9" name="post-container" style="padding: 20px 40px 20px 60px;">
-            {% else %}
-            <div class="col-md-8" name="post-container" style="padding: 20px;">
-            {% endif %}
-              {% block content %}
-              {% endblock %}
             </div>
           </div>
         </div>
-    </div>
+      </header>
+
+      <div class="content container-fluid">
+        {% block content %}
+        {% endblock %}
+      </div>
 
 <script>$.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});</script>
 <script>
