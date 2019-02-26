@@ -28,9 +28,9 @@
 #}
 
 
-body {
-    background-color: #F5F5F5;
-}
+#body {
+#    background-color: #F5F5F5;
+#}
 
 h1 a {
     font-family: "Raleway", "HYLeMiaoTi","KaiTi","Microsoft Yahei";
