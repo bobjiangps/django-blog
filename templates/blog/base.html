@@ -6,6 +6,8 @@
         <meta name="baidu-site-verification" content="axzaiwslsh" />
         <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+        <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">-->
+        <link href="{% static 'fontawesome-free-5.7.2-web/css/all.min.css' %}" rel="stylesheet" type="text/css">
         <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
@@ -65,14 +67,14 @@
       </nav>
 
       <!-- Page Header -->
-      <header class="masthead" style="background-image: url('https://www.byincd.com/diary/wp-content/uploads/2019/02/computer-desk-laptop-7378-1024x683.jpg')">
+      <header class="masthead" style="background-image: url('/media/background/computer-desk-laptop-7378-1024x683.jpg')">
         <div class="overlay"></div>
         <div class="container">
           <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
               <div class="site-heading">
                 <h1>Bob's Blog</h1>
-                <span class="subheading">闲暇时记录一些工作的经验和感受</span>
+                <span class="subheading">记录一些工作中的经验和感受</span>
                 <section id="search" align="center">
                   <hr width="30%" style="border:2px solid #F0E68C;"/>
                   <form class="form-inline my-2 my-lg-0" role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
@@ -92,6 +94,43 @@
         {% block content %}
         {% endblock %}
       </div>
+
+      <hr>
+      <!-- Footer -->
+      <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <ul class="list-inline text-center">
+                <li class="list-inline-item">
+                  <a href="mailto:jbsv43@sina.com" title="jbsv43@sina.com">
+                    <span class="fa-stack fa-lg">
+                      <i class="fas fa-circle fa-stack-2x"></i>
+                      <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <p>jbsv43@sina.com</p>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <span class="fa-stack fa-lg" title="48090730">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-qq fa-stack-1x fa-inverse"></i>
+                  </span>
+                  <p>48090730</p>
+                </li>
+                <li class="list-inline-item">
+                  <span class="fa-stack fa-lg" title="成都">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
+                  </span>
+                  <p>成都</p>
+                </li>
+              </ul>
+              <p class="copyright text-muted">By &copy; BobJiang</p>
+            </div>
+          </div>
+        </div>
+      </footer>
 
 <script>$.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});</script>
 <script>
