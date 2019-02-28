@@ -3,46 +3,46 @@
 {% load highlight %}
 
 {% block content %}
-{% for post in page.object_list %}
-    <article>
-    {% if post.object.visiable.name != 'private' or user.is_authenticated %}
-        <hr/>
-        <div class="card">
-            <div class="card-header" style="background-color:#b8daff;">
-                {{ post.object.created_date|date }} - 由{{post.object.author}} &ensp;&ensp;
-                <span class='comment-count'>{{ post.object.comment_set.count }} 评论</span> &ensp;&ensp;
-                <span class='view-count'>{{ post.object.views }} 阅读</span>
-            </div>
-            <div class="card-body">
-                {% if post.object.visiable.name == 'private' %}
-                  <h3><a href="{% url 'post_detail' post.object.id %}">[private] - {% highlight post.object.title with query %}</a></h3>
-                {% else %}
-                  <h3><a href="{% url 'post_detail' post.object.id %}">{% highlight post.object.title with query %}</a><h3>
-                {% endif %}
-                <h6>{% highlight post.object.text with query max_length 40 %}</h6>
-            </div>
-            <div class="read-more" style="padding:20px;">
-                <a href="{% url 'post_detail' post.object.id %}" class="btn btn-primary">继续阅读</a>
-            </div>
-            <div class="card-footer bg-light text-dark">
-                {% if post.object.category %}
-                    <div class="category">
-                      类别: <span class="badge badge-success">{{ post.object.category.name }};</span>
-                    </div>
-                {% endif %}
-                {% if post.object.tag.all %}
-                    <div class="tag">标签:
-                    {% for t in post.object.tag.all %}
-                        <span class="badge badge-info">{{ t.name }};</span>
-                    {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
+  <div class="container" style="margin-top: 40px;">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+      {% for post in page.object_list %}
+        {% if post.object.visiable.name != 'private' or user.is_authenticated %}
+        <div class="post-preview">
+          <p class="post-meta">
+              {{ post.object.created_date|date }} - 由{{post.object.author}} &ensp;&ensp;
+              <span class='comment-count'>{{ post.object.comment_set.count }} 评论</span> &ensp;&ensp;
+              <span class='view-count'>{{ post.object.views }} 阅读</span>
+          </p>
+          {% if post.object.visiable.name == 'private' %}
+            <h3 class="post-title"><a href="{% url 'post_detail' post.object.id %}">[private] - {{ post.object.title }}</a></h3>
+          {% else %}
+            <h3><a href="{% url 'post_detail' post.object.id %}">{{ post.object.title }}</a></h3>
+          {% endif %}
+          <h6 class="post-subtitle">{% highlight post.object.text with query max_length 40 %}</h6>
+          <div class="read-more" style="padding:0 0 20px 0;">
+              <a href="{% url 'post_detail' post.object.id %}" class="btn btn-outline-primary">继续阅读</a>
+          </div>
+            {% if post.object.category %}
+                <div class="category">
+                  <img src="/media/icons/icons8-category-40px-1.png" width="20" height="20">
+                  <span class="badge badge-success">{{ post.object.category.name }}</span>
+                </div>
+            {% endif %}
+            {% if post.object.tag.all %}
+                <div class="tag"><img src="/media/icons/icons8-tag-64px-1.png" width="20" height="20">
+                {% for t in post.object.tag.all %}
+                    <span class="badge badge-info">{{ t.name }}</span>
+                {% endfor %}
+                </div>
+            {% endif %}
         </div>
-    {% endif %}
-    </article>
-{% empty %}
-  <h1>您搜索的条件没有数据</h1>
-{% endfor %}
-<hr/>
+        <hr>
+        {% endif %}
+      {% empty %}
+        <h1>您搜索的条件没有数据</h1>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
 {% endblock %}
