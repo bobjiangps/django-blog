@@ -241,6 +241,22 @@
             });
         });
 
+        if (location.pathname.indexOf("/about") > 0) {
+            $(".masthead").css("background-image","url('/media/background/blue-sky-blue-water-bright-706484-1024x768.jpg')")
+        }
+        else if (location.pathname.indexOf("/login") > 0) {
+            $(".masthead").css("background-image","url('/media/background/beautiful-blooming-bright-1098520-1024x769.jpg')")
+        }
+        else if (location.pathname.indexOf("/categor") > 0) {
+            $(".masthead").css("background-image","url('/media/background/animal-avian-bird-875858-1024x683.jpg')")
+        }
+         else if (location.pathname.indexOf("/article") > 0) {
+            $(".masthead").css("background-image","url('/media/background/background-board-book-733854-1024x684.jpg')")
+        }
+        else {
+            $(".masthead").css("background-image","url('/media/background/computer-desk-laptop-7378-1024x683.jpg')")
+        }
+
     })
 </script>
 <script>
