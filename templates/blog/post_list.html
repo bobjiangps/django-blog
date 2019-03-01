@@ -1,21 +1,21 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-{% if user.is_authenticated %}
-<!--<label for="sortarticle">文章排序</label>
-<span class="badge badge-primary" style="font-size: 15px;">文章排序</span>-->
-<select autofocus class="form-control" id="sortarticle" style="width:130px;">
-  <option value="select type">文章排序</option>
-  <option value="publish date">按发布日期</option>
-  <option value="view count">按阅读量</option>
-</select>
-<a href="{% url 'create_new' %}"><i class="fa fa-plus" aria-hidden="true">新增文章</i></a>
-<p></p>
-{% endif %}
   <!-- post list -->
   <div class="container" style="margin-top: 40px;">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
+        {% if user.is_authenticated %}
+        <!--<label for="sortarticle">文章排序</label>
+        <span class="badge badge-primary" style="font-size: 15px;">文章排序</span>-->
+        <select autofocus class="form-control" id="sortarticle" style="width:130px;">
+          <option value="select type">文章排序</option>
+          <option value="publish date">按发布日期</option>
+          <option value="view count">按阅读量</option>
+        </select>
+        <a href="{% url 'create_new' %}"><i class="fa fa-plus" aria-hidden="true">新增文章</i></a>
+        <p></p>
+        {% endif %}
       {% for post in posts %}
         {% if post.visiable.name != 'private' or user.is_authenticated %}
         <div class="post-preview">
