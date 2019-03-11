@@ -1,0 +1,1 @@
+00 18 * * * python /home/test/record_view/record_django_blog_view.py

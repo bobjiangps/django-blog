@@ -1,0 +1,1 @@
+mysqldump -uroot -p dj-bobjiang-v2 > dj-bobjiang-v2-date.sql

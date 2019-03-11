@@ -2,7 +2,7 @@
 import pymysql
 import time
 
-conn = pymysql.connect(host="127.0.0.1",user="root",password="Jiangbo86",database="dj-bobjiang-v2",charset="utf8")
+conn = pymysql.connect(host="127.0.0.1",user="blogeditor",password="20170218",database="dj-bobjiang-v2",charset="utf8")
 cursor = conn.cursor()
 
 sql = "select id,title,views from blog_post where visiable_id=1 order by id desc;"
