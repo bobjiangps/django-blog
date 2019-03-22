@@ -4,13 +4,14 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="baidu-site-verification" content="axzaiwslsh" />
-        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/fontawesome.css" rel="stylesheet">
         <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">-->
-        <link href="{% static 'fontawesome-free-5.7.2-web/css/all.min.css' %}" rel="stylesheet" type="text/css">
-        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
-        <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <!--<link href="{% static 'fontawesome-free-5.7.2-web/css/all.min.css' %}" rel="stylesheet" type="text/css">-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <script src="/media/live2dw/lib/L2Dwidget.min.js"></script>
         <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
         <!--some css styles from https://github.com/BlackrockDigital/startbootstrap-clean-blog-->
@@ -315,15 +316,21 @@
                 "jsonPath":"/media/live2dw/assets/hijiki.model.json"
             },
             "display":{
+                {% if device_type != 'mobile' %}
                 "position":"left",
                 "width":150,
                 "height":300
+                {% else %}
+                "position":"right",
+                "width":50,
+                "height":100
+                {% endif %}
             },
             "mobile":{
                 "show":true
             }
         });
-    }, 1000)
+    }, 200)
 </script>
 </body>
 </html>
