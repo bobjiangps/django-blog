@@ -59,7 +59,7 @@
                 <li class="page-item"><a href="?page={{ posts.previous_page_number }}" class="btn btn-primary float-left">&laquo;上一页</a></li>
             {% endif %}
 
-            &emsp; {{ posts.number }} / {{ posts.paginator.num_pages }} &emsp;
+            &nbsp;&nbsp; {{ posts.number }} / {{ posts.paginator.num_pages }} &nbsp;&nbsp;
 
             {% if posts.has_next %}
                 <li class="page-item"><a href="?page={{ posts.next_page_number }}" class="btn btn-primary float-right">下一页 &raquo;</a></li>
