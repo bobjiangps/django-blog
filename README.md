@@ -16,19 +16,19 @@
 sample pictures:
 
 post list:
-![Image text](https://www.byincd.com/media/upload/Bo/2019/01/06/post_list.png)
+![Image text](https://www.byincd.com/media/upload/Bo/2019/03/27/main_page.png)
 
 post detail:
-![Image text](https://www.byincd.com/media/upload/Bo/2019/01/06/post_detail.png)
+![Image text](https://www.byincd.com/media/upload/Bo/2019/03/27/footer.png)
 
 search and highlight:
-![Image text](https://www.byincd.com/media/upload/Bo/2019/01/06/search_highlight.png)
+![Image text](https://www.byincd.com/media/upload/Bo/2019/03/27/post_details.png)
 
 comments:
-![Image text](https://www.byincd.com/media/upload/Bo/2019/01/06/comments.png)
+![Image text](https://www.byincd.com/media/upload/Bo/2019/03/27/search_result.png)
 
 categorization:
-![Image text](https://www.byincd.com/media/upload/Bo/2019/01/06/categorization.png)
+![Image text](https://www.byincd.com/media/upload/Bo/2019/03/27/category.png)
 
 wordcloud:
-![Image text](https://www.byincd.com/media/upload/Bo/2019/01/06/wordcloud.png)
+![Image text](https://www.byincd.com/media/upload/Bo/2019/03/27/wordcloud.png)
