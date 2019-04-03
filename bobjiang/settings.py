@@ -11,16 +11,18 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+with open(os.path.join(BASE_DIR, "store.json"), "r") as store_file:
+    STORED = json.load(store_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'o30=mn+6+^s!*96$!*0nq6r-i0+_s)uw-+kz%&-fdcw30pkfoj'
+SECRET_KEY = STORED['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
@@ -86,9 +88,9 @@ WSGI_APPLICATION = 'bobjiang.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dj-bobjiang-v2',
-        'USER': 'blogeditor',
-        'PASSWORD': '20170218',
+        'NAME': STORED['db_name'],
+        'USER': STORED['db_user'],
+        'PASSWORD': STORED['db_pw'],
         'HOST': '127.0.0.1',
         'PORT': 3306,
         'OPTIONS': {
