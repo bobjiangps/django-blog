@@ -66,7 +66,7 @@ def send_mail_notification(mail_receiver, your_post, notify_admin=False):
     msg["From"] = stored["email_sender"]
     msg["To"] = mail_receiver
     msg["Cc"] = ""
-    smtp = smtplib.SMTP(stored["smtp_server"], 25)
+    smtp = smtplib.SMTP_SSL(stored["smtp_server"])
     smtp.login(stored["email_sender_username"], stored["email_sender_pw"])
     smtp.sendmail(msg["From"], (msg["To"].split(";")) + (msg["Cc"].split(";") if msg["Cc"] is not None else []), msg.as_string())
     smtp.quit()
