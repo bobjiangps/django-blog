@@ -100,4 +100,8 @@
     {% else %}
     <h1 style="padding: 10%;">Please login in first to view this article</h1>
     {% endif %}
+
+<script type="text/javascript">
+    document.title = '{{post.title}} - ' + document.title;
+</script>
 {% endblock %}
