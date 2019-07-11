@@ -51,10 +51,13 @@
                 <a class="nav-link" href="/bobjiang/">首页</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="/bobjiang/post-list/">文章</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="/bobjiang/categorization/">分类</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/bobjiang/about_me/">关于</a>
+                <a class="nav-link" href="/bobjiang/about-me/">关于</a>
               </li>
               <li class="nav-item">
                 {% if user.is_authenticated %}
@@ -265,11 +268,14 @@
         else if (location.pathname.indexOf("/categor") > 0) {
             $(".masthead").css("background-image","url('/media/background/animal-avian-bird-875858-1024x683.jpg')")
         }
-         else if (location.pathname.indexOf("/article") > 0) {
+        else if (location.pathname.indexOf("/article") > 0) {
             $(".masthead").css("background-image","url('/media/background/background-board-book-733854-1024x684.jpg')")
         }
+        else if (location.pathname.indexOf("/post-list") > 0) {
+            $(".masthead").css("background-image","url('/media/background/memo-notebook-pen-472311.jpg')")
+        }
         else {
-            $(".masthead").css("background-image","url('/media/background/computer-desk-laptop-7378-1024x683.jpg')")
+            $(".masthead").css("background-image","url('/media/background/blogging-coffee-copywriting-34601.jpg')")
         }
 
     })

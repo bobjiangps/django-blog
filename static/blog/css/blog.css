@@ -61,3 +61,13 @@ pre {
     border: 1px solid #ccc;
     border-radius: 3px;
 }
+
+.separator {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.1;
+  display: block;
+  margin: 10px 0 0;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
