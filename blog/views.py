@@ -17,7 +17,7 @@ def top_viewed_posts(request, amount=3):
         posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
     except:
         posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('views').reverse()
-        return render(request, 'blog/main.html', {'posts': posts[:amount]})
+    return render(request, 'blog/main.html', {'posts': posts[:amount]})
 
 def post_list(request):
     try:
