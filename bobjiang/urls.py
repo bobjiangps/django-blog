@@ -24,6 +24,7 @@ from django.conf import settings
 urlpatterns = [
     path('bobjiang/admin/', admin.site.urls),
     #path('bobjiang/admin', xadmin.site.urls),
+    path('', include('blog.urls')),  # for the main page of byincd, temporary
     path('bobjiang/', include('blog.urls')),
     path('bobjiang/', include('comments.urls', namespace='comments')),
     path('ckeditor/', include('ckeditor_uploader.urls')),

@@ -71,3 +71,18 @@ pre {
   margin: 10px 0 0;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+#beian {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 300;
+  line-height: 1.1;
+  display: block;
+  margin: 10px 0 0;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: none;
+}
+
+#beian a {
+  color: gray;
+}

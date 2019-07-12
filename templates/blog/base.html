@@ -40,7 +40,7 @@
       <!-- Navigation -->
       <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-          <a class="navbar-brand" href="/bobjiang">工作笔记</a>
+          <a class="navbar-brand" href="{% url 'top_viewed_posts' %}">工作笔记</a>
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             目录
             <i class="fa fa-bars"></i>
@@ -48,22 +48,22 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/bobjiang/">首页</a>
+                <a class="nav-link" href="{% url 'top_viewed_posts' %}">首页</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/bobjiang/post-list/">文章</a>
+                <a class="nav-link" href="{% url 'post_list' %}">文章</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/bobjiang/categorization/">分类</a>
+                <a class="nav-link" href="{% url 'archives' %}">分类</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/bobjiang/about-me/">关于</a>
+                <a class="nav-link" href="{% url 'about_me' %}">关于</a>
               </li>
               <li class="nav-item">
                 {% if user.is_authenticated %}
-                <a class="nav-link" href="/bobjiang/logout/">注销</a>
+                <a class="nav-link" href="{% url 'do_logout' %}">注销</a>
                 {% else %}
-                <a class="nav-link" href="/bobjiang/login/">登录</a>
+                <a class="nav-link" href="{% url 'do_login' %}">登录</a>
                 {% endif %}
               </li>
             </ul>
@@ -202,6 +202,10 @@
         </div>
       </div>
     </div>
+    <span id="beian">
+        <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备18017146号</a>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51012202000327"><img src="https://www.byincd.com/diary/wp-content/uploads/2018/07/gonganbu.png"/>川公网安备 51012202000327号</a>
+    </span>
   </footer>
 
 <script>$.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});</script>
@@ -260,22 +264,29 @@
         });
 
         if (location.pathname.indexOf("/about") > 0) {
-            $(".masthead").css("background-image","url('/media/background/blue-sky-blue-water-bright-706484-1024x768.jpg')")
+            $(".masthead").css("background-image", "url('/media/background/blue-sky-blue-water-bright-706484-1024x768.jpg')");
         }
         else if (location.pathname.indexOf("/login") > 0) {
-            $(".masthead").css("background-image","url('/media/background/beautiful-blooming-bright-1098520-1024x769.jpg')")
+            $(".masthead").css("background-image", "url('/media/background/beautiful-blooming-bright-1098520-1024x769.jpg')");
         }
         else if (location.pathname.indexOf("/categor") > 0) {
-            $(".masthead").css("background-image","url('/media/background/animal-avian-bird-875858-1024x683.jpg')")
+            $(".masthead").css("background-image", "url('/media/background/animal-avian-bird-875858-1024x683.jpg')");
         }
         else if (location.pathname.indexOf("/article") > 0) {
-            $(".masthead").css("background-image","url('/media/background/background-board-book-733854-1024x684.jpg')")
+            $(".masthead").css("background-image", "url('/media/background/background-board-book-733854-1024x684.jpg')");
         }
         else if (location.pathname.indexOf("/post-list") > 0) {
-            $(".masthead").css("background-image","url('/media/background/memo-notebook-pen-472311.jpg')")
+            $(".masthead").css("background-image", "url('/media/background/memo-notebook-pen-472311.jpg')");
         }
         else {
-            $(".masthead").css("background-image","url('/media/background/blogging-coffee-copywriting-34601.jpg')")
+            $(".masthead").css("background-image", "url('/media/background/blogging-coffee-copywriting-34601.jpg')");
+        }
+
+        if (location.pathname.indexOf("/bobjiang") >= 0) {
+            $("#beian").css("display", "none");
+        }
+        else {
+            $("#beian").css("display", "block");
         }
 
     })
