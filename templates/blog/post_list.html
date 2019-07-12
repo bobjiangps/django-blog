@@ -13,8 +13,7 @@
           <option value="publish date">按发布日期</option>
           <option value="view count">按阅读量</option>
         </select>
-        <a href="{% url 'create_new' %}"><i class="fa fa-plus" aria-hidden="true">新增文章</i></a>
-        <p></p>
+        <p style="margin: 10px;"><a href="{% url 'create_new' %}"><i class="fa fa-plus" aria-hidden="true">新增文章</i></a></p>
         {% endif %}
       {% for post in posts %}
         {% if post.visiable.name != 'private' or user.is_authenticated %}
