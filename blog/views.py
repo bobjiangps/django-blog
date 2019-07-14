@@ -15,9 +15,12 @@ def top_viewed_posts(request, amount=3):
         if str(login_user) == 'AnonymousUser':
             raise
         posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
+        new_posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     except:
         posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('views').reverse()
-    return render(request, 'blog/main.html', {'posts': posts[:amount]})
+        new_posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('published_date').reverse()
+    return render(request, 'blog/main.html', {'posts': posts[:amount], 'new_posts': new_posts[:amount]})
+
 
 def post_list(request):
     try:

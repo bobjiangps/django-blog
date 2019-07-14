@@ -4,11 +4,57 @@
   <!-- post list -->
   <div class="container" style="margin-top: 20px;">
       <span class="separator">
-          <i class="fas fa-book-reader"></i> 查看次数最多
+          <i class="fas fa-fire"></i> 查看次数最多
       </span>
-      <hr width="30%" style="border:2px solid #BDB76B;"/>
+      <hr width="60%" style="border:2px solid #BDB76B;"/>
       <div class="row">
           {% for post in posts %}
+          <div class="col-lg-4 mb-4">
+          {% if post.visiable.name != 'private' or user.is_authenticated %}
+              <div class="card h-100">
+                  <div class="card-header">
+                      {{ post.created_date|date }} - {{post.author}} &ensp;
+                      <span class='comment-count'>{{ post.comment_set.count }} 评论</span> &ensp;
+                      <span class='view-count'>{{ post.views }} 阅读</span>
+                  </div>
+                  <div class="card-body">
+                      {% if post.visiable.name == 'private' %}
+                        <h3><a href="{% url 'post_detail' post.id %}">[private] - {{ post.title }}</a></h3>
+                      {% else %}
+                        <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a><h3>
+                      {% endif %}
+                      <h6>{{ post.text|safe|truncatechars:100}}</h6>
+                  </div>
+                  <div class="read-more" style="padding:20px;">
+                      <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary">继续阅读</a>
+                  </div>
+                  <div class="card-footer bg-light text-dark">
+                      {% if post.category %}
+                          <div class="category">
+                              <img src="/media/icons/icons8-category-40px-1.png" width="20" height="20">
+                              <span class="badge badge-success"><a href="{% url 'archives_category' post.category.name %}" style="color: white; text-decoration: none;">{{ post.category.name }}</a></span>
+                        </div>
+                      {% endif %}
+                      {% if post.tag.all %}
+                          <div class="tag">
+                              <img src="/media/icons/icons8-tag-64px-1.png" width="20" height="20">
+                              {% for t in post.tag.all %}
+                              <span class="badge badge-info"><a href="{% url 'archives_tag' t.name %}" style="color: white; text-decoration: none;">{{ t.name }}</a></span>
+                              {% endfor %}
+                          </div>
+                      {% endif %}
+                  </div>
+              </div>
+          {% endif %}
+          </div>
+          {% endfor %}
+      </div>
+      <span class="separator">
+          <i class="fas fa-book-reader"></i> 发布日期最近
+      </span>
+      <hr width="60%" style="border:2px solid #BDB76B;"/>
+      <div class="row">
+          {% for post in new_posts %}
           <div class="col-lg-4 mb-4">
           {% if post.visiable.name != 'private' or user.is_authenticated %}
               <div class="card h-100">
