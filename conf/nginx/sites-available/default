@@ -58,14 +58,8 @@ server {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
 		#try_files $uri $uri/ =404;
-
-                #index index.php index.html index.htm;
-                #try_files $uri $uri/ /index.php index.php;
-
-                include uwsgi_params;
-                uwsgi_pass 127.0.0.1:8001;
-                uwsgi_param UWSGI_CHDIR /home/bob/djproject/bobjiang;
-
+                index index.php index.html index.htm;
+                try_files $uri $uri/ /index.php index.php;
                 #fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;        
                 #include uwsgi_params;
                 #uwsgi_pass 127.0.0.1:8000;
@@ -81,25 +75,6 @@ server {
             fastcgi_index  index.php;
             fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
             include        fastcgi_params;
-        }
-
-
-        location ~ /diary {
-            index index.php index.html index.htm;
-            include /etc/nginx/mime.types;
-            try_files $uri $uri/ /index.php?$is_args$args =404;
-            if (!-e $request_filename) {
-                rewrite ^.*$ /index.php last;
-            }
-        }
-
-        location ~ /phpmyadmin {
-            index index.php index.html index.htm;
-            include /etc/nginx/mime.types;
-            try_files $uri $uri/ /index.php?$is_args$args =404;
-            if (!-e $request_filename) {
-                rewrite ^.*$ /index.php last;
-            }
         }
 
         location ~ /bobjiang {
