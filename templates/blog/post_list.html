@@ -70,5 +70,23 @@
     </div>
   </div>
 
-
+<script type="text/javascript">
+    if (location.pathname.indexOf("/post-list") >= 0) {
+        document.title = '文章列表 - ' + document.title;
+    }
+    else if (location.pathname.indexOf("/categorization/category") >= 0) {
+        category = location.pathname.substring(1, location.pathname.length-1).split("/").pop();
+        document.title = '类别 - ' + decodeURI(category) + ' - ' + document.title;
+    }
+    else if (location.pathname.indexOf("/categorization/tag") >= 0) {
+        tag = location.pathname.substring(1, location.pathname.length-1).split("/").pop();
+        document.title = '标签 - ' + decodeURI(tag) + ' - ' + document.title;
+    }
+    else {
+        date_array = location.pathname.substring(1, location.pathname.length-1).split("/");
+        month = date_array.pop();
+        year = date_array.pop();
+        document.title = '日期范围 - ' + year + '/' + month + ' - ' + document.title;
+    }
+</script>
 {% endblock %}
