@@ -171,6 +171,8 @@ def about_me(request):
         os.remove(wc_file_name)
     with open("./media/wordcloud/string_source.txt","r", encoding='UTF-8') as f:
         text = f.read()
+    user_define_file = "./media/wordcloud/user_define.txt"
+    jieba.load_userdict(user_define_file)
     cut = jieba.cut(text)
     strings = ' '.join(cut)
 
