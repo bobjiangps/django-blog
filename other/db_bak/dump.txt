@@ -1,1 +1,1 @@
-mysqldump -uroot -p dj-bobjiang-v2 > dj-bobjiang-v2-date.sql
+mysqldump -uroot -p dj-bobjiang-v2 > django-blog-v2-latest.sql
