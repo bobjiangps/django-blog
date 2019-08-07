@@ -47,8 +47,10 @@ server {
 
 	server_name byincd.com;
        
-        ssl_certificate /etc/nginx/cert/214979215400611.pem;
-        ssl_certificate_key /etc/nginx/cert/214979215400611.key;
+        # ssl_certificate /etc/nginx/cert/214979215400611.pem;
+        # ssl_certificate_key /etc/nginx/cert/214979215400611.key;
+        ssl_certificate /etc/nginx/cert/2618881_byincdcom.pem;
+        ssl_certificate_key /etc/nginx/cert/2618881_byincdcom.key;
         ssl_session_timeout 5m;
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_ciphers AESGCM:ALL:!DH:!EXPORT:!RC4:+HIGH:!MEDIUM:!LOW:!aNULL:!eNULL;
@@ -107,11 +109,11 @@ server {
                 uwsgi_pass 127.0.0.1:8001;
                 uwsgi_param UWSGI_CHDIR /home/bob/djproject/bobjiang;
         }
-
+        
         location /static/ {
                 alias /home/bob/djproject/bobjiang/static/;
         }
-
+        
         location /media/ {
                 alias /home/bob/djproject/bobjiang/media/;
         }
@@ -128,12 +130,12 @@ server {
             proxy_set_header X-Real-Scheme $scheme;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
+        
             # websocket support
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection "upgrade";
-
+        
             proxy_read_timeout 120s;
             proxy_next_upstream error;
         }
