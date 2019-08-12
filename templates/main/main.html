@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="baidu-site-verification" content="axzaiwslsh" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/fontawesome.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="/media/live2dw/lib/L2Dwidget.min.js"></script>
+    <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+    <link rel="icon" href="/media/icons/icons8-around-the-globe-512.png" type="images/png" />
+    <title>在成都的工作和生活</title>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?32227606de1398729c97d9242efd8a64";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  </head>
+  <body>
+    <h1>TEST</h1>
+  </body>
+  <script type="text/javascript">
+    setTimeout(() => {
+        L2Dwidget.init({
+            "pluginRootPath":"live2dw/",
+            "pluginJsPath":"lib/",
+            "pluginModelPath":"assets/",
+            "tagMode":false,
+            "log":false,
+            "model":{
+                "jsonPath":"/media/live2dw/assets/hijiki.model.json"
+            },
+            "display":{
+                {% if device_type != 'mobile' %}
+                "position":"right",
+                "width":150,
+                "height":300
+                {% else %}
+                "position":"right",
+                "width":75,
+                "height":150
+                {% endif %}
+            },
+            "mobile":{
+                "show":true
+            }
+        });
+    }, 200)
+  </script>
+</html>
