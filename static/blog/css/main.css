@@ -1,0 +1,13 @@
+
+footer .list-inline p {
+  display:none;
+}
+
+footer .list-inline span:hover+p, footer .list-inline p:hover {
+  display:inline-block;
+}
+
+footer.footer {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}

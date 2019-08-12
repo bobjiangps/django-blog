@@ -12,7 +12,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="/media/live2dw/lib/L2Dwidget.min.js"></script>
     <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
-    <link rel="icon" href="/media/icons/icons8-around-the-globe-512.png" type="images/png" />
+    <link rel="stylesheet" href="{% static 'blog/css/main.css' %}">
+    <link rel="icon" href="/media/icons/tree_relax.ico" type="images/png" />
     <title>在成都的工作和生活</title>
     <script>
       var _hmt = _hmt || [];
@@ -25,8 +26,76 @@
     </script>
   </head>
   <body>
-    <h1>TEST</h1>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item">
+                <a href="/bobjiang">工作笔记</a>
+              </li>
+              <li class="list-inline-item">&sdot;</li>
+              <li class="list-inline-item">
+                <a href="/diary">日记游记</a>
+              </li>
+              <li class="list-inline-item">&sdot;</li>
+              <li class="list-inline-item">
+                <a href="/jupyter">在线练习代码</a>
+              </li>
+              <li class="list-inline-item">&sdot;</li>
+            </ul>
+            <p class="text-muted mb-4 mb-lg-0">By &copy; BobJiang</p>
+          </div>
+          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-3">
+                <a title="jbsv43@sina.com">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                  <p>jbsv43@sina.com</p>
+                </a>
+              </li>
+              <li class="list-inline-item mr-3">
+                <a title="48090730">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-qq fa-stack-1x fa-inverse"></i>
+                  </span>
+                  <p>48090730</p>
+                </a>
+              </li>
+              <li class="list-inline-item mr-3">
+                <a title="成都">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
+                  </span>
+                  <p>成都</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <span id="beian">
+          <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备18017146号</a>
+          <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51012202000327"><img src="https://www.byincd.com/diary/wp-content/uploads/2018/07/gonganbu.png"/> 川公网安备 51012202000327号</a>
+      </span>
+    </footer>
   </body>
+  <script>
+    $(function () {
+      if (location.pathname.indexOf("/bobjiang") >= 0) {
+          $("#beian").css("display", "none");
+      }
+      else {
+          $("#beian").css("display", "block");
+      }
+
+    })
+  </script>
   <script type="text/javascript">
     setTimeout(() => {
         L2Dwidget.init({
