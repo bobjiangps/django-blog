@@ -1,3 +1,27 @@
+body {
+  background: url(https://www.byincd.com/diary/wp-content/uploads/2019/01/free-wallpaper-hd-wallpaper-leaves-1454794-02-1024x576.jpg) no-repeat fixed center rgba(0,0,0,0.1);
+  background-size: 100% 100%;
+}
+
+.site-heading {
+  padding: 100px 0 90px;
+  color: gray;
+  text-align: center;
+}
+
+.site-heading h1 {
+  font-size: 50px;
+  margin-top: 0;
+}
+
+.site-heading .subheading {
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.1;
+  display: block;
+  margin: 10px 0 0;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 
 footer .list-inline p {
   display:none;
@@ -10,4 +34,19 @@ footer .list-inline span:hover+p, footer .list-inline p:hover {
 footer.footer {
   padding-top: 2rem;
   padding-bottom: 3rem;
+}
+
+#beian {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 300;
+  line-height: 1.1;
+  display: block;
+  margin: 10px 0 0;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: none;
+}
+
+#beian a {
+  color: gray;
 }
