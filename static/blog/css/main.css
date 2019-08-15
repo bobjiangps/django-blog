@@ -3,14 +3,14 @@ body {
   background-size: 100% 100%;
 }
 
-.site-heading-bak {
+.site-heading {
   margin: 15% 60px 90px;
   padding: 20px 0 0;
   color: white;
   text-align: center;
 }
 
-.site-heading {
+.site-heading-bak {
   color: white;
   text-align: center;
   position: relative;
@@ -63,9 +63,16 @@ footer .list-inline span:hover+p, footer .list-inline p:hover {
 footer.footer {
   padding-top: 2rem;
   padding-bottom: 3rem;
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  footer.footer {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+  }
 }
 
 #beian {
