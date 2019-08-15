@@ -1,5 +1,5 @@
 body {
-  background: url(/media/background/animal-avian-bird-875858-1024x683.jpg) no-repeat fixed center rgba(0,0,0,0.1);
+  background: url(/media/background/main/animal-avian-bird-875858-1024x683.jpg) no-repeat fixed center rgba(0,0,0,0.1);
   background-size: 100% 100%;
 }
 
@@ -88,4 +88,21 @@ footer.footer {
 
 #beian a {
   color: gray;
+}
+
+#search-elements {
+  margin: 0px auto;
+}
+
+@media only screen and (min-width: 768px) {
+  #search-elements {
+    margin: 0px auto;
+    width: 80%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  #search-elements input {
+    width: 65%;
+  }
 }
