@@ -3,13 +3,18 @@ body {
   background-size: 100% 100%;
 }
 
-.site-heading {
+.site-heading-bak {
   margin: 15% 60px 90px;
   padding: 20px 0 0;
   color: white;
   text-align: center;
-  border: 1px solid;
-  border-radius: 10px;
+}
+
+.site-heading {
+  color: white;
+  text-align: center;
+  position: relative;
+  top: 100%;
 }
 
 .site-heading h1 {
@@ -58,6 +63,9 @@ footer .list-inline span:hover+p, footer .list-inline p:hover {
 footer.footer {
   padding-top: 2rem;
   padding-bottom: 3rem;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
 }
 
 #beian {
@@ -69,9 +77,6 @@ footer.footer {
   margin: 10px 0 0;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   display: none;
-  position: absolute;
-  bottom: 40px;
-  width: 100%;
 }
 
 #beian a {
