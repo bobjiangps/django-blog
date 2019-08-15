@@ -32,71 +32,124 @@
             <h1>BYINCD</h1>
             <span class="subheading">在成都的工作和生活</span>
             <section id="search" align="center">
-              <hr width="30%" style="border:2px solid #F0E68C;"/>
+              <hr width="40%" style="border:2px solid #F0E68C;"/>
               <form class="form-inline my-2 my-lg-0" role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
                 <div name="search-elements" style="margin: 0px auto;">
+                  <select class="custom-select my-1 mr-sm-2" id="site-select">
+                    <option value="1" style="color: #1E90FF;">搜笔记</option>
+                    <option value="2" style="color: #FFB6C1;">搜日记</option>
+                  </select>
                   <input class="form-control mr-sm-2" type="search" name="q" placeholder="请输入内容">
                   <button class="btn btn-info my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true">搜索</i></button>
                 </div>
               </form>
             </section>
+            <div id="site-include" align="center">
+              <ul class="list-inline mb-2">
+                <li class="list-inline-item">&sdot;</li>
+                <li class="list-inline-item">
+                  <a href="/bobjiang">工作笔记</a>
+                </li>
+                <li class="list-inline-item">&sdot;</li>
+                <li class="list-inline-item">
+                  <a href="/diary">日记游记</a>
+                </li>
+                <li class="list-inline-item">&sdot;</li>
+                <li class="list-inline-item">
+                  <a href="/jupyter">在线练习代码</a>
+                </li>
+                <li class="list-inline-item">&sdot;</li>
+              </ul>
+            </div>
+            <div id="my-info" align="center">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item mr-3">
+                  <a title="jbsv43@sina.com">
+                    <span class="fa-stack fa-lg">
+                      <i class="fas fa-circle fa-stack-2x fa-inverse"></i>
+                      <i class="fas fa-envelope fa-stack-1x"></i>
+                    </span>
+                    <p>jbsv43@sina.com</p>
+                  </a>
+                </li>
+                <li class="list-inline-item mr-3">
+                  <a title="48090730">
+                    <span class="fa-stack fa-lg">
+                      <i class="fas fa-circle fa-stack-2x fa-inverse"></i>
+                      <i class="fab fa-qq fa-stack-1x"></i>
+                    </span>
+                    <p>48090730</p>
+                  </a>
+                </li>
+                <li class="list-inline-item mr-3">
+                  <a title="成都">
+                    <span class="fa-stack fa-lg">
+                      <i class="fas fa-circle fa-stack-2x fa-inverse"></i>
+                      <i class="fas fa-map-marker-alt fa-stack-1x"></i>
+                    </span>
+                    <p>成都</p>
+                  </a>
+                </li>
+              </ul>
+              <p id="copyright" class="text-muted mb-4 mb-lg-0">By &copy; BobJiang</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-            <ul class="list-inline mb-2">
-              <li class="list-inline-item">
-                <a href="/bobjiang">工作笔记</a>
-              </li>
-              <li class="list-inline-item">&sdot;</li>
-              <li class="list-inline-item">
-                <a href="/diary">日记游记</a>
-              </li>
-              <li class="list-inline-item">&sdot;</li>
-              <li class="list-inline-item">
-                <a href="/jupyter">在线练习代码</a>
-              </li>
-              <li class="list-inline-item">&sdot;</li>
-            </ul>
-            <p class="text-muted mb-4 mb-lg-0">By &copy; BobJiang</p>
-          </div>
-          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item mr-3">
-                <a title="jbsv43@sina.com">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
-                  </span>
-                  <p>jbsv43@sina.com</p>
-                </a>
-              </li>
-              <li class="list-inline-item mr-3">
-                <a title="48090730">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-qq fa-stack-1x fa-inverse"></i>
-                  </span>
-                  <p>48090730</p>
-                </a>
-              </li>
-              <li class="list-inline-item mr-3">
-                <a title="成都">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
-                  </span>
-                  <p>成都</p>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <!--<div class="container">-->
+        <!--<div class="row">-->
+          <!--<div class="col-lg-6 h-100 text-center text-lg-left my-auto">-->
+            <!--<ul class="list-inline mb-2">-->
+              <!--<li class="list-inline-item">-->
+                <!--<a href="/bobjiang">工作笔记</a>-->
+              <!--</li>-->
+              <!--<li class="list-inline-item">&sdot;</li>-->
+              <!--<li class="list-inline-item">-->
+                <!--<a href="/diary">日记游记</a>-->
+              <!--</li>-->
+              <!--<li class="list-inline-item">&sdot;</li>-->
+              <!--<li class="list-inline-item">-->
+                <!--<a href="/jupyter">在线练习代码</a>-->
+              <!--</li>-->
+              <!--<li class="list-inline-item">&sdot;</li>-->
+            <!--</ul>-->
+            <!--<p class="text-muted mb-4 mb-lg-0">By &copy; BobJiang</p>-->
+          <!--</div>-->
+          <!--<div class="col-lg-6 h-100 text-center text-lg-right my-auto">-->
+            <!--<ul class="list-inline mb-0">-->
+              <!--<li class="list-inline-item mr-3">-->
+                <!--<a title="jbsv43@sina.com">-->
+                  <!--<span class="fa-stack fa-lg">-->
+                    <!--<i class="fas fa-circle fa-stack-2x"></i>-->
+                    <!--<i class="fas fa-envelope fa-stack-1x fa-inverse"></i>-->
+                  <!--</span>-->
+                  <!--<p>jbsv43@sina.com</p>-->
+                <!--</a>-->
+              <!--</li>-->
+              <!--<li class="list-inline-item mr-3">-->
+                <!--<a title="48090730">-->
+                  <!--<span class="fa-stack fa-lg">-->
+                    <!--<i class="fas fa-circle fa-stack-2x"></i>-->
+                    <!--<i class="fab fa-qq fa-stack-1x fa-inverse"></i>-->
+                  <!--</span>-->
+                  <!--<p>48090730</p>-->
+                <!--</a>-->
+              <!--</li>-->
+              <!--<li class="list-inline-item mr-3">-->
+                <!--<a title="成都">-->
+                  <!--<span class="fa-stack fa-lg">-->
+                    <!--<i class="fas fa-circle fa-stack-2x"></i>-->
+                    <!--<i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>-->
+                  <!--</span>-->
+                  <!--<p>成都</p>-->
+                <!--</a>-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
       <span id="beian">
           <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备18017146号</a>
           <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51012202000327"><img src="https://www.byincd.com/diary/wp-content/uploads/2018/07/gonganbu.png"/> 川公网安备 51012202000327号</a>

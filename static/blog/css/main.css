@@ -1,12 +1,15 @@
 body {
-  background: url(https://www.byincd.com/diary/wp-content/uploads/2019/01/free-wallpaper-hd-wallpaper-leaves-1454794-02-1024x576.jpg) no-repeat fixed center rgba(0,0,0,0.1);
+  background: url(/media/background/animal-avian-bird-875858-1024x683.jpg) no-repeat fixed center rgba(0,0,0,0.1);
   background-size: 100% 100%;
 }
 
 .site-heading {
-  padding: 100px 0 90px;
-  color: gray;
+  margin: 15% 60px 90px;
+  padding: 20px 0 0;
+  color: white;
   text-align: center;
+  border: 1px solid;
+  border-radius: 10px;
 }
 
 .site-heading h1 {
@@ -21,6 +24,27 @@ body {
   display: block;
   margin: 10px 0 0;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#site-include {
+  padding: 20px 0px 10px;
+}
+
+#my-info {
+  color: black;
+  padding: 10px 0px 20px;
+}
+
+#copyright {
+  padding: 20px;
+}
+
+#my-info .list-inline p {
+  display:none;
+}
+
+#my-info .list-inline span:hover+p, footer .list-inline p:hover {
+  display:inline-block;
 }
 
 footer .list-inline p {
@@ -45,6 +69,9 @@ footer.footer {
   margin: 10px 0 0;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   display: none;
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
 }
 
 #beian a {
