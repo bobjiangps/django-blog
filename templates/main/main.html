@@ -36,10 +36,10 @@
               <form class="form-inline my-2 my-lg-0" role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
                 <div id="search-elements">
                   <select class="custom-select my-1 mr-sm-2" id="site-select">
-                    <option value="1" style="color: #1E90FF;">搜笔记</option>
-                    <option value="2" style="color: #FFB6C1;">搜日记</option>
+                    <option value="note" style="color: #1E90FF;">搜笔记</option>
+                    <option value="diary" style="color: #FFB6C1;">搜日记</option>
                   </select>
-                  <input class="form-control mr-sm-2" type="search" name="q" placeholder="请输入内容">
+                  <input class="form-control mr-sm-2" type="search" name="q" placeholder="e.g. openstf pandas appium">
                   <button class="btn btn-info my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true">搜索</i></button>
                 </div>
               </form>
@@ -158,7 +158,7 @@
       </span>
     </footer>
   </body>
-  <script>
+  <script type="text/javascript">
     $(function () {
       if (location.pathname.indexOf("/bobjiang") >= 0) {
           $("#beian").css("display", "none");
@@ -167,6 +167,21 @@
           $("#beian").css("display", "block");
       }
 
+      var bg_files = ["animal-avian-bird-875858-1024x683.jpg", "bnZiEqdk_AI-1024x768.jpg", "GnFxV-UZyD0-1024x769.jpg", "KMn4VEeEPR8-1140x758.jpg"];
+      var bg_current = bg_files[Math.floor(Math.random()*bg_files.length)];
+      $("body").css("background-image", "url(/media/background/main/" + bg_current + ")")
+
+      $('#site-select').change(function(){
+          var a = $(this).children('option:selected').val();
+          if (a === "diary") {
+              <!--document.getElementById("search-input").setAttribute("placeholder","test");-->
+              $('#search-elements input').attr("placeholder","e.g. 旅行 美食 生活");
+          }
+          else if (a === "note") {
+              $('#search-elements input').attr("placeholder","e.g. openstf pandas appium");
+          }
+      });
+      
     })
   </script>
   <script type="text/javascript">
