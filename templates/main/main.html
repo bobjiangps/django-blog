@@ -41,6 +41,7 @@
                   </select>
                   <input class="form-control mr-sm-2" type="search" name="q" placeholder="e.g. openstf pandas appium">
                   <button class="btn btn-info my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true">搜索</i></button>
+                  <a class="btn btn-info my-2 my-sm-0" href="/diary/?s=" style="display: none;"><i class="fa fa-search" aria-hidden="true">搜索</i></a>
                 </div>
               </form>
             </section>
@@ -171,17 +172,29 @@
       var bg_current = bg_files[Math.floor(Math.random()*bg_files.length)];
       $("body").css("background-image", "url(/media/background/main/" + bg_current + ")")
 
+      $('#site-select').val("note");
       $('#site-select').change(function(){
           var a = $(this).children('option:selected').val();
           if (a === "diary") {
               <!--document.getElementById("search-input").setAttribute("placeholder","test");-->
               $('#search-elements input').attr("placeholder","e.g. 旅行 美食 生活");
+              $('#search-elements button').css("display", "none");
+              $('#search-elements a').css("display", "inline-block");
           }
           else if (a === "note") {
               $('#search-elements input').attr("placeholder","e.g. openstf pandas appium");
+              $('#search-elements a').css("display", "none");
+              $('#search-elements button').css("display", "inline-block");
           }
       });
-      
+
+      $('#search-elements a').click(function(){
+          var diary_search_prefix = $('#search-elements a').attr("href");
+          var search_word = $('#search-elements input').val();
+          var words = search_word.split(" ").join("+");
+          $('#search-elements a').attr("href", diary_search_prefix + words);
+      });
+
     })
   </script>
   <script type="text/javascript">
