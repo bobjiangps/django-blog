@@ -4,6 +4,12 @@ body {
   background-size: 100% 100%;
 }
 
+@media only screen and (orientation:portrait) and (max-width: 768px) {
+  body {
+    background-image: url(/media/background/main/mobile/summer_sea_beach.jpg);
+  }
+}
+
 .site-heading {
   margin: 15% 60px 90px;
   padding: 20px 0 0;

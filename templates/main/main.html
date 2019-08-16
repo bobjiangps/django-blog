@@ -168,9 +168,16 @@
           $("#beian").css("display", "block");
       }
 
-      var bg_files = ["animal-avian-bird-875858-1024x683.jpg", "bnZiEqdk_AI-1024x768.jpg", "GnFxV-UZyD0-1024x769.jpg", "KMn4VEeEPR8-1140x758.jpg"];
-      var bg_current = bg_files[Math.floor(Math.random()*bg_files.length)];
-      $("body").css("background-image", "url(/media/background/main/" + bg_current + ")")
+      if ($("body").css("background-image").indexOf("/mobile") > 0) {
+          var bg_files_mobile = ["hill_lake.jpg", "sky_bright_tree.jpg", "sky_cloud_night.jpg", "sky_star_night.jpg", "summer_fish_river.jpg", "summer_sea_beach.jpg"];
+          var bg_current_mobile = bg_files_mobile[Math.floor(Math.random()*bg_files_mobile.length)];
+          $("body").css("background-image", "url(/media/background/main/mobile/" + bg_current_mobile + ")");
+      }
+      else {
+          var bg_files = ["animal-avian-bird-875858-1024x683.jpg", "bnZiEqdk_AI-1024x768.jpg", "GnFxV-UZyD0-1024x769.jpg", "KMn4VEeEPR8-1140x758.jpg"];
+          var bg_current = bg_files[Math.floor(Math.random()*bg_files.length)];
+          $("body").css("background-image", "url(/media/background/main/" + bg_current + ")");
+      }
 
       $('#site-select').val("note");
       $('#site-select').change(function(){
