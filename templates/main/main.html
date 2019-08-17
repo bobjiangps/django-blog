@@ -210,7 +210,14 @@
 
       $('#search-elements input').keypress(function(e){
           if(e.keyCode==13){
-              e.preventDefault();
+              if ($('#site-select').children('option:selected').val() === "diary") {
+                  e.preventDefault();
+                  $('#search-elements a').attr("href", "/diary/?s=");
+                  var diary_search_prefix = $('#search-elements a').attr("href");
+                  var search_word = $('#search-elements input').val();
+                  var words = search_word.split(" ").join("+");
+                  window.location.href = diary_search_prefix + words;
+              }
           }
       });
 
