@@ -178,7 +178,21 @@
           $("body").css("background-image", "url(/media/background/main/" + bg_current + ")");
       }
 
-      $('#site-select').val("note");
+      // $('#site-select').val("note");
+      $('#search-elements a').attr("href", "/diary/?s=");
+
+      var current_site_select = $('#site-select').children('option:selected').val();
+      if (current_site_select === "diary") {
+          $('#search-elements input').attr("placeholder","e.g. 旅行 美食 生活");
+          $('#search-elements button').css("display", "none");
+          $('#search-elements a').css("display", "inline-block");
+      }
+      else if (current_site_select === "note") {
+          $('#search-elements input').attr("placeholder","e.g. openstf pandas appium");
+          $('#search-elements a').css("display", "none");
+          $('#search-elements button').css("display", "inline-block");
+      }
+
       $('#site-select').change(function(){
           var a = $(this).children('option:selected').val();
           if (a === "diary") {
@@ -195,6 +209,7 @@
       });
 
       $('#search-elements a').click(function(){
+          $('#search-elements a').attr("href", "/diary/?s=");
           var diary_search_prefix = $('#search-elements a').attr("href");
           var search_word = $('#search-elements input').val();
           var words = search_word.split(" ").join("+");
