@@ -208,6 +208,12 @@
           }
       });
 
+      $('#search-elements input').keypress(function(e){
+          if(e.keyCode==13){
+              e.preventDefault();
+          }
+      });
+
       $('#search-elements a').click(function(){
           $('#search-elements a').attr("href", "/diary/?s=");
           var diary_search_prefix = $('#search-elements a').attr("href");
