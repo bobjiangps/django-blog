@@ -72,6 +72,10 @@ footer.footer {
   padding-bottom: 3rem;
 }
 
+footer .my-info {
+  color: gray;
+}
+
 @media only screen and (min-width: 768px) {
   footer.footer {
     padding-top: 2rem;
