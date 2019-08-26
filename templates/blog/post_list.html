@@ -36,13 +36,13 @@
             {% if post.category %}
                 <div class="category">
                   <img src="/media/icons/icons8-category-40px-1.png" width="20" height="20">
-                  <span class="badge badge-success">{{ post.category.name }}</span>
+                  <span class="badge badge-success"><a href="{% url 'archives_category' post.category.name %}" style="color: white; text-decoration: none;">{{ post.category.name }}</a></span>
                 </div>
             {% endif %}
             {% if post.tag.all %}
                 <div class="tag"><img src="/media/icons/icons8-tag-64px-1.png" width="20" height="20">
                 {% for t in post.tag.all %}
-                    <span class="badge badge-info">{{ t.name }}</span>
+                    <span class="badge badge-info"><a href="{% url 'archives_tag' t.name %}" style="color: white; text-decoration: none;">{{ t.name }}</a></span>
                 {% endfor %}
                 </div>
             {% endif %}
