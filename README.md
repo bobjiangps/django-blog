@@ -15,20 +15,26 @@
 
 sample pictures:
 
-post list:
-![Image text](https://www.byincd.com/media/upload/Bo/2019/01/06/post_list.png)
+* main:
 
-post detail:
-![Image text](https://www.byincd.com/media/upload/Bo/2019/01/06/post_detail.png)
+![Image text](https://www.byincd.com/diary/wp-content/uploads/2019/10/bobblog-v3-main-300x151.png)
 
-search and highlight:
-![Image text](https://www.byincd.com/media/upload/Bo/2019/01/06/search_highlight.png)
+* post list:
 
-comments:
-![Image text](https://www.byincd.com/media/upload/Bo/2019/01/06/comments.png)
+![Image text](https://www.byincd.com/diary/wp-content/uploads/2019/10/bobblog-v3-post_list-300x219.png)
 
-categorization:
-![Image text](https://www.byincd.com/media/upload/Bo/2019/01/06/categorization.png)
+* post detail:
 
-wordcloud:
-![Image text](https://www.byincd.com/media/upload/Bo/2019/01/06/wordcloud.png)
+![Image text](https://www.byincd.com/diary/wp-content/uploads/2019/10/bobblog-v3-post_detail-300x153.png)
+
+* search and highlight:
+
+![Image text](https://www.byincd.com/diary/wp-content/uploads/2019/10/bobblog-v3-search_highlight-300x227.png)
+
+* comments:
+
+![Image text](https://www.byincd.com/diary/wp-content/uploads/2019/10/bobblog-v3-comments-300x154.png)
+
+* wordcloud:
+
+![Image text](https://www.byincd.com/diary/wp-content/uploads/2019/10/bobblog-v3-wordcloud-300x157.png)
