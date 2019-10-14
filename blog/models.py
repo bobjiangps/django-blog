@@ -48,10 +48,25 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    # 阅读数（>0的数）
+    # 阅读数(>0的数)
     views = models.PositiveIntegerField(default=0)
     # 增加阅读数的方法
     def increase_views(self):
-        self.views +=1
+        self.views += 1
         # update_fields 只更新数据库中的views
         self.save(update_fields=['views'])
+
+
+class Visitor(models.Model):
+    ip = models.CharField(max_length=30)
+    region = models.CharField(max_length=1000, blank=True, null=True)
+    agent = models.CharField(max_length=1000)
+    page = models.CharField(max_length=100)
+    views = models.PositiveIntegerField(default=0)
+    record_date = models.DateTimeField(default=timezone.now)
+    update_date = models.DateTimeField(default=timezone.now)
+
+    def increase_views(self):
+        self.update_date = timezone.now()
+        self.views += 1
+        self.save(update_fields=['views', 'update_date'])

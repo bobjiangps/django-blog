@@ -2,22 +2,16 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.http import HttpResponse
 from django.utils import timezone
-from .models import Post
+from .models import Post, Visitor
 from .forms import PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login as d_login, logout as d_logout
 #import markdown
+from utils.geoip_helper import GeoIpHelper
 
 
 def top_viewed_posts(request, amount=3):
-    # # visitor agent
-    # print(request.META["HTTP_USER_AGENT"])
-    # # visitor ip
-    # if 'HTTP_X_FORWARDED_FOR' in request.META:
-    #     print(request.META.get('HTTP_X_FORWARDED_FOR'))
-    # else:
-    #     print(request.META.get('REMOTE_ADDR'))
-    ########
+    record_visit(request)
     try:
         login_user = request.user
         if str(login_user) == 'AnonymousUser':
@@ -31,6 +25,7 @@ def top_viewed_posts(request, amount=3):
 
 
 def post_list(request):
+    record_visit(request)
     try:
         login_user = request.user
         if str(login_user) == 'AnonymousUser':
@@ -41,6 +36,7 @@ def post_list(request):
     return pagination(request,posts)
 
 def post_list_sort(request, sort_type):
+    record_visit(request)
     try:
         login_user = request.user
         if str(login_user) == 'AnonymousUser':
@@ -57,6 +53,7 @@ def post_list_sort(request, sort_type):
     return pagination(request,posts)
 
 def post_detail(request, post_id):
+    record_visit(request)
     post = get_object_or_404(Post, pk=post_id)
     post.comments = post.comment_set.all().filter().order_by('-created_time')
     post.increase_views()
@@ -64,6 +61,7 @@ def post_detail(request, post_id):
     return render(request, 'blog/post_detail.html', {'post': post})
 
 def post_edit(request, post_id):
+    record_visit(request)
     post = get_object_or_404(Post, pk=post_id)
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
@@ -79,6 +77,7 @@ def post_edit(request, post_id):
     return render(request, 'blog/post_edit.html', {'form': form})
 
 def create_new(request):
+    record_visit(request)
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -95,6 +94,7 @@ def create_new(request):
     return render(request, 'blog/create_new.html', {'form': form})
 
 def archives(request):
+    record_visit(request)
     all_category = []
     all_tag = []
     try:
@@ -123,6 +123,7 @@ def archives(request):
     return render(request, 'blog/archives.html', context={'date_list': date_list, 'category_list': all_category, 'tag_list': all_tag})
 
 def archives_date(request, year, month):
+    record_visit(request)
     try:
         login_user = request.user
         if str(login_user) == 'AnonymousUser':
@@ -133,6 +134,7 @@ def archives_date(request, year, month):
     return pagination(request,posts)
 
 def archives_category(request, category_name):
+    record_visit(request)
     try:
         login_user = request.user
         if str(login_user) == 'AnonymousUser':
@@ -143,6 +145,7 @@ def archives_category(request, category_name):
     return pagination(request,posts)
 
 def archives_tag(request, tag_name):
+    record_visit(request)
     try:
         login_user = request.user
         if str(login_user) == 'AnonymousUser':
@@ -167,9 +170,11 @@ def pagination(request,filter_posts):
     return render(request, 'blog/post_list.html', {'posts':part_posts})
 
 def about_site_me(request):
+    record_visit(request)
     return render(request, 'blog/about.html')
 
 def about_me(request):
+    record_visit(request)
     import jieba
     import wordcloud
     import os
@@ -190,9 +195,11 @@ def about_me(request):
     return render(request, 'blog/about_me.html')
 
 def about_site(request):
+    record_visit(request)
     return render(request, 'blog/about_site.html')
 
 def do_login(request):
+    record_visit(request)
     if request.method == 'GET':
         request.session['login_from'] = request.META.get('HTTP_REFERER', '/')
         request.session['login_error'] = False
@@ -217,6 +224,7 @@ def do_login(request):
             return render(request,'blog/login.html',{'username':userName,'password':userPassword})
 
 def do_logout(request):
+    record_visit(request)
     d_logout(request)
     return redirect(reverse('post_list'))
 
@@ -270,3 +278,44 @@ def show_view_record(request):
 
     view_string = thead_string + tbody_string
     return HttpResponse('{"status":"success", "view_string":"%s"}' % view_string, content_type='application/json')
+
+
+def record_visit(request):
+    try:
+        current_ip = GeoIpHelper.get_ip()
+        ip_ping = True
+    except:
+        ip_ping = False
+        if 'HTTP_X_FORWARDED_FOR' in request.META:
+            current_ip = request.META.get('HTTP_X_FORWARDED_FOR')
+        else:
+            current_ip = request.META.get('REMOTE_ADDR')
+    current_agent = request.META["HTTP_USER_AGENT"]
+    current_page = request.get_full_path()
+    today = timezone.now()
+
+    visitor_exist = Visitor.objects.filter(ip=str(current_ip), page=current_page, record_date__range=(today.date(), today.date() + timezone.timedelta(days=1)))
+    if visitor_exist:
+        current_visitor = visitor_exist[0]
+        current_visitor.increase_views()
+    else:
+        current_visitor = Visitor()
+        current_visitor.ip = current_ip
+        ip_exist = Visitor.objects.filter(ip=str(current_ip)).reverse()
+        if ip_exist:
+            temp_visitor = ip_exist[0]
+            if temp_visitor.region:
+                current_visitor.region = temp_visitor.region
+        else:
+            if ip_ping and current_ip not in ["127.0.0.1", "localhost"]:
+                try:
+                    temp_region = GeoIpHelper.get_location(current_ip)
+                    current_visitor.region = ",".join([temp_region["country"], temp_region["city"]])
+                except [KeyError, ValueError]:
+                    current_visitor.region = GeoIpHelper.get_location(current_ip)
+        current_visitor.agent = current_agent
+        current_visitor.page = current_page
+        current_visitor.record_date = today
+        current_visitor.update_date = today
+        current_visitor.views = 1
+        current_visitor.save()
