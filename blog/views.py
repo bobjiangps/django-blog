@@ -10,6 +10,14 @@ from django.contrib.auth import authenticate, login as d_login, logout as d_logo
 
 
 def top_viewed_posts(request, amount=3):
+    # # visitor agent
+    # print(request.META["HTTP_USER_AGENT"])
+    # # visitor ip
+    # if 'HTTP_X_FORWARDED_FOR' in request.META:
+    #     print(request.META.get('HTTP_X_FORWARDED_FOR'))
+    # else:
+    #     print(request.META.get('REMOTE_ADDR'))
+    ########
     try:
         login_user = request.user
         if str(login_user) == 'AnonymousUser':
@@ -186,7 +194,7 @@ def about_site(request):
 
 def do_login(request):
     if request.method == 'GET':
-        request.session['login_from'] = request.META.get('HTTP_REFERER', '/') 
+        request.session['login_from'] = request.META.get('HTTP_REFERER', '/')
         request.session['login_error'] = False
         user = request.user
         if user.is_authenticated:
