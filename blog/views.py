@@ -281,15 +281,10 @@ def show_view_record(request):
 
 
 def record_visit(request):
-    try:
-        current_ip = GeoIpHelper.get_ip()
-        ip_ping = True
-    except:
-        ip_ping = False
-        if 'HTTP_X_FORWARDED_FOR' in request.META:
-            current_ip = request.META.get('HTTP_X_FORWARDED_FOR')
-        else:
-            current_ip = request.META.get('REMOTE_ADDR')
+    if 'HTTP_X_FORWARDED_FOR' in request.META:
+        current_ip = request.META.get('HTTP_X_FORWARDED_FOR')
+    else:
+        current_ip = request.META.get('REMOTE_ADDR')
     current_agent = request.META["HTTP_USER_AGENT"]
     current_page = request.get_full_path()
     today = timezone.now()
@@ -307,12 +302,15 @@ def record_visit(request):
             if temp_visitor.region:
                 current_visitor.region = temp_visitor.region
         else:
-            if ip_ping and current_ip not in ["127.0.0.1", "localhost"]:
+            if current_ip not in ["127.0.0.1", "localhost"]:
                 try:
                     temp_region = GeoIpHelper.get_location(current_ip)
-                    current_visitor.region = ",".join([temp_region["country"], temp_region["city"]])
-                except [KeyError, ValueError]:
-                    current_visitor.region = GeoIpHelper.get_location(current_ip)
+                    try:
+                        current_visitor.region = ",".join([temp_region["country"], temp_region["city"]])
+                    except [KeyError, ValueError]:
+                        current_visitor.region = temp_region
+                except Exception as e:
+                    print("error when get location from ipify, message: %s" % str(e))
         current_visitor.agent = current_agent
         current_visitor.page = current_page
         current_visitor.record_date = today
