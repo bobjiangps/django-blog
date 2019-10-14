@@ -53,3 +53,8 @@ def record_visit(request):
             current_visitor.save()
     except Exception as e:
         print("get error when record visitor, message: %s" % str(e))
+        with open("./record_visitor_error.txt", "a") as f:
+            f.write(str(timezone.now()))
+            f.write("\n")
+            f.write(str(e))
+            f.write("\n\n")
