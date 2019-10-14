@@ -62,6 +62,7 @@ class Visitor(models.Model):
     region = models.CharField(max_length=1000, blank=True, null=True)
     agent = models.CharField(max_length=1000)
     page = models.CharField(max_length=100)
+    referer = models.CharField(max_length=500, blank=True, null=True)
     views = models.PositiveIntegerField(default=0)
     record_date = models.DateTimeField(default=timezone.now)
     update_date = models.DateTimeField(default=timezone.now)

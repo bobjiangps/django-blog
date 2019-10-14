@@ -47,6 +47,11 @@ def record_visit(request):
                         print("error when get location from ipify, message: %s" % str(e))
             current_visitor.agent = current_agent
             current_visitor.page = current_page
+            if 'HTTP_REFERER' in request.META.keys():
+                temp_referer = request.META["HTTP_REFERER"]
+                temp_host = request.get_host()
+                if temp_host not in temp_referer.split("/"):
+                    current_visitor.referer = temp_referer
             current_visitor.record_date = today
             current_visitor.update_date = today
             current_visitor.views = 1
