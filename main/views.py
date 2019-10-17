@@ -15,7 +15,10 @@ def record_visit(request):
             current_ip = request.META.get('HTTP_X_FORWARDED_FOR')
         else:
             current_ip = request.META.get('REMOTE_ADDR')
-        current_agent = request.META["HTTP_USER_AGENT"]
+        if "HTTP_USER_AGENT" in request.META:
+            current_agent = request.META["HTTP_USER_AGENT"]
+        else:
+            current_agent = "no agent key in request"
         current_page = request.get_full_path()
         today = timezone.now()
 
