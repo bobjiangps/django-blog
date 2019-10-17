@@ -309,11 +309,7 @@ def record_visit(request):
             if generate_new_location:
                 if current_ip not in ["127.0.0.1", "localhost"]:
                     try:
-                        temp_region = GeoIpHelper.get_location(current_ip)
-                        try:
-                            current_visitor.region = ",".join([temp_region["country"], temp_region["city"]])
-                        except [KeyError, ValueError]:
-                            current_visitor.region = temp_region
+                        current_visitor.region = GeoIpHelper.get_location(current_ip)
                     except Exception as e:
                         print("error when get location from ipify, message: %s" % str(e))
             current_visitor.agent = current_agent
