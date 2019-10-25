@@ -175,6 +175,10 @@ def about_site_me(request):
 
 def about_me(request):
     record_visit(request)
+    update_wordcloud()
+    return render(request, 'blog/about_me.html')
+
+def update_wordcloud():
     import jieba
     import wordcloud
     import os
@@ -192,7 +196,6 @@ def about_me(request):
     w = wordcloud.WordCloud(font_path = './media/wordcloud/simhei.ttf',width = 1000,height = 700,background_color = 'white')
     w.generate(strings)
     w.to_file(wc_file_name)
-    return render(request, 'blog/about_me.html')
 
 def about_site(request):
     record_visit(request)
