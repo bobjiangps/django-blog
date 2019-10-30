@@ -15,43 +15,54 @@
         </select>
         <p style="margin: 10px;"><a href="{% url 'create_new' %}"><i class="fa fa-plus" aria-hidden="true">新增文章</i></a></p>
         {% endif %}
-      {% for post in posts %}
-        {% if post.visiable.name != 'private' or user.is_authenticated %}
-        <div class="post-preview">
-          <p class="post-meta">
-              {{ post.created_date|date }} - 由{{post.author}} &ensp;&ensp;
-              <span class='comment-count'>{{ post.comment_set.count }} 评论</span> &ensp;&ensp;
-              <span class='view-count'>{{ post.views }} 阅读</span>
-          </p>
-          {% if post.visiable.name == 'private' %}
-            <h3 class="post-title"><a href="{% url 'post_detail' post.id %}">[private] - {{ post.title }}</a></h3>
-          {% else %}
-            <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
-          {% endif %}
-          <h6 class="post-subtitle">{{ post.text|safe|truncatechars:120}}</h6>
-          <div class="read-more" style="padding:0 0 20px 0;">
-              <!--<a href="{{ post.get_absolute_url }}" class="btn btn-primary">查看更多&rarr;</a>-->
-              <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary">继续阅读</a>
+        {% for post in posts %}
+          {% if post.visiable.name != 'private' or user.is_authenticated %}
+          <div class="post-preview">
+            <p class="post-meta">
+                {{ post.created_date|date }} - 由{{post.author}} &ensp;&ensp;
+                <span class='comment-count'>{{ post.comment_set.count }} 评论</span> &ensp;&ensp;
+                <span class='view-count'>{{ post.views }} 阅读</span>
+            </p>
+            {% if post.visiable.name == 'private' %}
+              <h3 class="post-title"><a href="{% url 'post_detail' post.id %}">[private] - {{ post.title }}</a></h3>
+            {% else %}
+              <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+            {% endif %}
+            <h6 class="post-subtitle">{{ post.text|safe|truncatechars:120}}</h6>
+            <div class="read-more" style="padding:0 0 20px 0;">
+                <!--<a href="{{ post.get_absolute_url }}" class="btn btn-primary">查看更多&rarr;</a>-->
+                <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary">继续阅读</a>
+            </div>
+              {% if post.category %}
+                  <div class="category">
+                    <img src="/media/icons/icons8-category-40px-1.png" width="20" height="20">
+                    <span class="badge badge-success"><a href="{% url 'archives_category' post.category.name %}" style="color: white; text-decoration: none;">{{ post.category.name }}</a></span>
+                  </div>
+              {% endif %}
+              {% if post.tag.all %}
+                  <div class="tag"><img src="/media/icons/icons8-tag-64px-1.png" width="20" height="20">
+                  {% for t in post.tag.all %}
+                      <span class="badge badge-info"><a href="{% url 'archives_tag' t.name %}" style="color: white; text-decoration: none;">{{ t.name }}</a></span>
+                  {% endfor %}
+                  </div>
+              {% endif %}
           </div>
-            {% if post.category %}
-                <div class="category">
-                  <img src="/media/icons/icons8-category-40px-1.png" width="20" height="20">
-                  <span class="badge badge-success"><a href="{% url 'archives_category' post.category.name %}" style="color: white; text-decoration: none;">{{ post.category.name }}</a></span>
-                </div>
-            {% endif %}
-            {% if post.tag.all %}
-                <div class="tag"><img src="/media/icons/icons8-tag-64px-1.png" width="20" height="20">
-                {% for t in post.tag.all %}
-                    <span class="badge badge-info"><a href="{% url 'archives_tag' t.name %}" style="color: white; text-decoration: none;">{{ t.name }}</a></span>
-                {% endfor %}
-                </div>
-            {% endif %}
-        </div>
-        <hr>
-        {% endif %}
-      {% empty %}
-        <h1>您搜索的条件没有数据</h1>
-      {% endfor %}
+          <hr>
+          {% endif %}
+        {% empty %}
+          <h1>您搜索的条件没有数据</h1>
+        {% endfor %}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- zhanshi-20191030 -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-9496515710476197"
+             data-ad-slot="6798025641"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
         <!-- Page navigation -->
         <ul class='pagination justify-content-center' style="line-height:40px;">
             {% if posts.has_previous %}
