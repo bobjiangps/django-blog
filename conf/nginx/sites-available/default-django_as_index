@@ -81,6 +81,10 @@ server {
         location ~ ^/(sitemap.xml) {
             root /home/bob/djproject/bobjiang;
         }
+
+        location ~ ^/(ads.txt) {
+            root /home/bob/djproject/bobjiang;
+        }
         
         location ~ .php$ {
             fastcgi_pass   unix:/run/php/php7.0-fpm.sock;
