@@ -11,20 +11,21 @@
 - highlight the search keyword in search result - DONE
 - make it beautiful
 - change to bootstrap4.0 or higher - DONE
-- add new header and footer
+- add new header and footer - Done
 - show popover to say "already comment", auto disappear
 - view count on post - DONE
-- visitor statistic data and chart - django-tracking-analyzer or django-tracking2
+- visitor statistic data and chart - django-tracking-analyzer or django-tracking2 - now create my own visitor record in db, will show by echarts or highchart
 - http turn to https - DONE, but only free for 1 year
 - add sign in and sign out - DONE
 - add 404, 500 page etc
 - set some post to top
 - sort by view count, by tag, by category
 - show different good sentence when open page or refresh
-- change the top pictures automatically
+- change the top pictures automatically - Done
 - support MarkDown to edit blog post
 - add widget to show the cpu/memory, etc
 - separate front-end and backend (maybe vue or maybe django rest)
 - add widget to show category with wordcloud
 - encryption for sensitive data such as db password and email password
-- if someone use @ to at somebody, send mail to remind him. if get new comment in any post, send mail to remind me
+- if someone use @ to at somebody, send mail to remind him. if get new comment in any post, send mail to remind me - Done
+- Sitemap
