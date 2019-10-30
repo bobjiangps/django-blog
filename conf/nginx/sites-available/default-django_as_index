@@ -77,6 +77,10 @@ server {
         location /favicon.ico {
             root html;
         }
+
+        location ~ ^/(sitemap.xml) {
+            root /home/bob/djproject/bobjiang;
+        }
         
         location ~ .php$ {
             fastcgi_pass   unix:/run/php/php7.0-fpm.sock;
