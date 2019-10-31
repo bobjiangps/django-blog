@@ -28,4 +28,5 @@
 - add widget to show category with wordcloud
 - encryption for sensitive data such as db password and email password
 - if someone use @ to at somebody, send mail to remind him. if get new comment in any post, send mail to remind me - Done
-- Sitemap
+- Sitemap - Done
+- tools: ip, location, agent, windows size, etc
