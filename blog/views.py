@@ -6,6 +6,7 @@ from .models import Post, Visitor
 from .forms import PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login as d_login, logout as d_logout
+from django.db import connection
 #import markdown
 from utils.geoip_helper import GeoIpHelper
 
@@ -21,7 +22,22 @@ def top_viewed_posts(request, amount=3):
     except:
         posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('views').reverse()
         new_posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('published_date').reverse()
-    return render(request, 'blog/main.html', {'posts': posts[:amount], 'new_posts': new_posts[:amount]})
+
+    top_viewed_tag_sql = """
+        SELECT sum(bp.views) as sum_view, bt.name FROM `blog_post` as bp 
+        left join `blog_visiable` as bv on bp.visiable_id = bv.id 
+        left join `blog_post_tag` as bpt on bpt.post_id = bp.id 
+        left join `blog_tag` as bt on bpt.tag_id = bt.id 
+        where bv.name = 'public' 
+        group by bpt.tag_id 
+        order by sum_view desc 
+        limit 6 
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(top_viewed_tag_sql)
+        rows = cursor.fetchall()
+        top_viewed_tags = [r[1] for r in rows]
+    return render(request, 'blog/main.html', {'posts': posts[:amount], 'new_posts': new_posts[:amount], 'top_tags': top_viewed_tags})
 
 
 def post_list(request):
@@ -175,7 +191,7 @@ def about_site_me(request):
 
 def about_me(request):
     record_visit(request)
-    update_wordcloud()
+    # update_wordcloud()
     return render(request, 'blog/about_me.html')
 
 def update_wordcloud():

@@ -108,6 +108,17 @@
       </div>
       <span class="separator"><a href="{% url 'post_list' %}">所有文章 ></a></span>
       <span class="separator">&ensp;</span>
+      <span class="separator">
+          <i class="fas fa-tags"></i> 访问量最多的文章标签
+      </span>
+      <hr width="60%" style="border:2px solid #BDB76B;"/>
+     <div class="row">
+          {% for top_tag in top_tags %}
+          <div class="col-lg-4 mb-4" align="center">
+              <span class="badge badge-info" style="font-size: 100%;"><a href="{% url 'archives_tag' top_tag %}" style="color: white; text-decoration: none;">{{ top_tag }}</a></span>
+          </div>
+          {% endfor %}
+      </div>
     </div>
 <script type="text/javascript">
     document.title = '首页 - ' + document.title;
