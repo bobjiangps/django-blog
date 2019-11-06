@@ -7,21 +7,21 @@ from .forms import PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login as d_login, logout as d_logout
 from django.db import connection
+from django.contrib.auth.models import User
 #import markdown
 from utils.geoip_helper import GeoIpHelper
 
 
 def top_viewed_posts(request, amount=3):
     record_visit(request)
-    try:
-        login_user = request.user
-        if str(login_user) == 'AnonymousUser':
-            raise
-        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
-        new_posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-    except:
+    users = [u.username for u in User.objects.all()]
+    login_user = request.user.username
+    if login_user not in users:
         posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('views').reverse()
         new_posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('published_date').reverse()
+    else:
+        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
+        new_posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
 
     top_viewed_tag_sql = """
         SELECT sum(bp.views) as sum_view, bt.name FROM `blog_post` as bp 
@@ -42,39 +42,40 @@ def top_viewed_posts(request, amount=3):
 
 def post_list(request):
     record_visit(request)
-    try:
-        login_user = request.user
-        if str(login_user) == 'AnonymousUser':
-            raise
-        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-    except:
+    users = [u.username for u in User.objects.all()]
+    login_user = request.user.username
+    if login_user not in users:
         posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('published_date').reverse()
+    else:
+        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     return pagination(request,posts)
+
 
 def post_list_sort(request, sort_type):
     record_visit(request)
-    try:
-        login_user = request.user
-        if str(login_user) == 'AnonymousUser':
-            raise
-        if sort_type == 'date':
-            posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-        elif sort_type == 'view':
-            posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
-    except:
+    users = [u.username for u in User.objects.all()]
+    login_user = request.user.username
+    if login_user not in users:
         if sort_type == 'date':
             posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('published_date').reverse()
         elif sort_type == 'view':
             posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('views').reverse()
+    else:
+        if sort_type == 'date':
+            posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+        elif sort_type == 'view':
+            posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
     return pagination(request,posts)
+
 
 def post_detail(request, post_id):
     record_visit(request)
     post = get_object_or_404(Post, pk=post_id)
     post.comments = post.comment_set.all().filter().order_by('-created_time')
     post.increase_views()
-    #post.text = markdown.markdown(post.text, extensions=['markdown.extensions.extra','markdown.extensions.codehilite','markdown.extensions.toc'])
+    # post.text = markdown.markdown(post.text, extensions=['markdown.extensions.extra','markdown.extensions.codehilite','markdown.extensions.toc'])
     return render(request, 'blog/post_detail.html', {'post': post})
+
 
 def post_edit(request, post_id):
     record_visit(request)
@@ -89,8 +90,14 @@ def post_edit(request, post_id):
             post.save()
             return redirect(post_detail, post_id=post.id)
     else:
-        form = PostForm(instance=post)
+        users = [u.username for u in User.objects.all()]
+        login_user = request.user.username
+        if login_user not in users:
+            return render(request, 'blog/unauthenticated.html')
+        else:
+            form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
 
 def create_new(request):
     record_visit(request)
@@ -101,33 +108,38 @@ def create_new(request):
             try:
                 post.author = request.user
             except ValueError:
-                return HttpResponse('<h1>请先登陆</h1>')
+                return HttpResponse('<h1>please login first</h1>')
             post.published_date = timezone.now()
             post.save()
             return redirect(post_detail, post_id=post.id)
     else:
-        form = PostForm()
+        users = [u.username for u in User.objects.all()]
+        login_user = request.user.username
+        if login_user not in users:
+            return render(request, 'blog/unauthenticated.html')
+        else:
+            form = PostForm()
     return render(request, 'blog/create_new.html', {'form': form})
+
 
 def archives(request):
     record_visit(request)
     all_category = []
     all_tag = []
-    try:
-        login_user = request.user
-        if str(login_user) == 'AnonymousUser':
-            raise
-        date_list = Post.objects.dates('published_date', 'month', order='DESC')
-        posts = Post.objects.all()
+    users = [u.username for u in User.objects.all()]
+    login_user = request.user.username
+    if login_user not in users:
+        date_list = Post.objects.filter(visiable__name='public').dates('published_date', 'month', order='DESC')
+        posts = Post.objects.filter(visiable__name='public')
         for p in posts:
             if p.category.name not in all_category:
                 all_category.append(p.category.name)
             for t in p.tag.all():
                 if t.name not in all_tag:
                     all_tag.append(t.name)
-    except:
-        date_list = Post.objects.filter(visiable__name='public').dates('published_date', 'month', order='DESC')
-        posts = Post.objects.filter(visiable__name='public')
+    else:
+        date_list = Post.objects.dates('published_date', 'month', order='DESC')
+        posts = Post.objects.all()
         for p in posts:
             if p.category.name not in all_category:
                 all_category.append(p.category.name)
@@ -138,61 +150,65 @@ def archives(request):
     all_tag.sort()
     return render(request, 'blog/archives.html', context={'date_list': date_list, 'category_list': all_category, 'tag_list': all_tag})
 
+
 def archives_date(request, year, month):
     record_visit(request)
-    try:
-        login_user = request.user
-        if str(login_user) == 'AnonymousUser':
-            raise
-        posts = Post.objects.filter(published_date__year=year,published_date__month=month).order_by('published_date').reverse()
-    except:
-        posts = Post.objects.filter(visiable__name='public').filter(published_date__year=year,published_date__month=month).order_by('published_date').reverse()
+    users = [u.username for u in User.objects.all()]
+    login_user = request.user.username
+    if login_user not in users:
+        posts = Post.objects.filter(visiable__name='public').filter(published_date__year=year, published_date__month=month).order_by('published_date').reverse()
+    else:
+        posts = Post.objects.filter(published_date__year=year, published_date__month=month).order_by('published_date').reverse()
     return pagination(request,posts)
+
 
 def archives_category(request, category_name):
     record_visit(request)
-    try:
-        login_user = request.user
-        if str(login_user) == 'AnonymousUser':
-            raise
-        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('published_date').reverse()
-    except:
+    users = [u.username for u in User.objects.all()]
+    login_user = request.user.username
+    if login_user not in users:
         posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('published_date').reverse()
+    else:
+        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('published_date').reverse()
     return pagination(request,posts)
+
 
 def archives_tag(request, tag_name):
     record_visit(request)
-    try:
-        login_user = request.user
-        if str(login_user) == 'AnonymousUser':
-            raise
-        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('published_date').reverse()
-    except:
+    users = [u.username for u in User.objects.all()]
+    login_user = request.user.username
+    if login_user not in users:
         posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('published_date').reverse()
+    else:
+        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('published_date').reverse()
     return pagination(request,posts)
+
 
 def pagination(request,filter_posts):
     paginator = Paginator(filter_posts, 5)
-    page = request.GET.get('page',1)
+    page = request.GET.get('page', 1)
     try:
         part_posts = paginator.page(page)
     except PageNotAnInteger:
-        #if page is not an integer, deliver first page.
+        # if page is not an integer, deliver first page.
         part_posts = paginator.page(1)
     except EmptyPage:
-        #if page is out of range, deliver last page of results
+        # if page is out of range, deliver last page of results
         part_posts = paginator.page(paginator.num_pages)
-    #return render(request, 'blog/post_list.html', {'posts':posts})
+    # return render(request, 'blog/post_list.html', {'posts':posts})
     return render(request, 'blog/post_list.html', {'posts':part_posts})
+
 
 def about_site_me(request):
     record_visit(request)
     return render(request, 'blog/about.html')
 
+
 def about_me(request):
     record_visit(request)
     # update_wordcloud()
     return render(request, 'blog/about_me.html')
+
 
 def update_wordcloud():
     import jieba
@@ -213,9 +229,11 @@ def update_wordcloud():
     w.generate(strings)
     w.to_file(wc_file_name)
 
+
 def about_site(request):
     record_visit(request)
     return render(request, 'blog/about_site.html')
+
 
 def do_login(request):
     record_visit(request)
@@ -242,16 +260,18 @@ def do_login(request):
             request.session['login_error'] = "错误的用户名或密码"
             return render(request,'blog/login.html',{'username':userName,'password':userPassword})
 
+
 def do_logout(request):
     record_visit(request)
     d_logout(request)
     return redirect(reverse('post_list'))
 
+
 def show_view_record(request):
     days = request.POST.get('day_period')
-    #view_string = "<thead><tr><th scope='col'>#</th><th scope='col'>name1</th><th scope='col'>name2</th><th scope='col'>name3</th></tr></thead>"
+    # view_string = "<thead><tr><th scope='col'>#</th><th scope='col'>name1</th><th scope='col'>name2</th><th scope='col'>name3</th></tr></thead>"
     import codecs
-    with codecs.open("/home/test/record_view/count_record_views.csv",encoding="utf8") as f:
+    with codecs.open("/home/test/record_view/count_record_views.csv", encoding="utf8") as f:
         data = f.readlines()
 
     seq_sort = []
