@@ -219,6 +219,12 @@
                   var words = search_word.split(" ").join("+");
                   window.location.href = diary_search_prefix + words;
               }
+              else if ($('#site-select').children('option:selected').val() === "note") {
+                  var search_word = $('#search-elements input').val();
+                  if (search_word === "") {
+                      $('#searchform').attr("action", "/bobjiang/post-list");
+                  }
+              }
           }
       });
 
@@ -228,6 +234,13 @@
           var search_word = $('#search-elements input').val();
           var words = search_word.split(" ").join("+");
           $('#search-elements a').attr("href", diary_search_prefix + words);
+      });
+
+      $('#search-elements button').click(function(){
+          var search_word = $('#search-elements input').val();
+          if (search_word === "") {
+              $('#searchform').attr("action", "/bobjiang/post-list");
+          }
       });
 
     })
