@@ -81,7 +81,7 @@ footer .my-info {
     padding-top: 2rem;
     padding-bottom: 3rem;
     position: absolute;
-    bottom: 10px;
+    bottom: 5px;
     width: 100%;
   }
 }
@@ -108,12 +108,12 @@ footer .my-info {
 @media only screen and (min-width: 768px) {
   #search-elements {
     margin: 0px auto;
-    width: 80%;
+    width: 100%;
   }
 }
 
 @media only screen and (min-width: 768px) {
   #search-elements input {
-    width: 65%;
+    width: 50%;
   }
 }
