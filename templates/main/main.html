@@ -31,7 +31,9 @@
         <div class="col-lg-12 col-md-12 mx-auto">
           <div class="site-heading">
             <h1>BYINCD</h1>
+            {% if device_type != 'mobile' %}
             <span class="subheading">在成都的工作和生活</span>
+            {% endif %}
             <section id="search" align="center">
               <hr width="40%" style="border:2px solid #F0E68C;"/>
               <form class="form-inline my-2 my-lg-0" role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
