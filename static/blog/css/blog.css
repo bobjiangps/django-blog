@@ -86,3 +86,8 @@ pre {
 #beian a {
   color: gray;
 }
+
+#visit_stat {
+  height: 400px;
+  margin: auto;
+}

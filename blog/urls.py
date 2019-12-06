@@ -7,6 +7,7 @@ urlpatterns = [
     #path('about_site_me/', views.about_site_me, name='about_site_me'),
     path('about-me/', views.about_me, name='about_me'),
     path('about-site/', views.about_site, name='about_site'),
+    path('about-visitor/', views.about_visitor, name='about_visitor'),
     path('login/', views.do_login, name='do_login'),
     path('logout/', views.do_logout, name='do_logout'),
     path('sort-by-<str:sort_type>/', views.post_list_sort, name='post_list_sort'),
