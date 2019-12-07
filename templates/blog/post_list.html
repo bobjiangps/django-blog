@@ -2,17 +2,21 @@
 
 {% block content %}
   <!-- post list -->
-  <div class="container" style="margin-top: 40px;">
+  <div class="container" style="margin-top: 20px;">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
+        <select class="custom-select" id="sortarticle" style="width:160px; margin: 0px 0px 10px 0px;">
+          <option value="view count">按阅读量排序</option>
+          <option value="publish date">按发布日期排序</option>
+        </select>
         {% if user.is_authenticated %}
         <!--<label for="sortarticle">文章排序</label>
         <span class="badge badge-primary" style="font-size: 15px;">文章排序</span>-->
-        <select autofocus class="form-control" id="sortarticle" style="width:130px;">
+        <!--<select autofocus class="form-control" id="sortarticle" style="width:130px;">
           <option value="select type">文章排序</option>
           <option value="publish date">按发布日期</option>
           <option value="view count">按阅读量</option>
-        </select>
+        </select>-->
         <p style="margin: 10px;"><a href="{% url 'create_new' %}"><i class="fa fa-plus" aria-hidden="true">新增文章</i></a></p>
         {% endif %}
         {% for post in posts %}

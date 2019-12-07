@@ -252,6 +252,13 @@
             } 
         });
 
+        if (location.pathname.indexOf("/sort-by-date") > 0) {
+            $("#sortarticle").find("option[value='publish date']").attr("selected", true);
+        }
+        else if (location.pathname.indexOf("/sort-by-view") > 0) {
+            $("#sortarticle").find("option[value='view count']").attr("selected", true);
+        }
+
         $('#show-view-record').click(function(){
             var table = document.getElementById("view-count-table");
             table.innerHTML = "<thead><tr><th scope='col'>#</th></tr></thead>"
