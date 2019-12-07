@@ -3,7 +3,7 @@
 {% block content %}
     {% if post.visiable.name != 'private' or user.is_authenticated %}
     {% if device_type != 'mobile' %}
-    <div class="post_detail" style="background-color: #FFF; padding: 0px 30px 10px; margin: 50px; box-shadow: darkgrey 10px 10px 20px 5px;">
+    <div class="post_detail" style="background-color: #FFF; padding: 0px 30px 10px; margin: 30px 50px 50px; box-shadow: darkgrey 10px 10px 20px 5px;">
     {% else %}
     <div class="post_detail" style="background-color: #FFF; padding: 0px 30px 10px; box-shadow: darkgrey 10px 10px 20px 5px;">
     {% endif %}
