@@ -88,7 +88,7 @@
             <div class="col-lg-8 col-md-10 mx-auto">
               <div class="site-heading">
                 <h1>Bob's Blog</h1>
-                <span class="subheading">记录一些工作中的经验和感受</span>
+                <span class="subheading">记录工作中的经验和感受</span>
                 <section id="search" align="center">
                   <hr width="30%" style="border:2px solid #F0E68C;"/>
                   <form class="form-inline my-2 my-lg-0" role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
@@ -291,7 +291,8 @@
             $(".masthead").css("background-image", "url('/media/background/blogging-coffee-copywriting-34601-compress.jpg')");
         }
 
-        if (location.pathname.indexOf("/bobjiang") >= 0) {
+        //if (location.pathname.indexOf("/bobjiang") >= 0) {
+        if (location.pathname.indexOf("/byincd") >= 0) {
             $("#beian").css("display", "none");
         }
         else {
