@@ -98,6 +98,12 @@
         tag = location.pathname.substring(1, location.pathname.length-1).split("/").pop();
         document.title = '标签 - ' + decodeURI(tag) + ' - ' + document.title;
     }
+    else if (location.pathname.indexOf("/sort-by-view") >= 0) {
+        document.title = '文章排序 - 阅读量 - ' + document.title;
+    }
+    else if (location.pathname.indexOf("/sort-by-date") >= 0) {
+        document.title = '文章排序 - 发布日期 - ' + document.title;
+    }
     else {
         date_array = location.pathname.substring(1, location.pathname.length-1).split("/");
         month = date_array.pop();
