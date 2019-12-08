@@ -9,9 +9,11 @@
       <li class="nav-item">
         <a class="nav-link" href="/bobjiang/about-site/">关于本站</a>
       </li>
+      {% if user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="/bobjiang/about-visitor/">访问统计</a>
       </li>
+      {% endif %}
     </ul>
     {% block aboutcontent %}
     {% endblock %}

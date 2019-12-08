@@ -1,6 +1,7 @@
 {% extends 'blog/about.html' %}
 
 {% block aboutcontent %}
+  {% if user.is_authenticated %}
     <h3 style="height:10px;"></h3>
     <span class='my-text'><h4>访问统计:</h4></span><br>
     <div id="visit_stat">
@@ -40,6 +41,12 @@
         myChart.setOption(option);
     </script>
     <script type="text/javascript">
-        document.title = '关于本站 - ' + document.title;
+        document.title = '关于访问 - ' + document.title;
     </script>
+  {% else %}
+    <h1 style="padding: 5%;">Please login first to view this page</h1>
+    <script type="text/javascript">
+        document.title = 'unauthenticated - ' + document.title;
+    </script>
+  {% endif %}
 {% endblock %}
