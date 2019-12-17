@@ -158,9 +158,9 @@ def archives_date(request, year, month):
     users = [u.username for u in User.objects.all()]
     login_user = request.user.username
     if login_user not in users:
-        posts = Post.objects.filter(visiable__name='public').filter(published_date__year=year, published_date__month=month).order_by('published_date').reverse()
+        posts = Post.objects.filter(visiable__name='public').filter(published_date__year=year, published_date__month=month).order_by('views').reverse()
     else:
-        posts = Post.objects.filter(published_date__year=year, published_date__month=month).order_by('published_date').reverse()
+        posts = Post.objects.filter(published_date__year=year, published_date__month=month).order_by('views').reverse()
     return pagination(request,posts)
 
 
@@ -169,9 +169,9 @@ def archives_category(request, category_name):
     users = [u.username for u in User.objects.all()]
     login_user = request.user.username
     if login_user not in users:
-        posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('published_date').reverse()
+        posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('views').reverse()
     else:
-        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('published_date').reverse()
+        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('views').reverse()
     return pagination(request,posts)
 
 
@@ -180,9 +180,9 @@ def archives_tag(request, tag_name):
     users = [u.username for u in User.objects.all()]
     login_user = request.user.username
     if login_user not in users:
-        posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('published_date').reverse()
+        posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('views').reverse()
     else:
-        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('published_date').reverse()
+        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('views').reverse()
     return pagination(request,posts)
 
 
