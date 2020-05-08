@@ -10,7 +10,7 @@ def tool_main_page(request):
 
 
 def tool_query(request):
-    allowed_id = ["48090730", "878066172"]
+    allowed_id = ["48090730", "878066172", "Ghost-13544325255"]
     request.session['validate_error'] = False
     if request.method == 'GET':
         return render(request, 'tool/tool_query.html')

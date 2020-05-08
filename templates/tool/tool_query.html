@@ -1,0 +1,23 @@
+{% extends 'tool/base.html' %}
+
+{% block content %}
+<div class="row" style="margin: 20px;">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="search-container" style="margin: 0px 20px; padding: 10px;">
+            <form action="{% url 'tool_query' %}" method="post">
+                {% csrf_token %}
+            <label for="keyword">关键词：</label><br>
+            <input id="keyword" type="text" name="key-word" value="{{ keyword }}" class='form-control mr-sm-2' required="true" placeholder='Keyword' style="width:200px;"><p></p>
+            <label for="identification">身份验证：</label><br>
+            <input id="identification" type="text" name="id-number" value="{{ identification }}" class='form-control mr-sm-2' required="true" placeholder='ID' style="width:200px;"><p></p>
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">搜索</button>
+            {% if request.session.validate_error %}
+            <p style="color:red">{{request.session.validate_error}}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<hr width="60%" style="border:2px solid #BDB76B;"/>
+{% endblock %}
