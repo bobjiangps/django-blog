@@ -28,13 +28,6 @@
             }
         </style>
         <script data-ad-client="ca-pub-9496515710476197" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
-        <!--<script>-->
-        <!--(adsbygoogle = window.adsbygoogle || []).push({-->
-        <!--google_ad_client: "pub-9496515710476197",-->
-        <!--enable_page_level_ads: true-->
-        <!--});-->
-        <!--</script>-->
         <script>
         var _hmt = _hmt || [];
         (function() {
@@ -46,330 +39,69 @@
         </script>
     </head>
     <body>
-      <!-- Navigation -->
-      <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container">
-          <!-- <a class="navbar-brand" href="{% url 'top_viewed_posts' %}">工作笔记</a> -->
-          <a class="navbar-brand" href="/">BYINCD</a>
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            目录
-            <i class="fa fa-bars"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'top_viewed_posts' %}">首页</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'post_list' %}">文章</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'archives' %}">分类</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'about_me' %}">关于</a>
-              </li>
-              <li class="nav-item">
-                {% if user.is_authenticated %}
-                <a class="nav-link" href="{% url 'do_logout' %}">注销</a>
-                {% else %}
-                <a class="nav-link" href="{% url 'do_login' %}">登录</a>
-                {% endif %}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      <!-- Page Header -->
-      <header class="masthead" style="background-image: url('/media/background/blogging-coffee-copywriting-34601-1024x683.jpg')">
-        <div class="overlay"></div>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-              <div class="site-heading">
-                <h1>Bob's Blog</h1>
-                <span class="subheading">工作笔记和日记游记</span>
-                <section id="search" align="center">
-                  <hr width="30%" style="border:2px solid #F0E68C;"/>
-                  <form class="form-inline my-2 my-lg-0" role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
-                    <div name="search-elements" style="margin: 0px auto;">
-                      <input class="form-control mr-sm-2" type="search" name="q" placeholder="请输入内容">
-                      <button class="btn btn-info my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true">搜索</i></button>
-                    </div>
-                  </form>
-                </section>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
 
       <div class="content container-fluid">
         {% block content %}
         {% endblock %}
       </div>
 
-      <hr>
-      <!-- Footer -->
-      <!--<footer>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-              <ul class="list-inline text-center">
-                <li class="list-inline-item">
-                  <a href="mailto:jbsv43@sina.com" title="jbsv43@sina.com">
-                    <span class="fa-stack fa-lg">
-                      <i class="fas fa-circle fa-stack-2x"></i>
-                      <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <p>jbsv43@sina.com</p>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <span class="fa-stack fa-lg" title="48090730">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-qq fa-stack-1x fa-inverse"></i>
-                  </span>
-                  <p>48090730</p>
-                </li>
-                <li class="list-inline-item">
-                  <span class="fa-stack fa-lg" title="成都">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
-                  </span>
-                  <p>成都</p>
-                </li>
-              </ul>
-              <p class="copyright text-muted">By &copy; BobJiang</p>
-            </div>
-          </div>
-        </div>
-      </footer>-->
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
+      {% if device_type != 'mobile' %}
       <div class="row">
-        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-          <ul class="list-inline mb-2">
-            <li class="list-inline-item">
-              <a>同站链接</a>
-            </li>
-            <li class="list-inline-item">:</li>
-            <li class="list-inline-item">
-              <a href="/diary">日记游记</a>
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-              <a href="/jupyter">在线练习代码</a>
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-          </ul>
-          <p class="text-muted mb-4 mb-lg-0">By &copy; BobJiang</p>
-        </div>
-        <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-          <ul class="list-inline mb-0">
-            <li class="list-inline-item mr-3">
-              <a title="jbsv43@sina.com">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
-                </span>
-                <p>jbsv43@sina.com</p>
-              </a>
-            </li>
-            <li class="list-inline-item mr-3">
-              <a title="48090730">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-qq fa-stack-1x fa-inverse"></i>
-                </span>
-                <p>48090730</p>
-              </a>
-            </li>
-            <li class="list-inline-item mr-3">
-              <a title="成都">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
-                </span>
-                <p>成都</p>
-              </a>
-            </li>
-            {% if device_type != 'mobile' %}
-            <li class="list-inline-item mr-3">
-              <a href="https://github.com/bobjiangps" title="https://github.com/bobjiangps" style="color: black;">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                </span>
-                <p>click me</p>
-              </a>
-            </li>
-            {% endif %}
-          </ul>
-        </div>
+          <div class="col-lg-4 md-4">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <!-- zhanshi-20191030 -->
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="ca-pub-9496515710476197"
+                   data-ad-slot="6798025641"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>
+                   (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+          </div>
+          <div class="col-lg-4 md-4">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <!-- zhanshi-20191030 -->
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="ca-pub-9496515710476197"
+                   data-ad-slot="6798025641"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>
+                   (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+          </div>
+          <div class="col-lg-4 md-4">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <!-- zhanshi-20191030 -->
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="ca-pub-9496515710476197"
+                   data-ad-slot="6798025641"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>
+                   (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+          </div>
       </div>
-    </div>
-    <span id="beian">
-        <a href="http://www.beian.miit.gov.cn/" target="_blank">蜀ICP备18017146号</a>
-        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51012202000327"><img src="https://www.byincd.com/diary/wp-content/uploads/2018/07/gonganbu.png"/>川公网安备 51012202000327号</a>
-    </span>
-  </footer>
+      {% else %}
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- zhanshi-20191030 -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-9496515710476197"
+           data-ad-slot="6798025641"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+      {% endif %}
 
-<script>$.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});</script>
-<script>
-    $(function () {
-        $(".navbar-nav").find("li").each(function () {
-            var a = $(this).find("a:first")[0];
-            if ($(a).attr("href") === location.pathname) {
-                $(a).addClass("active");
-            } else {
-                $(a).removeClass("active");
-            }
-        });
 
-        $(".nav-tabs").find("li").each(function () {
-            var a = $(this).find("a:first")[0];
-            if ($(a).attr("href") === location.pathname) {
-                $(a).addClass("active");
-            } else {
-                $(a).removeClass("active");
-            }
-        });
-
-        $('#sortarticle').change(function(){
-            var a = $(this).children('option:selected').val();
-            if (a !== "select type") {
-                if (a === "publish date") {
-                  window.location.href="/bobjiang/sort-by-date";
-                  $("#sortarticle").find("option[value='publish date']").attr("selected", true);
-                }
-                else if (a === "view count") {
-                  window.location.href="/bobjiang/sort-by-view";
-                  $("#sortarticle").find("option[value='view count']").attr("selected", true);
-                }
-            } 
-        });
-
-        if (location.pathname.indexOf("/sort-by-date") > 0) {
-            $("#sortarticle").find("option[value='publish date']").attr("selected", true);
-        }
-        else if (location.pathname.indexOf("/sort-by-view") > 0) {
-            $("#sortarticle").find("option[value='view count']").attr("selected", true);
-        }
-
-        $('#show-view-record').click(function(){
-            var table = document.getElementById("view-count-table");
-            table.innerHTML = "<thead><tr><th scope='col'>#</th></tr></thead>"
-            $.ajax({
-                type: "POST",
-                data: {day_period: 5},
-                url: "{% url 'show_view_record' %}",
-                cache: false,
-                dataType: "json",
-                success: function (result) {
-                    if (result.status == "success") {
-                    table.innerHTML = result.view_string;
-                    }
-                },
-                error: function () {
-                    table.innerHTML = "get something wrong. please check your ajax code";
-                }
-            });
-        });
-
-        if (location.pathname.indexOf("/about") > 0) {
-            $(".masthead").css("background-image", "url('/media/background/blue-sky-blue-water-bright-706484-1024x768.jpg')");
-        }
-        else if (location.pathname.indexOf("/login") > 0) {
-            $(".masthead").css("background-image", "url('/media/background/beautiful-blooming-bright-1098520-1024x769.jpg')");
-        }
-        else if (location.pathname.indexOf("/categor") > 0) {
-            $(".masthead").css("background-image", "url('/media/background/animal-avian-bird-875858-1024x683.jpg')");
-        }
-        else if (location.pathname.indexOf("/article") > 0) {
-            $(".masthead").css("background-image", "url('/media/background/background-board-book-733854-1024x684.jpg')");
-        }
-        else if (location.pathname.indexOf("/post-list") > 0) {
-            $(".masthead").css("background-image", "url('/media/background/memo-notebook-pen-472311-1024x768.jpg')");
-        }
-        else {
-            $(".masthead").css("background-image", "url('/media/background/blogging-coffee-copywriting-34601-1024x683.jpg')");
-        }
-
-        //if (location.pathname.indexOf("/bobjiang") >= 0) {
-        if (location.pathname.indexOf("/byincd") >= 0) {
-            $("#beian").css("display", "none");
-        }
-        else {
-            $("#beian").css("display", "block");
-        }
-
-        if (location.pathname == "/") {
-            document.title = 'BYINCD - BobJiang';
-        }
-
-    })
-</script>
-<script>
-    $(function () {
-        //show the navbar when the page is scrolled up
-        var MQL = 992;
-        //primary navigation slide-in effect
-        if ($(window).width() > MQL) {
-            var headerHeight = $('#mainNav').height();
-            $(window).on('scroll', {
-                previousTop: 0
-              },
-              function() {
-                  var currentTop = $(window).scrollTop();
-                  //check if user is scrolling up
-                  if (currentTop < this.previousTop) {
-                    //if scrolling up...
-                    if (currentTop > 0 && $('#mainNav').hasClass('is-fixed')) {
-                      $('#mainNav').addClass('is-visible');
-                    } else {
-                      $('#mainNav').removeClass('is-visible is-fixed');
-                    }
-                  } else if (currentTop > this.previousTop) {
-                     //if scrolling down...
-                     $('#mainNav').removeClass('is-visible');
-                    if (currentTop > headerHeight && !$('#mainNav').hasClass('is-fixed')) $('#mainNav').addClass('is-fixed');
-                    }
-                  this.previousTop = currentTop;
-              });
-        }
-    })
-</script>
-<script type="text/javascript">
-    setTimeout(() => {
-        L2Dwidget.init({
-            "pluginRootPath":"live2dw/",
-            "pluginJsPath":"lib/",
-            "pluginModelPath":"assets/",
-            "tagMode":false,
-            "log":false,
-            "model":{
-                "jsonPath":"/media/live2dw/assets/hijiki.model.json"
-            },
-            "display":{
-                {% if device_type != 'mobile' %}
-                "position":"right",
-                "width":150,
-                "height":300
-                {% else %}
-                "position":"right",
-                "width":75,
-                "height":150
-                {% endif %}
-            },
-            "mobile":{
-                "show":true
-            }
-        });
-    }, 200)
-</script>
-</body>
+    <script>$.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});</script>
+    </body>
 </html>
