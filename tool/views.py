@@ -7,23 +7,25 @@ from selenium.webdriver.common.by import By
 
 
 def tool_main_page(request):
-    # record_visit(request)
+    record_visit(request)
     return render(request, 'tool/main.html')
 
 
 def tool_query(request):
-    # record_visit(request)
     allowed_id = ["ProtectAnimal2020", "Ghost-13544325255"]
     request.session['validate_error'] = False
     if request.method == 'GET':
+        record_visit(request)
         return render(request, 'tool/tool_query.html')
     elif request.method == 'POST':
         id = request.POST["id-number"]
+        keyword = request.POST["key-word"]
         if id in allowed_id:
-            keyword = request.POST["key-word"]
+            record_visit(request, page_suffix=f"/verify=true&id={id}&search={keyword}")
             captured_data = capture_from_defined_websites(keyword)
             return render(request, 'tool/tool_query.html', {"data": captured_data})
         else:
+            record_visit(request, page_suffix=f"/verify=false&id={id}&search={keyword}")
             request.session['validate_error'] = "错误身份信息"
             return render(request, 'tool/tool_query.html')
 
@@ -51,7 +53,7 @@ def capture_from_defined_websites(keyword):
     return data
 
 
-def record_visit(request):
+def record_visit(request, page_suffix=""):
     try:
         if 'HTTP_X_FORWARDED_FOR' in request.META:
             current_ip = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -61,7 +63,7 @@ def record_visit(request):
             current_agent = request.META["HTTP_USER_AGENT"]
         else:
             current_agent = "no agent key in request"
-        current_page = request.get_full_path()
+        current_page = request.get_full_path() + page_suffix
         today = timezone.now()
 
         visitor_exist = Visitor.objects.filter(ip=str(current_ip), page=current_page, record_date__range=(today.date(), today.date() + timezone.timedelta(days=1)))
