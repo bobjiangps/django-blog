@@ -25,7 +25,7 @@ server {
     listen 8090 default_server;
     listen [::]:8090 default_server;
 
-    location / {
+    location /tool {
                 include uwsgi_params;
                 uwsgi_pass 127.0.0.1:8001;
                 uwsgi_param UWSGI_CHDIR /home/bob/djproject/bobjiang;
