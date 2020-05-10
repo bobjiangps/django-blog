@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Visitor
 from django.utils import timezone
 from utils.geoip_helper import GeoIpHelper
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 
 def tool_main_page(request):
@@ -10,7 +12,8 @@ def tool_main_page(request):
 
 
 def tool_query(request):
-    allowed_id = ["48090730", "878066172", "Ghost-13544325255"]
+    # record_visit(request)
+    allowed_id = ["ProtectAnimal2020", "Ghost-13544325255"]
     request.session['validate_error'] = False
     if request.method == 'GET':
         return render(request, 'tool/tool_query.html')
@@ -18,10 +21,34 @@ def tool_query(request):
         id = request.POST["id-number"]
         if id in allowed_id:
             keyword = request.POST["key-word"]
-            return render(request, 'tool/tool_query.html')
+            captured_data = capture_from_defined_websites(keyword)
+            return render(request, 'tool/tool_query.html', {"data": captured_data})
         else:
             request.session['validate_error'] = "错误身份信息"
             return render(request, 'tool/tool_query.html')
+
+
+def capture_from_defined_websites(keyword):
+    if keyword.find("@") >= 0:
+        keyword = keyword.replace("@", "%40")
+    data = {"reg": [], "pwned": [], "sjk": [], "alarm": []}
+    urls = {"reg": f"https://www.reg007.com/search?q={keyword}",
+            "sjk": "http://site3.sjk.space/",
+            "pwned": f"https://haveibeenpwned.com/unifiedsearch/jbsv43%40sina.com",
+            "alarm": "https://breachalarm.com/"}
+    driver = webdriver.PhantomJS("./tool/phantomjs")
+    try:
+        driver.get(urls["reg"])
+        name_elements = driver.find_elements(By.XPATH, "//ul[@id='site_list']//li[contains(@id, 'li_') and @data-category]//h4[@class='media-heading']/a")
+        desc_elements = driver.find_elements(By.XPATH, "//ul[@id='site_list']//li[contains(@id, 'li_') and @data-category]//p[@class='site-desc']")
+        for seq in range(len(name_elements)):
+            data["reg"].append([keyword.replace("%40", "@"), name_elements[seq].text, desc_elements[seq].text])
+    except:
+        print("has error when query reg")
+        driver.quit()
+    driver.quit()
+    print(data)
+    return data
 
 
 def record_visit(request):

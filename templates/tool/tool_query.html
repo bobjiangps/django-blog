@@ -20,4 +20,31 @@
     <div class="col-md-4"></div>
 </div>
 <hr width="60%" style="border:2px solid #BDB76B;"/>
+<div class="row" style="margin: 20px;">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        {% for site, value in data.items %}
+         <table name="capture-table" class="table table-sm table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">{{ site }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in value %}
+                <tr>
+                    {% for i in item %}
+                    <td scope="col">{{ i }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr width="30%" style="border:2px #BDB76B;"/>
+        {% empty %}
+        <h3>搜索结果会呈现在这里</h3>
+        {% endfor %}
+    </div>
+    <div class="col-md-1"></div>
+
 {% endblock %}
