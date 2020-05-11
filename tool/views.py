@@ -4,6 +4,8 @@ from django.utils import timezone
 from utils.geoip_helper import GeoIpHelper
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import json
 
 
 def tool_main_page(request):
@@ -35,21 +37,49 @@ def capture_from_defined_websites(keyword):
         keyword = keyword.replace("@", "%40")
     data = {"reg": [], "pwned": [], "sjk": [], "alarm": []}
     urls = {"reg": f"https://www.reg007.com/search?q={keyword}",
+            "pwned": f"https://haveibeenpwned.com/unifiedsearch/{keyword}",
             "sjk": "http://site3.sjk.space/",
-            "pwned": f"https://haveibeenpwned.com/unifiedsearch/jbsv43%40sina.com",
             "alarm": "https://breachalarm.com/"}
-    driver = webdriver.PhantomJS("./tool/phantomjs")
+    driver = None
+    # reg007
     try:
+        driver = webdriver.PhantomJS("./tool/phantomjs")
         driver.get(urls["reg"])
         name_elements = driver.find_elements(By.XPATH, "//ul[@id='site_list']//li[contains(@id, 'li_') and @data-category]//h4[@class='media-heading']/a")
         desc_elements = driver.find_elements(By.XPATH, "//ul[@id='site_list']//li[contains(@id, 'li_') and @data-category]//p[@class='site-desc']")
         for seq in range(len(name_elements)):
             data["reg"].append([keyword.replace("%40", "@"), name_elements[seq].text, desc_elements[seq].text])
-    except:
-        print("has error when query reg")
+    except Exception as e:
+        print("has error when query reg: %s", str(e))
         driver.quit()
-    driver.quit()
-    print(data)
+    if driver:
+        driver.quit()
+    # haveibeenpwned
+    try:
+        headers = {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3',
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:73.0) Gecko/20100101 Firefox/73.0',
+            'Connection': 'keep-alive'
+        }
+        cap = DesiredCapabilities.PHANTOMJS.copy()
+        for key, value in headers.items():
+            cap['phantomjs.page.customHeaders.{}'.format(key)] = value
+        driver = webdriver.PhantomJS("./tool/phantomjs", desired_capabilities=cap)
+        driver.get(urls["pwned"])
+        breaches = driver.find_element(By.XPATH, "//html/body/pre")
+        new_breach = json.loads(breaches.text)
+        for b in new_breach["Breaches"]:
+            if b["Domain"]:
+                data["pwned"].append([keyword.replace("%40", "@"), b["Domain"], b["Description"]])
+            else:
+                data["pwned"].append([keyword.replace("%40", "@"), b["Name"], b["Description"]])
+    except Exception as e:
+        print("has error when query haveibeenpwned: %s" % str(e))
+        driver.quit()
+    if driver:
+        driver.quit()
+    # print(data)
     return data
 
 
