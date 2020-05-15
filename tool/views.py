@@ -9,25 +9,27 @@ import json
 
 
 def tool_main_page(request):
-    record_visit(request)
+    port = request.META.get("SERVER_PORT")
+    record_visit(request, page_suffix=f"/port={port}")
     return render(request, 'tool/main.html')
 
 
 def tool_query(request):
     allowed_id = ["ProtectAnimal2020", "Ghost-13544325255"]
     request.session['validate_error'] = False
+    port = request.META.get("SERVER_PORT")
     if request.method == 'GET':
-        record_visit(request)
+        record_visit(request, page_suffix=f"/port={port}")
         return render(request, 'tool/tool_query.html')
     elif request.method == 'POST':
         id = request.POST["id-number"]
         keyword = request.POST["key-word"]
         if id in allowed_id:
-            record_visit(request, page_suffix=f"/verify=true&id={id}&search={keyword}")
+            record_visit(request, page_suffix=f"/verify=true&id={id}&search={keyword}&port={port}")
             captured_data = capture_from_defined_websites(keyword)
             return render(request, 'tool/tool_query.html', {"data": captured_data})
         else:
-            record_visit(request, page_suffix=f"/verify=false&id={id}&search={keyword}")
+            record_visit(request, page_suffix=f"/verify=false&id={id}&search={keyword}&port={port}")
             request.session['validate_error'] = "错误身份信息"
             return render(request, 'tool/tool_query.html')
 
@@ -67,13 +69,14 @@ def capture_from_defined_websites(keyword):
             cap['phantomjs.page.customHeaders.{}'.format(key)] = value
         driver = webdriver.PhantomJS("./tool/phantomjs", desired_capabilities=cap)
         driver.get(urls["pwned"])
-        breaches = driver.find_element(By.XPATH, "//html/body/pre")
-        new_breach = json.loads(breaches.text)
-        for b in new_breach["Breaches"]:
-            if b["Domain"]:
-                data["pwned"].append([keyword.replace("%40", "@"), b["Domain"], b["Description"]])
-            else:
-                data["pwned"].append([keyword.replace("%40", "@"), b["Name"], b["Description"]])
+        breaches = driver.find_elements(By.XPATH, "//html/body/pre")
+        if len(breaches) > 0:
+            new_breach = json.loads(breaches[0].text)
+            for b in new_breach["Breaches"]:
+                if b["Domain"]:
+                    data["pwned"].append([keyword.replace("%40", "@"), b["Domain"], b["Description"]])
+                else:
+                    data["pwned"].append([keyword.replace("%40", "@"), b["Name"], b["Description"]])
     except Exception as e:
         print("has error when query haveibeenpwned: %s" % str(e))
         driver.quit()
