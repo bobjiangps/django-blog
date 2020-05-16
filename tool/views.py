@@ -3,9 +3,12 @@ from .models import Visitor
 from django.utils import timezone
 from utils.geoip_helper import GeoIpHelper
 from selenium import webdriver
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import json
+import time
 
 
 def tool_main_page(request):
@@ -38,6 +41,10 @@ def capture_from_defined_websites(keyword):
     if keyword.find("@") >= 0:
         keyword = keyword.replace("@", "%40")
     data = {"reg": [], "pwned": [], "sjk": [], "alarm": []}
+    # desc = {"reg": "Lookup the accounts",
+    #         "pwned": "Data may leaks",
+    #         "sjk": "Old data (not ready)",
+    #         "alarm": "(not ready)"}
     urls = {"reg": f"https://www.reg007.com/search?q={keyword}",
             "pwned": f"https://haveibeenpwned.com/unifiedsearch/{keyword}",
             "sjk": "http://site3.sjk.space/",
@@ -46,13 +53,32 @@ def capture_from_defined_websites(keyword):
     # reg007
     try:
         driver = webdriver.PhantomJS("./tool/phantomjs")
+        # sign in
+        try:
+            driver.set_window_size(1920, 1080)
+            new_wait = WebBehaviors(driver, 10)
+            driver.get("https://www.reg007.com")
+            new_wait.wait_until_presence_of_element("id", "nav_btn_signin")
+            login_element = driver.find_element(By.ID, "nav_btn_signin")
+            login_element.click()
+            new_wait.wait_until_presence_of_element("id", "m_signin_email")
+            user_input = driver.find_element(By.ID, "m_signin_email")
+            pwd_input = driver.find_element(By.ID, "m_signin_password")
+            submit_button = driver.find_element(By.XPATH, "//form[@id='m_signin_form']//button[@type='submit']")
+            user_input.send_keys("13544325255")
+            pwd_input.send_keys("Ghost_13544325255")
+            submit_button.click()
+            time.sleep(1)
+        except Exception as e:
+            print("has error when login reg: %s" % str(e))
+        # get reg info
         driver.get(urls["reg"])
         name_elements = driver.find_elements(By.XPATH, "//ul[@id='site_list']//li[contains(@id, 'li_') and @data-category]//h4[@class='media-heading']/a")
         desc_elements = driver.find_elements(By.XPATH, "//ul[@id='site_list']//li[contains(@id, 'li_') and @data-category]//p[@class='site-desc']")
         for seq in range(len(name_elements)):
             data["reg"].append([keyword.replace("%40", "@"), name_elements[seq].text, desc_elements[seq].text])
     except Exception as e:
-        print("has error when query reg: %s", str(e))
+        print("has error when query reg: %s" % str(e))
         driver.quit()
     if driver:
         driver.quit()
@@ -139,3 +165,11 @@ def record_visit(request, page_suffix=""):
             f.write("\n")
             f.write(str(e))
             f.write("\n\n")
+
+
+class WebBehaviors(WebDriverWait):
+    def wait_until_presence_of_element(self, by, value):
+        return self.until(EC.presence_of_element_located((by, value)), "fail to wait until presence")
+
+    def wait_until_visibility_of_element(self, by, value):
+        return self.until(EC.visibility_of_element_located((by, value)), "fail to wait until visibility")
