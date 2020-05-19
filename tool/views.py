@@ -17,6 +17,20 @@ def tool_main_page(request):
     return render(request, 'tool/main.html')
 
 
+def tool_geoip(request):
+    query_data = {"ip": "", "location": ""}
+    port = request.META.get("SERVER_PORT")
+    own_ip = GeoIpHelper.get_ip()
+    if request.method == 'GET':
+        record_visit(request, page_suffix=f"/port={port}")
+        return render(request, 'tool/tool_geoip.html', {"own_ip": own_ip})
+    elif request.method == 'POST':
+        query_ip = request.POST["key-word"]
+        query_data["ip"] = query_ip
+        query_data["location"] = GeoIpHelper.get_location_by_remote_service(query_ip)
+        return render(request, 'tool/tool_geoip.html', {"own_ip": own_ip, "data": query_data})
+
+
 def tool_query(request):
     allowed_id = ["ProtectAnimal2020", "Ghost-13544325255"]
     request.session['validate_error'] = False
