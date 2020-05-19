@@ -20,7 +20,11 @@ def tool_main_page(request):
 def tool_geoip(request):
     query_data = {"ip": "", "location": ""}
     port = request.META.get("SERVER_PORT")
-    own_ip = GeoIpHelper.get_ip()
+    # own_ip = GeoIpHelper.get_ip()
+    if 'HTTP_X_FORWARDED_FOR' in request.META:
+        own_ip = request.META.get('HTTP_X_FORWARDED_FOR')
+    else:
+        own_ip = request.META.get('REMOTE_ADDR')
     if request.method == 'GET':
         record_visit(request, page_suffix=f"/port={port}")
         return render(request, 'tool/tool_geoip.html', {"own_ip": own_ip})
