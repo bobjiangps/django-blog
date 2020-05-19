@@ -31,8 +31,8 @@ def tool_geoip(request):
     elif request.method == 'POST':
         query_ip = request.POST["key-word"]
         query_data["ip"] = query_ip
-        # query_data["location"] = GeoIpHelper.get_location_by_remote_service(query_ip)
-        query_data["location"] = GeoIpHelper.get_location(query_ip)
+        query_data["location"] = GeoIpHelper.get_location_by_remote_service(query_ip)
+        # query_data["location"] = GeoIpHelper.get_location(query_ip)
         record_visit(request, page_suffix=f"/search={query_ip}&port={port}")
         return render(request, 'tool/tool_geoip.html', {"own_ip": own_ip, "data": query_data})
 
