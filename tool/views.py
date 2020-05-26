@@ -37,6 +37,25 @@ def tool_geoip(request):
         return render(request, 'tool/tool_geoip.html', {"own_ip": own_ip, "data": query_data})
 
 
+def tool_user_agent(request):
+    port = request.META.get("SERVER_PORT")
+    if "HTTP_USER_AGENT" in request.META:
+        self_agent = request.META["HTTP_USER_AGENT"]
+    else:
+        self_agent = "no agent key in request"
+    if request.method == 'GET':
+        record_visit(request, page_suffix=f"/port={port}")
+        return render(request, 'tool/tool_user_agent.html', {"self_agent": self_agent})
+    elif request.method == 'POST':
+        query_device = request.POST["key-word"]
+        record_visit(request, page_suffix=f"/search={query_device}&port={port}")
+        if query_device.lower() not in ["windows", "mac", "linux", "ie", "edge", "chrome", "firefox", "safari", "iphone", "android"]:
+            agent_string = f"{query_device} is not a supported device type"
+        else:
+            agent_string = f"developing, {query_device} will be provided later"
+        return render(request, 'tool/tool_user_agent.html', {"query_string": agent_string})
+
+
 def tool_query(request):
     allowed_id = ["ProtectAnimal2020", "Ghost-13544325255"]
     request.session['validate_error'] = False
