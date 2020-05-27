@@ -18,6 +18,7 @@ def tool_main_page(request):
 
 
 def tool_geoip(request):
+    allowed_id = ["ProtectAnimal2020", "Ghost-13544325255"]
     query_data = {"ip": "", "location": ""}
     port = request.META.get("SERVER_PORT")
     # own_ip = GeoIpHelper.get_ip()
@@ -27,14 +28,19 @@ def tool_geoip(request):
         own_ip = request.META.get('REMOTE_ADDR')
     if request.method == 'GET':
         record_visit(request, page_suffix=f"/port={port}")
-        return render(request, 'tool/tool_geoip.html', {"own_ip": own_ip})
+        return render(request, 'tool/tool_geoip.html', {"own_ip": ""})
     elif request.method == 'POST':
+        id = request.POST["id-number"]
         query_ip = request.POST["key-word"]
-        query_data["ip"] = query_ip
-        query_data["location"] = GeoIpHelper.get_location_by_remote_service(query_ip)
-        # query_data["location"] = GeoIpHelper.get_location(query_ip)
-        record_visit(request, page_suffix=f"/search={query_ip}&port={port}")
-        return render(request, 'tool/tool_geoip.html', {"own_ip": own_ip, "data": query_data})
+        if id in allowed_id:
+            record_visit(request, page_suffix=f"/verify=true&id={id}&search={query_ip}&port={port}")
+            query_data["ip"] = query_ip
+            query_data["location"] = GeoIpHelper.get_location_by_remote_service(query_ip)
+            return render(request, 'tool/tool_geoip.html', {"own_ip": own_ip, "data": query_data})
+        else:
+            record_visit(request, page_suffix=f"/verify=false&id={id}&search={query_ip}&port={port}")
+            request.session['validate_error'] = "错误身份信息"
+            return render(request, 'tool/tool_geoip.html')
 
 
 def tool_user_agent(request):

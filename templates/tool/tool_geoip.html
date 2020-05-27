@@ -5,11 +5,13 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <div class="search-container" style="margin: 0px 20px; padding: 10px;">
-            <h5>你当前IP是: {{own_ip}}</h5><br/>
+            <h5>{{own_ip}}</h5><br/>
             <form action="{% url 'tool_geoip' %}" method="post">
                 {% csrf_token %}
-            <label for="keyword">输入IP：</label><br>
-            <input id="keyword" type="text" name="key-word" value="{{ keyword }}" class='form-control mr-sm-2' required="true" placeholder='IP Address' style="width:200px;"><p></p>
+            <label for="keyword">Input Keyword：</label><br>
+            <input id="keyword" type="text" name="key-word" value="{{ keyword }}" class='form-control mr-sm-2' required="true" placeholder='Keyword' style="width:200px;"><p></p>
+            <label for="identification">Identity：</label><br>
+            <input id="identification" type="text" name="id-number" value="{{ identification }}" class='form-control mr-sm-2' required="true" placeholder='ID' style="width:200px;"><p></p>
             <button class="btn btn-outline-info my-2 my-sm-0" type="submit">查询</button>
             {% if request.session.validate_error %}
             <p style="color:red">{{request.session.validate_error}}</p>
@@ -25,8 +27,8 @@
          <table name="capture-table" class="table table-sm table-hover table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">IP</th>
-                    <th scope="col">Location (just a reference, may biased by deviation)</th>
+                    <th scope="col">Ip</th>
+                    <th scope="col">Geo (just a reference, may biased by deviation)</th>
                 </tr>
             </thead>
             <tbody>
