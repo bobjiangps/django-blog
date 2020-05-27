@@ -5,7 +5,31 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <div class="search-container" style="margin: 0px 20px; padding: 10px;">
-            <h5>Current device agent:<br/> {{ self_agent }}</h5><br/>
+            <h5>Simulate device agent:<br/> {{ self_agent }}</h5><br/>
+            <table name="attribute-table" class="table table-sm table-hover table-bordered">
+                <tbody>
+                    <tr>
+                        <td scope="col">Browser Window Width</td>
+                        <td scope="col" id="b_w_w"></td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Browser Window Height</td>
+                        <td scope="col" id="b_w_h"></td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Screen Width</td>
+                        <td scope="col" id="s_w"></td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Screen Height</td>
+                        <td scope="col" id="s_h"></td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Orientation</td>
+                        <td scope="col" id="ori"></td>
+                    </tr>
+                </tbody>
+            </table>
             <form action="{% url 'tool_user_agent' %}" method="post">
                 {% csrf_token %}
             <label for="keyword">输入设备：</label><br>
@@ -37,5 +61,25 @@
         <hr width="30%" style="border:2px #BDB76B;"/>
     </div>
     <div class="col-md-1"></div>
+</div>
 
+<script type="text/javascript">
+    document.getElementById("b_w_w").innerHTML = window.outerWidth;
+    document.getElementById("b_w_h").innerHTML = window.outerHeight;
+    document.getElementById("s_w").innerHTML = screen.width;
+    document.getElementById("s_h").innerHTML = screen.height;
+</script>
+
+<style>
+@media only screen and (orientation: portrait) {
+    #ori::after {
+        content: 'portrait';
+    }
+}
+
+@media only screen and (orientation:landscape) {
+    #ori::after {
+        content: 'landscape';
+    }
+}
 {% endblock %}
