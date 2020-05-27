@@ -49,11 +49,11 @@ def tool_user_agent(request):
     elif request.method == 'POST':
         query_device = request.POST["key-word"]
         record_visit(request, page_suffix=f"/search={query_device}&port={port}")
-        if query_device.lower() not in ["windows", "mac", "linux", "ie", "edge", "chrome", "firefox", "safari", "iphone", "android"]:
+        if query_device.lower() not in ["windows", "mac", "linux", "ie", "edge", "chrome", "firefox", "safari", "ios", "android"]:
             agent_string = f"{query_device} is not a supported device type"
         else:
             agent_string = f"developing, {query_device} will be provided later"
-        return render(request, 'tool/tool_user_agent.html', {"query_string": agent_string})
+        return render(request, 'tool/tool_user_agent.html', {"self_agent": self_agent, "query_string": agent_string})
 
 
 def tool_query(request):
