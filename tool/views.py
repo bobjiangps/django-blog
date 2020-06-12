@@ -111,7 +111,8 @@ def capture_from_defined_websites(keyword):
             pwd_input = driver.find_element(By.ID, "m_signin_password")
             submit_button = driver.find_element(By.XPATH, "//form[@id='m_signin_form']//button[@type='submit']")
             user_input.send_keys("13544325255")
-            pwd_input.send_keys("Ghost_13544325255")
+            #pwd_input.send_keys("Ghost_13544325255")
+            pwd_input.send_keys("KSK_Sniper")
             submit_button.click()
             time.sleep(1)
         except Exception as e:
