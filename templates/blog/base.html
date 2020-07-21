@@ -242,11 +242,25 @@
             var a = $(this).children('option:selected').val();
             if (a !== "select type") {
                 if (a === "publish date") {
-                  window.location.href="/bobjiang/sort-by-date";
+                  no_sort_url = window.location.href.split(window.location.host)[1].split("sort")[0];
+                  // window.location.href="/bobjiang/sort-by-date";
+                  if (no_sort_url.endsWith("/")) {
+                    window.location.href = no_sort_url + "sort-by-date";
+                  }
+                  else {
+                    window.location.href = no_sort_url + "/sort-by-date";
+                  }
                   $("#sortarticle").find("option[value='publish date']").attr("selected", true);
                 }
                 else if (a === "view count") {
-                  window.location.href="/bobjiang/sort-by-view";
+                  no_sort_url = window.location.href.split(window.location.host)[1].split("sort")[0];
+                  // window.location.href="/bobjiang/sort-by-view";
+                  if (no_sort_url.endsWith("/")) {
+                    window.location.href = no_sort_url + "sort-by-view";
+                  }
+                  else {
+                    window.location.href = no_sort_url + "/sort-by-view";
+                  }
                   $("#sortarticle").find("option[value='view count']").attr("selected", true);
                 }
             } 

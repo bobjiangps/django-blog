@@ -8,7 +8,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login as d_login, logout as d_logout
 from django.db import connection
 from django.contrib.auth.models import User
-#import markdown
+# import markdown
 from utils.geoip_helper import GeoIpHelper
 
 
@@ -50,7 +50,7 @@ def post_list(request):
     else:
         # posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
         posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
-    return pagination(request,posts)
+    return pagination(request, posts)
 
 
 def post_list_sort(request, sort_type):
@@ -67,7 +67,7 @@ def post_list_sort(request, sort_type):
             posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
         elif sort_type == 'view':
             posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
-    return pagination(request,posts)
+    return pagination(request, posts)
 
 
 def post_detail(request, post_id):
@@ -161,7 +161,24 @@ def archives_date(request, year, month):
         posts = Post.objects.filter(visiable__name='public').filter(published_date__year=year, published_date__month=month).order_by('views').reverse()
     else:
         posts = Post.objects.filter(published_date__year=year, published_date__month=month).order_by('views').reverse()
-    return pagination(request,posts)
+    return pagination(request, posts)
+
+
+def archives_date_sort(request, year, month, sort_type):
+    record_visit(request)
+    users = [u.username for u in User.objects.all()]
+    login_user = request.user.username
+    if login_user not in users:
+        if sort_type == 'date':
+            posts = Post.objects.filter(visiable__name='public').filter(published_date__year=year, published_date__month=month).order_by('published_date').reverse()
+        elif sort_type == 'view':
+            posts = Post.objects.filter(visiable__name='public').filter(published_date__year=year, published_date__month=month).order_by('views').reverse()
+    else:
+        if sort_type == 'date':
+            posts = Post.objects.filter(published_date__year=year, published_date__month=month).order_by('published_date').reverse()
+        elif sort_type == 'view':
+            posts = Post.objects.filter(published_date__year=year, published_date__month=month).order_by('views').reverse()
+    return pagination(request, posts)
 
 
 def archives_category(request, category_name):
@@ -172,7 +189,24 @@ def archives_category(request, category_name):
         posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('views').reverse()
     else:
         posts = Post.objects.filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('views').reverse()
-    return pagination(request,posts)
+    return pagination(request, posts)
+
+
+def archives_category_sort(request, category_name, sort_type):
+    record_visit(request)
+    users = [u.username for u in User.objects.all()]
+    login_user = request.user.username
+    if login_user not in users:
+        if sort_type == 'date':
+            posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('published_date').reverse()
+        elif sort_type == 'view':
+            posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('views').reverse()
+    else:
+        if sort_type == 'date':
+            posts = Post.objects.filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('published_date').reverse()
+        elif sort_type == 'view':
+            posts = Post.objects.filter(published_date__lte=timezone.now()).filter(category__name=category_name).order_by('views').reverse()
+    return pagination(request, posts)
 
 
 def archives_tag(request, tag_name):
@@ -183,7 +217,24 @@ def archives_tag(request, tag_name):
         posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('views').reverse()
     else:
         posts = Post.objects.filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('views').reverse()
-    return pagination(request,posts)
+    return pagination(request, posts)
+
+
+def archives_tag_sort(request, tag_name, sort_type):
+    record_visit(request)
+    users = [u.username for u in User.objects.all()]
+    login_user = request.user.username
+    if login_user not in users:
+        if sort_type == 'date':
+            posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('published_date').reverse()
+        elif sort_type == 'view':
+            posts = Post.objects.filter(visiable__name='public').filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('views').reverse()
+    else:
+        if sort_type == 'date':
+            posts = Post.objects.filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('published_date').reverse()
+        elif sort_type == 'view':
+            posts = Post.objects.filter(published_date__lte=timezone.now()).filter(tag__name=tag_name).order_by('views').reverse()
+    return pagination(request, posts)
 
 
 def pagination(request,filter_posts):
@@ -198,7 +249,7 @@ def pagination(request,filter_posts):
         # if page is out of range, deliver last page of results
         part_posts = paginator.page(paginator.num_pages)
     # return render(request, 'blog/post_list.html', {'posts':posts})
-    return render(request, 'blog/post_list.html', {'posts':part_posts})
+    return render(request, 'blog/post_list.html', {'posts': part_posts})
 
 
 def about_site_me(request):
@@ -262,10 +313,10 @@ def do_login(request):
                 return redirect(request.session['login_from'])  # go back to page before login
             else:
                 request.session['login_error'] = "未激活用户"
-                return render(request,'blog/login.html',{'username':userName,'password':userPassword})
+                return render(request,'blog/login.html', {'username': userName, 'password': userPassword})
         else:
             request.session['login_error'] = "错误的用户名或密码"
-            return render(request,'blog/login.html',{'username':userName,'password':userPassword})
+            return render(request,'blog/login.html', {'username': userName, 'password': userPassword})
 
 
 def do_logout(request):
