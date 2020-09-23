@@ -16,8 +16,8 @@
               <div class="card h-100" style="border: 0px;">
                   <div class="top-main-text left-0 text-center bg-faded p-5 rounded card-body">
                       <h2 class="section-heading mb-4 m-auto">
-                          <span class="section-heading-upper">{{ post.created_date|date }} - {{post.author}} &ensp;{{ post.comment_set.count }} 评论 &ensp;{{ post.views }} 阅读</span><p />
-                          <span class="section-heading-lower">
+                          <span class="section-heading-brief">{{ post.created_date|date }} - {{post.author}} &ensp;{{ post.comment_set.count }} 评论 &ensp;{{ post.views }} 阅读</span><p />
+                          <span class="section-heading-title">
                               {% if post.visiable.name == 'private' %}
                                 <a href="{% url 'post_detail' post.id %}">[private] - {{ post.title }}</a>
                               {% else %}
@@ -62,8 +62,8 @@
               <div class="card h-100" style="border: 0px;">
                   <div class="top-main-text left-0 text-center bg-faded p-5 rounded card-body">
                       <h2 class="section-heading mb-4 m-auto">
-                          <span class="section-heading-upper">{{ post.created_date|date }} - {{post.author}} &ensp;{{ post.comment_set.count }} 评论 &ensp;{{ post.views }} 阅读</span><p />
-                          <span class="section-heading-lower">
+                          <span class="section-heading-brief">{{ post.created_date|date }} - {{post.author}} &ensp;{{ post.comment_set.count }} 评论 &ensp;{{ post.views }} 阅读</span><p />
+                          <span class="section-heading-title">
                               {% if post.visiable.name == 'private' %}
                                 <a href="{% url 'post_detail' post.id %}">[private] - {{ post.title }}</a>
                               {% else %}

@@ -266,13 +266,13 @@ footer.footer {
 }
 
 
-.section-heading .section-heading-upper {
+.section-heading .section-heading-brief {
   display: block;
   font-size: 1rem;
   font-weight: 800;
 }
 
-.section-heading .section-heading-lower {
+.section-heading .section-heading-title {
   display: block;
   font-size: 2rem;
   font-weight: 100;
