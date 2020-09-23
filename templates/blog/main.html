@@ -9,6 +9,164 @@
       <hr width="60%" style="border:2px solid #BDB76B;"/>
       <div class="row">
           {% for post in posts %}
+          <div class="top-main col-lg-6 mb-6">
+          {% if post.visiable.name != 'private' or user.is_authenticated %}
+              <div class="card h-100" style="border: 0px;">
+                  <div class="top-main-text left-0 text-center bg-faded p-5 rounded card-body">
+                      <h2 class="section-heading mb-4 m-auto">
+                          <span class="section-heading-upper">{{ post.created_date|date }} - {{post.author}} &ensp;{{ post.comment_set.count }} 评论 &ensp;{{ post.views }} 阅读</span><p />
+                          <span class="section-heading-lower">
+                              {% if post.visiable.name == 'private' %}
+                                <a href="{% url 'post_detail' post.id %}">[private] - {{ post.title }}</a>
+                              {% else %}
+                                <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                              {% endif %}
+                          </span>
+                      </h2>
+                      <p class="mb-3">{{ post.text|safe|truncatechars:100}}
+                      </p>
+                      <!--{% if post.tag.all %}
+                          <div class="tag">
+                              <img src="/media/icons/icons8-tag-64px-1.png" width="20" height="20">
+                              {% for t in post.tag.all %}
+                              <span class="badge badge-info"><a href="{% url 'archives_tag' t.name %}" style="color: white; text-decoration: none;">{{ t.name }}</a></span>
+                              {% endfor %}
+                          </div>
+                      {% endif %}-->
+                      <div class="top-main-button mx-auto">
+                          <a class="btn btn-info btn-lg" href="{% url 'post_detail' post.id %}">继续阅读</a>
+                      </div>
+                  </div>
+              </div>
+          {% endif %}
+          </div>
+          {% endfor %}
+          <div class="intro col-lg-6 mb-6 m-auto">
+              <div class="container text-center">
+                  <h2 class="mb-4">按阅读量排序的文章</h2>
+                  <a class="btn btn-info btn-lg" href="/bobjiang/post-list/sort-by-view">点击查看 ></a>
+              </div>
+          </div>
+      </div>
+
+      <span class="separator">
+          <i class="fas fa-book-reader"></i> 发布日期最近
+      </span>
+      <hr width="60%" style="border:2px solid #BDB76B;"/>
+      <div class="row">
+          {% for post in new_posts %}
+          <div class="top-main col-lg-6 mb-6">
+          {% if post.visiable.name != 'private' or user.is_authenticated %}
+              <div class="card h-100" style="border: 0px;">
+                  <div class="top-main-text left-0 text-center bg-faded p-5 rounded card-body">
+                      <h2 class="section-heading mb-4 m-auto">
+                          <span class="section-heading-upper">{{ post.created_date|date }} - {{post.author}} &ensp;{{ post.comment_set.count }} 评论 &ensp;{{ post.views }} 阅读</span><p />
+                          <span class="section-heading-lower">
+                              {% if post.visiable.name == 'private' %}
+                                <a href="{% url 'post_detail' post.id %}">[private] - {{ post.title }}</a>
+                              {% else %}
+                                <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                              {% endif %}
+                          </span>
+                      </h2>
+                      <p class="mb-3">{{ post.text|safe|truncatechars:100}}
+                      </p>
+                      <!--{% if post.tag.all %}
+                          <div class="tag">
+                              <img src="/media/icons/icons8-tag-64px-1.png" width="20" height="20">
+                              {% for t in post.tag.all %}
+                              <span class="badge badge-info"><a href="{% url 'archives_tag' t.name %}" style="color: white; text-decoration: none;">{{ t.name }}</a></span>
+                              {% endfor %}
+                          </div>
+                      {% endif %}-->
+                      <div class="top-main-button mx-auto">
+                          <a class="btn btn-info btn-lg" href="{% url 'post_detail' post.id %}">继续阅读</a>
+                      </div>
+                  </div>
+              </div>
+          {% endif %}
+          </div>
+          {% endfor %}
+          <div class="intro col-lg-6 mb-6 m-auto">
+              <div class="container text-center">
+                  <h2 class="mb-4">按发布日期排序的文章</h2>
+                  <a class="btn btn-info btn-lg" href="/bobjiang/post-list/sort-by-date">点击查看 ></a>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="row">
+          <div class="intro col-lg-6 mb-6">
+            <!--<img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="media/background/memo-notebook-pen-472311-1024x768.jpg">-->
+            <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+              <h2 class="section-heading mb-4">
+                <span class="section-heading-upper">2019年2月18日 - Bo   5 评论   2759 阅读</span><p />
+                <span class="section-heading-lower">openstf环境搭建和问题解决</span>
+              </h2>
+              <p class="mb-3">openstf是用于管理和控制Android设备，github地址是https://github.com/openstf/stf。不过ios的需要用上其他的，之后再更新ios相关。...
+              </p>
+              <div class="intro-button mx-auto">
+                <a class="btn btn-info btn-lg" href="#">继续阅读</a>
+              </div>
+            </div>
+          </div>
+       <div class="intro col-lg-6 mb-6">
+            <!--<img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="media/background/memo-notebook-pen-472311-1024x768.jpg">-->
+            <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+              <h2 class="section-heading mb-4">
+                <span class="section-heading-upper">2019年2月18日 - Bo   5 评论   2759 阅读</span><p />
+                <span class="section-heading-lower">openstf环境搭建和问题解决</span>
+              </h2>
+              <p class="mb-3">openstf是用于管理和控制Android设备，github地址是https://github.com/openstf/stf。不过ios的需要用上其他的，之后再更新ios相关。...
+              </p>
+              <div class="intro-button mx-auto">
+                <a class="btn btn-info btn-lg" href="#">继续阅读</a>
+              </div>
+            </div>
+       </div>
+       <div class="intro col-lg-6 mb-6">
+            <!--<img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="media/background/memo-notebook-pen-472311-1024x768.jpg">-->
+            <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+              <h2 class="section-heading mb-4">
+                <span class="section-heading-upper">2019年2月18日 - Bo   5 评论   2759 阅读</span><p />
+                <span class="section-heading-lower">openstf环境搭建和问题解决</span>
+              </h2>
+              <p class="mb-3">openstf是用于管理和控制Android设备，github地址是https://github.com/openstf/stf。不过ios的需要用上其他的，之后再更新ios相关。...
+              </p>
+              <div class="intro-button mx-auto">
+                <a class="btn btn-info btn-lg" href="#">继续阅读</a>
+              </div>
+            </div>
+       </div>
+      <!--<div class="intro col-lg-3 mb-3 mr-auto m-auto">
+          <div class="text-center">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                    <h2 class="mb-4">Free Download at Start Bootstrap!</h2>
+          </div>
+      </div>
+      <div class="intro col-lg-3 mb-3 ml-auto m-auto" style="left: 0;">
+            <div class="text-center">
+              <h2 class="mb-4">Free Download at Start Bootstrap!</h2>
+              <a class="btn btn-light btn-xl" href="https://startbootstrap.com/themes/creative/">Download Now!</a>
+            </div>
+       </div>-->
+        <div class="intro col-lg-6 mb-6 m-auto">
+            <div class="container text-center">
+              <h2 class="mb-4">按阅读量排序的文章</h2>
+              <a class="btn btn-info btn-lg" href="https://startbootstrap.com/themes/creative/">点击查看 ></a>
+            </div>
+        </div>
+      </div>
+      <br />
+
+
+
+      <div class="row">
+          {% for post in posts %}
           <div class="col-lg-4 mb-4">
           {% if post.visiable.name != 'private' or user.is_authenticated %}
               <div class="card h-100">

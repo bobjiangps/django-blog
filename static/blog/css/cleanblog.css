@@ -238,3 +238,89 @@ footer.footer {
   margin-top: 0;
   color: #868e96;
 }
+
+
+.top-main {
+  position: relative;
+  margin: 10px 0px 30px 0px;
+}
+
+.top-main .top-main-text {
+  width: 100%;
+}
+.top-main .top-main-text .top-main-button {
+  width: 100%;
+  left: 0;
+  bottom: -1rem;
+  /*position: absolute;*/
+  /*margin: 30px 0px -70px 0px;*/
+  position: absolute;
+}
+.top-main .top-main-text .top-main-button a {
+  background-color: #e6a756;
+  border-color: #e6a756;
+}
+.top-main .top-main-text .top-main-button a:hover, .top-main .top-main-text .top-main-button a:focus, .top-main .top-main-text .top-main-button a:active {
+  background-color: #df902a;
+  border-color: #df902a;
+}
+
+
+.section-heading .section-heading-upper {
+  display: block;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.section-heading .section-heading-lower {
+  display: block;
+  font-size: 2rem;
+  font-weight: 100;
+  /*text-decoration: underline;*/
+}
+
+.bg-faded {
+  //background-color: rgba(255, 250, 240, 0.85);
+  border: 5px solid rgba(250, 235, 215);
+}
+
+
+.intro {
+  position: relative;
+  margin: -10px 0px 30px 0px;
+}
+
+@media (min-width: 992px) {
+  .intro .intro-img {
+    width: 75%;
+    float: right;
+  }
+  .intro .intro-text {
+    left: 0;
+    width: 60%;
+    margin-top: 1rem;
+  }
+  .intro .intro-text .intro-button {
+    width: 100%;
+    left: 0;
+    bottom: -1rem;
+    /*position: absolute;*/
+    /*margin: 30px 0px -70px 0px;*/
+    position: absolute;
+  }
+  .intro .intro-text .intro-button a {
+    background-color: #e6a756;
+    border-color: #e6a756;
+  }
+  .intro .intro-text .intro-button a:hover, .intro .intro-text .intro-button a:focus, .intro .intro-text .intro-button a:active {
+    background-color: #df902a;
+    border-color: #df902a;
+  }
+}
+
+@media (min-width: 1200px) {
+  .intro .intro-text {
+    width: 100%;
+  }
+}
+
