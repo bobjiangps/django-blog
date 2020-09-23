@@ -3,6 +3,8 @@
 {% block content %}
   <!-- post list -->
   <div class="container" style="margin-top: 20px;">
+
+      {% if device_type != 'mobile' %}
       <span class="separator">
           <i class="fas fa-fire"></i> 查看次数最多
       </span>
@@ -95,7 +97,12 @@
           </div>
       </div>
 
-      <!--<div class="row">
+      {% else %}
+      <span class="separator">
+          <i class="fas fa-fire"></i> 查看次数最多
+      </span>
+      <hr width="60%" style="border:2px solid #BDB76B;"/>
+      <div class="row">
           {% for post in posts %}
           <div class="col-lg-4 mb-4">
           {% if post.visiable.name != 'private' or user.is_authenticated %}
@@ -184,7 +191,9 @@
           </div>
           {% endfor %}
       </div>
-      <span class="separator"><a href="{% url 'post_list' %}">所有文章 ></a></span>-->
+      <span class="separator"><a href="{% url 'post_list' %}">所有文章 ></a></span>
+      {% endif %}
+
       <span class="separator">&ensp;</span>
       <span class="separator">
           <i class="fas fa-tags"></i> 访问量最多的文章标签
