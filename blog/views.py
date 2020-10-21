@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 from utils.geoip_helper import GeoIpHelper
 
 
-def top_viewed_posts(request, amount=3):
+def top_viewed_posts(request, amount=5):
     record_visit(request)
     users = [u.username for u in User.objects.all()]
     login_user = request.user.username

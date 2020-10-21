@@ -42,7 +42,7 @@
               </div>
           {% endif %}
           </div>
-          {% endfor %}
+          {% if forloop.counter0 == 2 %}
           <div class="intro col-lg-6 mb-6 m-auto">
               <div class="container text-center">
                   <span class="fa-stack fa-2x" style="margin: -30px 0px 10px;">
@@ -53,6 +53,18 @@
                   <a class="btn btn-info btn-lg" href="/bobjiang/post-list/sort-by-view">点击查看 ></a>
               </div>
           </div>
+          {% endif %}
+          {% endfor %}
+          <!--<div class="intro col-lg-6 mb-6 m-auto">
+              <div class="container text-center">
+                  <span class="fa-stack fa-2x" style="margin: -30px 0px 10px;">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-fire fa-stack-1x fa-inverse"></i>
+                  </span>
+                  <h2 class="mb-4">按阅读量排序的文章</h2>
+                  <a class="btn btn-info btn-lg" href="/bobjiang/post-list/sort-by-view">点击查看 ></a>
+              </div>
+          </div>-->
       </div>
 
       <span class="separator">
@@ -92,7 +104,7 @@
               </div>
           {% endif %}
           </div>
-          {% endfor %}
+          {% if forloop.counter0 == 2 %}
           <div class="intro col-lg-6 mb-6 m-auto">
               <div class="container text-center">
                   <span class="fa-stack fa-2x" style="margin: -30px 0px 10px;">
@@ -103,6 +115,18 @@
                   <a class="btn btn-info btn-lg" href="/bobjiang/post-list/sort-by-date">点击查看 ></a>
               </div>
           </div>
+          {% endif %}
+          {% endfor %}
+          <!--<div class="intro col-lg-6 mb-6 m-auto">
+              <div class="container text-center">
+                  <span class="fa-stack fa-2x" style="margin: -30px 0px 10px;">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-book-reader fa-stack-1x fa-inverse"></i>
+                  </span>
+                  <h2 class="mb-4">按发布日期排序的文章</h2>
+                  <a class="btn btn-info btn-lg" href="/bobjiang/post-list/sort-by-date">点击查看 ></a>
+              </div>
+          </div>-->
       </div>
 
       {% else %}
