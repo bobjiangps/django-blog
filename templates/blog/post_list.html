@@ -21,7 +21,7 @@
         {% endif %}
         {% for post in posts %}
           {% if post.visiable.name != 'private' or user.is_authenticated %}
-          <div class="post-preview">
+          <article class="post-preview">
             <p class="post-meta">
                 {{ post.created_date|date }} - 由{{post.author}} &ensp;&ensp;
                 <span class='comment-count'>{{ post.comment_set.count }} 评论</span> &ensp;&ensp;
@@ -50,7 +50,7 @@
                   {% endfor %}
                   </div>
               {% endif %}
-          </div>
+          </article>
           <hr>
           {% endif %}
         {% empty %}

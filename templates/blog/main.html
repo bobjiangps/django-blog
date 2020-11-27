@@ -11,7 +11,7 @@
       <hr width="60%" style="border:2px solid #BDB76B;"/>
       <div class="row">
           {% for post in posts %}
-          <div class="top-main col-lg-6 mb-6">
+          <article class="top-main col-lg-6 mb-6">
           {% if post.visiable.name != 'private' or user.is_authenticated %}
               <div class="card h-100" style="border: 0px;">
                   <div class="top-main-text left-0 text-center bg-faded p-5 rounded card-body">
@@ -41,7 +41,7 @@
                   </div>
               </div>
           {% endif %}
-          </div>
+          </article>
           {% if forloop.counter0 == 2 %}
           <div class="intro col-lg-6 mb-6 m-auto">
               <div class="container text-center">
@@ -73,7 +73,7 @@
       <hr width="60%" style="border:2px solid #BDB76B;"/>
       <div class="row">
           {% for post in new_posts %}
-          <div class="top-main col-lg-6 mb-6">
+          <article class="top-main col-lg-6 mb-6">
           {% if post.visiable.name != 'private' or user.is_authenticated %}
               <div class="card h-100" style="border: 0px;">
                   <div class="top-main-text left-0 text-center bg-faded p-5 rounded card-body">
@@ -103,7 +103,7 @@
                   </div>
               </div>
           {% endif %}
-          </div>
+          </article>
           {% if forloop.counter0 == 2 %}
           <div class="intro col-lg-6 mb-6 m-auto">
               <div class="container text-center">
@@ -136,7 +136,7 @@
       <hr width="60%" style="border:2px solid #BDB76B;"/>
       <div class="row">
           {% for post in posts %}
-          <div class="col-lg-4 mb-4">
+          <article class="col-lg-4 mb-4">
           {% if post.visiable.name != 'private' or user.is_authenticated %}
               <div class="card h-100">
                   <div class="card-header">
@@ -173,7 +173,7 @@
                   </div>
               </div>
           {% endif %}
-          </div>
+          </article>
           {% endfor %}
       </div>
 
@@ -183,7 +183,7 @@
       <hr width="60%" style="border:2px solid #BDB76B;"/>
       <div class="row">
           {% for post in new_posts %}
-          <div class="col-lg-4 mb-4">
+          <article class="col-lg-4 mb-4">
           {% if post.visiable.name != 'private' or user.is_authenticated %}
               <div class="card h-100">
                   <div class="card-header">
@@ -220,7 +220,7 @@
                   </div>
               </div>
           {% endif %}
-          </div>
+          </article>
           {% endfor %}
       </div>
       <span class="separator"><a href="{% url 'post_list' %}">所有文章 ></a></span>

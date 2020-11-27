@@ -3,9 +3,9 @@
 {% block content %}
     {% if post.visiable.name != 'private' or user.is_authenticated %}
     {% if device_type != 'mobile' %}
-    <div class="post_detail" style="background-color: #FFF; padding: 0px 30px 10px; margin: 30px 50px 50px; box-shadow: darkgrey 10px 10px 20px 5px;">
+    <article class="post_detail" style="background-color: #FFF; padding: 0px 30px 10px; margin: 30px 50px 50px; box-shadow: darkgrey 10px 10px 20px 5px;">
     {% else %}
-    <div class="post_detail" style="background-color: #FFF; padding: 0px 30px 10px; box-shadow: darkgrey 10px 10px 20px 5px;">
+    <article class="post_detail" style="background-color: #FFF; padding: 0px 30px 10px; box-shadow: darkgrey 10px 10px 20px 5px;">
     {% endif %}
     <h3 style="height: 10px;"></h3>
     <a href="javascript:history.go(-1)">返回上页</a>&ensp;
@@ -157,7 +157,7 @@
       </div>
       {% endfor %}
 
-    </div>
+    </article>
 
     <script type="text/javascript">
         document.title = '{{post.title}} - ' + document.title;
