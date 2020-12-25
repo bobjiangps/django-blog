@@ -12,11 +12,11 @@
     <a href="/bobjiang">首页</a>
 
     {% if post.visiable.name == 'private' %}
-      <h3>[private] - {{  post.title  }}</h3>
+      <h3 class="article-title">[private] - {{  post.title  }}</h3>
     {% else %}
-      <h3>{{ post.title }}</h3>
+      <h3 class="article-title">{{ post.title }}</h3>
     {% endif %}
-    <div class="date">
+    <div class="article-info">
         <p>{{ post.created_date|date }} - 由{{post.author}} &emsp; &emsp;
         <span class="comment-count">{{ post.comment_set.count }} 评论</span>&emsp; &emsp;
         <span class='view-count'>{{ post.views }} 阅读</span>&emsp; &emsp;
@@ -63,8 +63,10 @@
     </script>
     {% endif %}
     <hr>
-    <!--    {{ post.text|safe|slice:":200" }}-->
-    {{ post.text|safe }}
+    <div class="article-detail">
+      <!--    {{ post.text|safe|slice:":200" }}-->
+      {{ post.text|safe }}
+    </div>
     {% if device_type != 'mobile' %}
     <div class="container">
         <div class="row">
