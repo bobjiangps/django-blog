@@ -85,11 +85,13 @@ def post_edit(request, post_id):
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
+            post = form.save(commit=False)
             try:
                 post.author = request.user
             except ValueError:
                 return HttpResponse('<h1>please login first</h1>')
             post.save()
+            form.save_m2m()
             return redirect(post_detail, post_id=post.id)
     else:
         users = [u.username for u in User.objects.all()]
@@ -113,6 +115,7 @@ def create_new(request):
                 return HttpResponse('<h1>please login first</h1>')
             post.published_date = timezone.now()
             post.save()
+            form.save_m2m()
             return redirect(post_detail, post_id=post.id)
     else:
         users = [u.username for u in User.objects.all()]
