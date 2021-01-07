@@ -1,1 +1,1 @@
- Python, 测试框架, 自动化测试, 性能测试, Web, APP(iOS,Android), Django, API(Rest,Thrift,soap), Docker, openstf, Selenium, Appium, 机器学习, Pandas, Jmeter, Jenkins, Mysql, Mongodb, Jenkins, Nginx
+ Python, 测试开发, Web开发, 自动化平台, 测试框架, 自动化测试, 性能测试, 机器学习, APP(iOS,Android), Django, API(Rest,Thrift,soap), Docker, openstf, Selenium, Appium, Pandas, Jmeter, Jenkins, Mysql, Mongodb, Jenkins, Nginx
