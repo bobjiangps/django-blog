@@ -221,6 +221,8 @@
 <script>$.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});</script>
 <script>
     $(function () {
+        $(".article-detail > p > img").addClass("img-fluid");
+
         $(".navbar-nav").find("li").each(function () {
             var a = $(this).find("a:first")[0];
             if ($(a).attr("href") === location.pathname) {
