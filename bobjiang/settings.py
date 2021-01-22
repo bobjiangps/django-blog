@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'tool',
+    'accounting',
     #'xadmin',
     #'crispy_forms',
 ]
