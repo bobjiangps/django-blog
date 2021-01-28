@@ -53,9 +53,7 @@
           </article>
           <hr>
           {% endif %}
-        {% empty %}
-          <h1>您搜索的条件没有数据</h1>
-        {% if forloop.counter0 == 2 %}
+          {% if forloop.counter0 == 2 %}
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             <!-- zhanshi-20191030 -->
             <ins class="adsbygoogle"
@@ -67,7 +65,9 @@
             <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
-        {% endif %}
+          {% endif %}
+        {% empty %}
+          <h1>您搜索的条件没有数据</h1>
         {% endfor %}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- zhanshi-20191030 -->
