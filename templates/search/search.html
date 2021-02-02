@@ -55,14 +55,14 @@
         </script>
         <!-- Page navigation -->
         <ul class='pagination justify-content-center' style="line-height:40px;">
-            {% if posts.has_previous %}
-                <li class="page-item"><a href="?q={{ query }}&page={{ posts.previous_page_number }}" class="btn btn-primary float-left">&laquo;上一页</a></li>
+            {% if page.has_previous %}
+                <li class="page-item"><a href="?q={{ query }}&page={{ page.previous_page_number }}" class="btn btn-primary float-left">&laquo;上一页</a></li>
             {% endif %}
 
-            &nbsp;&nbsp; {{ posts.number }} / {{ posts.paginator.num_pages }} &nbsp;&nbsp;
+            &nbsp;&nbsp; {{ page.number }} / {{ page.paginator.num_pages }} &nbsp;&nbsp;
 
-            {% if posts.has_next %}
-                <li class="page-item"><a href="?q={{ query }}&page={{ posts.next_page_number }}" class="btn btn-primary float-right">下一页 &raquo;</a></li>
+            {% if page.has_next %}
+                <li class="page-item"><a href="?q={{ query }}&page={{ page.next_page_number }}" class="btn btn-primary float-right">下一页 &raquo;</a></li>
             {% endif %}
             &emsp;<input class="form-control form-control-sm" id="page-number-input" style="width:30px;">
             <button class="btn btn-outline-secondary btn-sm" id="page-jump" onclick="window.location.href='?q={{ query }}&page='+document.getElementById('page-number-input').value">跳转</button>
