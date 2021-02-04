@@ -369,45 +369,50 @@
 
         $('#search-record').click(function(){
             var search_keyword = $("#search-keyword").val();
-            $.ajax({
-                type: "POST",
-                data: {keyword: search_keyword},
-                url: "{% url 'search_record' %}",
-                cache: false,
-                dataType: "json",
-                success: function (result) {
-                    var cards = '';
-                    if (result["records"].length > 0) {
+            if (!search_keyword) {
+                alert("搜索词不能为空");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    data: {keyword: search_keyword},
+                    url: "{% url 'search_record' %}",
+                    cache: false,
+                    dataType: "json",
+                    success: function (result) {
                         var cards = '';
-                    }
-                    else {
-                        var cards = '<h5>搜索无结果</h5>';
-                    }
-                    result["records"].forEach(function(val,index,arr) {
-                        var card_prefix = '<div class="card" style="margin: 0px 5px 10px 5px;">';
-                        var category_string = '';
-                        if (val['subcategory'] === 'no sub category') {
-                            category_string = val['category'];
+                        if (result["records"].length > 0) {
+                            var cards = '';
                         }
                         else {
-                            category_string = val['category'] + ' - ' + val['subcategory'];
+                            var cards = '<h5>搜索无结果</h5>';
                         }
-                        if (val['ie_type'] === 'income') {
-                            amount_string = '<div style="float: right; color: green;">' + val["amount"] + '</div><br>';
-                        }
-                        else {
-                            amount_string = '<div style="float: right; color: red;">' + val["amount"] + '</div><br>';
-                        }
-                        var comment_string = '<div style="float: left; font-size: 80%; color: gray;">' + val["comment"] + '</div>';
-                        var account_string = '<div style="float: right; font-size: 80%; color: gray;">' + val["account"] + '</div>';
-                        card_header = '<div class="card-header"><div style="float: left;">'+val['day']+'</div></div>';
-                        list_group = '<ul class="list-group list-group-flush"><li class="list-group-item"><div style="float: left;">'+category_string+'</div>'+amount_string+comment_string+account_string+'</li></ul>';
-                        cards += card_prefix + card_header + list_group + '</div>';
-                    });
-                    var record_list = document.getElementById("record-list");
-                    record_list.innerHTML = cards;
-                }
-            });
+                        result["records"].forEach(function(val,index,arr) {
+                            var card_prefix = '<div class="card" style="margin: 0px 5px 10px 5px;">';
+                            var category_string = '';
+                            if (val['subcategory'] === 'no sub category') {
+                                category_string = val['category'];
+                            }
+                            else {
+                                category_string = val['category'] + ' - ' + val['subcategory'];
+                            }
+                            if (val['ie_type'] === 'income') {
+                                amount_string = '<div style="float: right; color: green;">' + val["amount"] + '</div><br>';
+                            }
+                            else {
+                                amount_string = '<div style="float: right; color: red;">' + val["amount"] + '</div><br>';
+                            }
+                            var comment_string = '<div style="float: left; font-size: 80%; color: gray;">' + val["comment"] + '</div>';
+                            var account_string = '<div style="float: right; font-size: 80%; color: gray;">' + val["account"] + '</div>';
+                            card_header = '<div class="card-header"><div style="float: left;">'+val['day']+'</div></div>';
+                            list_group = '<ul class="list-group list-group-flush"><li class="list-group-item"><div style="float: left;">'+category_string+'</div>'+amount_string+comment_string+account_string+'</li></ul>';
+                            cards += card_prefix + card_header + list_group + '</div>';
+                        });
+                        var record_list = document.getElementById("record-list");
+                        record_list.innerHTML = cards;
+                    }
+                });
+            }
         });
 
         $("#time-occurrence").attr("value", getCurrentDateFormat());
