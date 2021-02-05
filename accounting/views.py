@@ -325,22 +325,25 @@ def transfer_between_accounts(request):
         if form.is_valid():
             from_account = form.cleaned_data['from_account']
             to_account = form.cleaned_data['to_account']
-            transfer_amount = form.cleaned_data['amount']
-            transfer_comment = form.cleaned_data['comment']
-            time_occur = form.cleaned_data['time_of_occurrence']
-            transfer_record = TransferRecord(from_account=from_account,
-                                             to_account=to_account,
-                                             amount=transfer_amount,
-                                             comment=transfer_comment,
-                                             time_of_occurrence=time_occur,
-                                             created_date=time_now,
-                                             updated_date=time_now
-                                             )
-            transfer_record.save()
-            from_account.amount -= decimal.Decimal(transfer_amount)
-            from_account.save()
-            to_account.amount += decimal.Decimal(transfer_amount)
-            to_account.save()
+            if from_account != to_account:
+                transfer_amount = form.cleaned_data['amount']
+                transfer_comment = form.cleaned_data['comment']
+                time_occur = form.cleaned_data['time_of_occurrence']
+                transfer_record = TransferRecord(from_account=from_account,
+                                                 to_account=to_account,
+                                                 amount=transfer_amount,
+                                                 comment=transfer_comment,
+                                                 time_of_occurrence=time_occur,
+                                                 created_date=time_now,
+                                                 updated_date=time_now
+                                                 )
+                transfer_record.save()
+                from_account.amount -= decimal.Decimal(transfer_amount)
+                from_account.save()
+                to_account.amount += decimal.Decimal(transfer_amount)
+                to_account.save()
+            else:
+                print("WARNING: You are transferring money amount between the same account!")
         return redirect(index)
     else:
         return JsonResponse({"error": "unauthenticated"})
