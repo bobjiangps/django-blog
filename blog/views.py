@@ -2,11 +2,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.http import HttpResponse
 from django.utils import timezone
-from .models import Post, Visitor
+from .models import Post, Visitor, Category, Tag
 from .forms import PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login as d_login, logout as d_logout
 from django.db import connection
+from django.db.models import Count, Sum
 from django.contrib.auth.models import User
 # import markdown
 from utils.geoip_helper import GeoIpHelper
@@ -128,6 +129,7 @@ def create_new(request):
 
 
 def archives(request):
+    # Post.objects.filter(visiable__name='public').annotate(total_comments=Count('comment')).order_by("-total_comments")
     record_visit(request)
     all_category = []
     all_tag = []
@@ -135,24 +137,20 @@ def archives(request):
     login_user = request.user.username
     if login_user not in users:
         date_list = Post.objects.filter(visiable__name='public').dates('published_date', 'month', order='DESC')
-        posts = Post.objects.filter(visiable__name='public')
-        for p in posts:
-            if p.category.name not in all_category:
-                all_category.append(p.category.name)
-            for t in p.tag.all():
-                if t.name not in all_tag:
-                    all_tag.append(t.name)
+        category_by_post_view = Category.objects.annotate(blog_views=Count('post__views')).filter(post__visiable__name='public').order_by('-blog_views')
+        tag_by_post_view = Tag.objects.annotate(blog_views=Sum('post__views')).filter(post__visiable__name='public').order_by('-blog_views')
+        for c in category_by_post_view:
+            all_category.append(c.name)
+        for t in tag_by_post_view:
+            all_tag.append(t.name)
     else:
         date_list = Post.objects.dates('published_date', 'month', order='DESC')
-        posts = Post.objects.all()
-        for p in posts:
-            if p.category.name not in all_category:
-                all_category.append(p.category.name)
-            for t in p.tag.all():
-                if t.name not in all_tag:
-                    all_tag.append(t.name)
-    all_category.sort()
-    all_tag.sort()
+        category_by_post_view = Category.objects.annotate(blog_views=Count('post__views')).order_by('-blog_views')
+        tag_by_post_view = Tag.objects.annotate(blog_views=Sum('post__views')).order_by('-blog_views')
+        for c in category_by_post_view:
+            all_category.append(c.name)
+        for t in tag_by_post_view:
+            all_tag.append(t.name)
     return render(request, 'blog/archives.html', context={'date_list': date_list, 'category_list': all_category, 'tag_list': all_tag})
 
 
