@@ -318,6 +318,33 @@ def search_record(request):
         return JsonResponse({"error": "unauthenticated"})
 
 
+def filter_record_by_date(request):
+    if request.user.is_authenticated:
+        post_year = request.POST.get('year')
+        post_month = request.POST.get('month')
+        history_records = HistoryRecord.objects.filter(time_of_occurrence__year=post_year, time_of_occurrence__month=post_month).order_by("-time_of_occurrence")
+        transfer_records = TransferRecord.objects.filter(time_of_occurrence__year=post_year, time_of_occurrence__month=post_month).order_by("-time_of_occurrence")
+        day_has_record = []
+        custom_month_records = {}
+        for hr in history_records:
+            day_occur = hr.time_of_occurrence.strftime("%Y-%m-%d %A")
+            if day_occur not in day_has_record:
+                day_has_record.append(day_occur)
+                custom_month_records[day_occur] = [hr]
+            else:
+                custom_month_records[day_occur].append(hr)
+        for tr in transfer_records:
+            day_occur = tr.time_of_occurrence.strftime("%Y-%m-%d %A")
+            if day_occur not in day_has_record:
+                day_has_record.append(day_occur)
+                custom_month_records[day_occur] = [tr]
+            else:
+                custom_month_records[day_occur].append(tr)
+        return JsonResponse({'day_has_record': day_has_record, "records": custom_month_records})
+    else:
+        return JsonResponse({"error": "unauthenticated"})
+
+
 def transfer_between_accounts(request):
     if request.user.is_authenticated:
         time_now = timezone.now()
