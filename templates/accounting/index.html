@@ -425,8 +425,9 @@
                         for (key in result["records"]) {
                             var card_prefix = '<div class="card" style="margin: 0px 5px 10px 5px;">';
                             var card_header = '<div class="card-header"><div style="float: left;">'+ key +'</div></div>';
+                            var current_item = '';
                             result["records"][key].forEach(function(val,index,arr) {
-                                if (val["category"]) {
+                                if (val["record_type"] === "income_expense") {
                                     var category_string = '';
                                     if (val['subcategory'] === 'no sub category') {
                                         category_string = val['category'];
@@ -442,14 +443,14 @@
                                     }
                                     var comment_string = '<div style="float: left; font-size: 80%; color: gray;">' + val["comment"] + '</div>';
                                     var account_string = '<div style="float: right; font-size: 80%; color: gray;">' + val["account"] + '</div>';
-                                    var current_item = '<li class="list-group-item"><div style="float: left;">'+category_string+'</div>'+amount_string+comment_string+account_string+'</li>';
+                                    current_item += '<li class="list-group-item"><div style="float: left;">'+category_string+'</div>'+amount_string+comment_string+account_string+'</li>';
                                 }
                                 else {
                                     var transfer_string = '<div style="float: left;">' + val["from_account"] + ' -> ' + val["to_account"] + '</div>';
                                     var amount_string = '<div style="float: right; color: blue;">' + val["amount"] + '</div><br>';
                                     var comment_string = '<div style="float: left; font-size: 80%; color: gray;">' + val["comment"] + '</div>';
                                     var account_string = '<div style="float: right; font-size: 80%; color: gray;">账户内转</div>';
-                                    var current_item = '<li class="list-group-item">' + transfer_string + amount_string + comment_string + account_string+'</li>';
+                                    current_item += '<li class="list-group-item">' + transfer_string + amount_string + comment_string + account_string+'</li>';
                                 }
                             });
                             var list_group = '<ul class="list-group list-group-flush">' + current_item + '</ul>';

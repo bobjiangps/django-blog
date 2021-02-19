@@ -328,18 +328,46 @@ def filter_record_by_date(request):
         custom_month_records = {}
         for hr in history_records:
             day_occur = hr.time_of_occurrence.strftime("%Y-%m-%d %A")
+            if hr.sub_category:
+                sub_category = hr.sub_category.name
+            else:
+                sub_category = "no sub category"
+            if hr.comment:
+                comment = hr.comment
+            else:
+                comment = ""
+            new_hr = {
+                "category": hr.category.name,
+                "subcategory": sub_category,
+                "amount": hr.amount,
+                "comment": comment,
+                "account": hr.account.name,
+                "ie_type": hr.category.category_type.lower(),
+                "record_type": "income_expense"
+            }
             if day_occur not in day_has_record:
                 day_has_record.append(day_occur)
-                custom_month_records[day_occur] = [hr]
+                custom_month_records[day_occur] = [new_hr]
             else:
-                custom_month_records[day_occur].append(hr)
+                custom_month_records[day_occur].append(new_hr)
         for tr in transfer_records:
             day_occur = tr.time_of_occurrence.strftime("%Y-%m-%d %A")
+            if tr.comment:
+                comment = tr.comment
+            else:
+                comment = ""
+            new_tr = {
+                "amount": tr.amount,
+                "comment": comment,
+                "from_account": tr.from_account.name,
+                "to_account": tr.to_account.name,
+                "record_type": "transfer"
+            }
             if day_occur not in day_has_record:
                 day_has_record.append(day_occur)
-                custom_month_records[day_occur] = [tr]
+                custom_month_records[day_occur] = [new_tr]
             else:
-                custom_month_records[day_occur].append(tr)
+                custom_month_records[day_occur].append(new_tr)
         return JsonResponse({'day_has_record': day_has_record, "records": custom_month_records})
     else:
         return JsonResponse({"error": "unauthenticated"})
