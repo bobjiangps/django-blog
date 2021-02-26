@@ -112,41 +112,6 @@
       </div>
 
       <hr>
-      <!-- Footer -->
-      <!--<footer>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-              <ul class="list-inline text-center">
-                <li class="list-inline-item">
-                  <a href="mailto:jbsv43@sina.com" title="jbsv43@sina.com">
-                    <span class="fa-stack fa-lg">
-                      <i class="fas fa-circle fa-stack-2x"></i>
-                      <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <p>jbsv43@sina.com</p>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <span class="fa-stack fa-lg" title="48090730">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-qq fa-stack-1x fa-inverse"></i>
-                  </span>
-                  <p>48090730</p>
-                </li>
-                <li class="list-inline-item">
-                  <span class="fa-stack fa-lg" title="成都">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
-                  </span>
-                  <p>成都</p>
-                </li>
-              </ul>
-              <p class="copyright text-muted">By &copy; BobJiang</p>
-            </div>
-          </div>
-        </div>
-      </footer>-->
 
   <!-- Footer -->
   <footer class="footer">
@@ -167,13 +132,18 @@
               <a href="/jupyter">在线练习代码</a>
             </li>
             <li class="list-inline-item">&sdot;</li>
+            {% if user.is_authenticated %}
+            <li class="list-inline-item">
+              <a href="{% url 'download_bak' %}">备份下载</a>
+            </li>
+            {% endif %}
           </ul>
           <p class="text-muted mb-4 mb-lg-0">By &copy; BobJiang</p>
         </div>
         <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
           <ul class="list-inline mb-0">
             <li class="list-inline-item mr-3">
-              <a title="jbsv43@sina.com">
+              <a title="bobjiang4321@gmail.com">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
