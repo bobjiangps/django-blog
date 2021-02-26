@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
+from wsgiref.util import FileWrapper
 from django.utils import timezone
 from .models import Post, Visitor, Category, Tag
 from .forms import PostForm
@@ -9,8 +10,11 @@ from django.contrib.auth import authenticate, login as d_login, logout as d_logo
 from django.db import connection
 from django.db.models import Count, Sum
 from django.contrib.auth.models import User
-# import markdown
 from utils.geoip_helper import GeoIpHelper
+from bobjiang.settings import BASE_DIR
+# import markdown
+import os
+import mimetypes
 
 
 def top_viewed_posts(request, amount=5):
@@ -431,3 +435,20 @@ def record_visit(request):
             f.write("\n")
             f.write(str(e))
             f.write("\n\n")
+
+
+def download_bak(request):
+    if request.user.is_authenticated:
+        bak_file = "other/db_bak/django-blog-v2-latest.sql"
+        filename = os.path.basename(bak_file)
+        abs_path = os.path.join(BASE_DIR, bak_file)
+        if os.path.exists(abs_path):
+            chunk_size = 8192
+            response = StreamingHttpResponse(FileWrapper(open(abs_path, 'rb'), chunk_size), content_type=mimetypes.guess_type(abs_path)[0])
+            response['Content-Length'] = os.path.getsize(abs_path)
+            response['Content-Disposition'] = "attachment; filename=%s" % filename
+            return response
+        else:
+            return HttpResponse('<h1>Cannot find the file</h1>')
+    else:
+        return HttpResponse('<h1>please login first</h1>')

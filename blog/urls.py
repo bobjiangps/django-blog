@@ -21,5 +21,6 @@ urlpatterns = [
     path('categorization/category/<str:category_name>/sort-by-<str:sort_type>/', views.archives_category_sort, name='archives_category_sort'),
     path('categorization/tag/<str:tag_name>/', views.archives_tag, name='archives_tag'),
     path('categorization/tag/<str:tag_name>/sort-by-<str:sort_type>/', views.archives_tag_sort, name='archives_tag_sort'),
-    path('show-view-record/', views.show_view_record, name='show_view_record')
+    path('show-view-record/', views.show_view_record, name='show_view_record'),
+    path('download_bak/', views.download_bak, name='download_bak')
 ]
