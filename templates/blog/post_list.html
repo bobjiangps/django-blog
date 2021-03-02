@@ -5,18 +5,16 @@
   <div class="container" style="margin-top: 20px;">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <select class="custom-select" id="sortarticle" style="width:160px; margin: 0px 0px 10px 0px;">
-          <option value="view count">按阅读量排序</option>
-          <option value="publish date">按发布日期排序</option>
-        </select>
+          <!--<select class="custom-select" id="sortarticle" style="width:160px; margin: 0px 0px 10px 0px; display: none;">
+              <option value="view count">按阅读量排序</option>
+              <option value="publish date">按发布日期排序</option>
+          </select>-->
+          <div>
+              <button type="button" class="btn btn-outline-success" id="sort-by-view" disabled>当前按阅读量排序</button>
+              <button type="button" class="btn btn-info" id="sort-by-date">点击切换->按发布日期排序</button>
+          </div>
+          <hr>
         {% if user.is_authenticated %}
-        <!--<label for="sortarticle">文章排序</label>
-        <span class="badge badge-primary" style="font-size: 15px;">文章排序</span>-->
-        <!--<select autofocus class="form-control" id="sortarticle" style="width:130px;">
-          <option value="select type">文章排序</option>
-          <option value="publish date">按发布日期</option>
-          <option value="view count">按阅读量</option>
-        </select>-->
         <p style="margin: 10px;"><a href="{% url 'create_new' %}"><i class="fa fa-plus" aria-hidden="true">新增文章</i></a></p>
         {% endif %}
         {% for post in posts %}
@@ -109,5 +107,60 @@
         year = date_array.pop();
         document.title = '日期范围 - ' + year + '/' + month + ' - ' + document.title;
     }
+
+    if (window.location.href.indexOf("sort-by-view") >= 0) {
+        var by_view_btn = document.getElementById("sort-by-view");
+        var by_date_btn = document.getElementById("sort-by-date");
+        by_date_btn.removeAttribute("disabled");
+        by_date_btn.innerHTML = "点击切换->按发布日期排序";
+        by_date_btn.setAttribute("class", "btn btn-info");
+        by_view_btn.setAttribute("disabled", true);
+        by_view_btn.innerHTML = "当前按阅读量排序";
+        by_view_btn.setAttribute("class", "btn btn-outline-success");
+    }
+    else if (window.location.href.indexOf("sort-by-date") >= 0) {
+        var by_view_btn = document.getElementById("sort-by-view");
+        var by_date_btn = document.getElementById("sort-by-date");
+        by_view_btn.removeAttribute("disabled");
+        by_view_btn.innerHTML = "点击切换->按阅读量排序";
+        by_view_btn.setAttribute("class", "btn btn-info");
+        by_date_btn.setAttribute("disabled", true);
+        by_date_btn.innerHTML = "当前按发布日期排序";
+        by_date_btn.setAttribute("class", "btn btn-outline-success");
+    }
+
+    $('#sort-by-date').click(function(){
+        no_sort_url = "";
+        search_params = window.location.search;
+        if (search_params.length > 0) {
+            no_sort_url = window.location.href.split(search_params)[0].split("sort")[0];
+        }
+        else {
+            no_sort_url = window.location.href.split("sort")[0];
+        }
+        if (no_sort_url.endsWith("/")) {
+          window.location.href = no_sort_url + "sort-by-date";
+        }
+        else {
+          window.location.href = no_sort_url + "/sort-by-date";
+        }
+    });
+
+    $('#sort-by-view').click(function(){
+        no_sort_url = "";
+        search_params = window.location.search;
+         if (search_params.length > 0) {
+            no_sort_url = window.location.href.split(search_params)[0].split("sort")[0];
+        }
+        else {
+            no_sort_url = window.location.href.split("sort")[0];
+        }
+        if (no_sort_url.endsWith("/")) {
+          window.location.href = no_sort_url + "sort-by-view";
+        }
+        else {
+          window.location.href = no_sort_url + "/sort-by-view";
+        }
+    });
 </script>
 {% endblock %}
