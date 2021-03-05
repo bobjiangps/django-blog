@@ -11,7 +11,7 @@
           </select>-->
           <div>
               <button type="button" class="btn btn-outline-success" id="sort-by-view" disabled>当前按阅读量排序</button>
-              <button type="button" class="btn btn-info" id="sort-by-date">点击切换->按发布日期排序</button>
+              <button type="button" class="btn btn-info" id="sort-by-date">切换->按发布日期排序</button>
           </div>
           <hr>
         {% if user.is_authenticated %}
@@ -112,7 +112,7 @@
         var by_view_btn = document.getElementById("sort-by-view");
         var by_date_btn = document.getElementById("sort-by-date");
         by_date_btn.removeAttribute("disabled");
-        by_date_btn.innerHTML = "点击切换->按发布日期排序";
+        by_date_btn.innerHTML = "切换->按发布日期排序";
         by_date_btn.setAttribute("class", "btn btn-info");
         by_view_btn.setAttribute("disabled", true);
         by_view_btn.innerHTML = "当前按阅读量排序";
@@ -122,7 +122,7 @@
         var by_view_btn = document.getElementById("sort-by-view");
         var by_date_btn = document.getElementById("sort-by-date");
         by_view_btn.removeAttribute("disabled");
-        by_view_btn.innerHTML = "点击切换->按阅读量排序";
+        by_view_btn.innerHTML = "切换->按阅读量排序";
         by_view_btn.setAttribute("class", "btn btn-info");
         by_date_btn.setAttribute("disabled", true);
         by_date_btn.innerHTML = "当前按发布日期排序";
