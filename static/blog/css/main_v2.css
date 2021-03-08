@@ -1,0 +1,69 @@
+section.headfirst {
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 72px);
+  background: no-repeat center center url("/media/background/blogging-coffee-copywriting-34601-compress.jpg");;
+  background-color: #868e96;
+  background-attachment: scroll;
+  position: relative;
+  background-size: cover;
+}
+
+section.headfirst .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #212529;
+  opacity: 0.5;
+}
+
+section.headfirst .site-heading {
+  padding: 0px 0 90px;
+  color: white;
+  text-align: center;
+}
+
+section.headfirst h1 {
+  font-size: 2.25rem;
+}
+
+@media (min-width: 992px) {
+    section.headfirst .site-heading {
+      padding: 120px 0 90px;
+    }
+    section.headfirst {
+      height: 100vh;
+      min-height: 40rem;
+      padding-top: 72px;
+      padding-bottom: 0;
+      margin-bottom: 10px;
+    }
+    section.headfirst p {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.75);
+    }
+    section.headfirst h1 {
+      font-size: 3rem;
+    }
+}
+
+.btn-jump {
+  border-radius: 50px;
+  margin: 20px 0px 0px 0px;
+  font-size: 1.5rem;
+  line-height: 2;
+  color: #F0FFF0;
+  background-color: #FFC125;
+}
+
+.a-jump {
+  display: none;
+  padding: 100px 0px 0px 0px;
+}
+
+@media (min-width: 992px) {
+  .a-jump {
+    display: block;
+  }
+}

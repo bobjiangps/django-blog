@@ -1,0 +1,122 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="baidu-site-verification" content="axzaiwslsh" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.7.2/css/fontawesome.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.5/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/cleanblog_v2.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/main_v2.css' %}">
+    <link rel="icon" href="/media/icons/icons8-around-the-globe-512.png" type="images/png" />
+    <title>BYINCD</title>
+    <script data-ad-client="ca-pub-9496515710476197" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?32227606de1398729c97d9242efd8a64";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href="/">BYINCD</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          目录
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'top_viewed_posts' %}">首页</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'post_list' %}">文章</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'archives' %}">分类</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about_me' %}">关于</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="headfirst" id="work-notes">
+      <div class="overlay"></div>
+       <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <div class="site-heading">
+                <h1>在IT圈的工作笔记</h1>
+                <p class="subheading">包含但不限于：Python、Web开发、测试框架、自动化平台、机器学习等</p>
+                <a class="btn btn-warning btn-jump" href="{% url 'top_viewed_posts' %}">&ensp;&ensp;点击进入&ensp;&ensp;</a>
+                <p></p>
+                <span class="a-jump">
+                  <p>点击下滑</p>
+                  <a class="fa-stack fa-lg" href="#jupyter-lab">
+                    <i class="fas fa-chevron-down fa-stack-2x fa-inverse"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+      <span id="beian">
+          <a href="http://www.beian.miit.gov.cn/" target="_blank">蜀ICP备18017146号</a>
+          <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51012202000327"><img src="https://www.byincd.com/diary/wp-content/uploads/2018/07/gonganbu.png"/>川公网安备 51012202000327号</a>
+      </span>
+    </footer>
+
+    <script>$.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});</script>
+    <script>
+      $(function () {
+        $("#beian").css("display", "block");
+      })
+    </script>
+    <script>
+      $(function () {
+          //show the navbar when the page is scrolled up
+          var MQL = 992;
+          //primary navigation slide-in effect
+          if ($(window).width() > MQL) {
+              var headerHeight = $('#mainNav').height();
+              $(window).on('scroll', {
+                  previousTop: 0
+                },
+                function() {
+                    var currentTop = $(window).scrollTop();
+                    //check if user is scrolling up
+                    if (currentTop < this.previousTop) {
+                      //if scrolling up...
+                      if (currentTop > 0 && $('#mainNav').hasClass('is-fixed')) {
+                        $('#mainNav').addClass('is-visible');
+                      } else {
+                        $('#mainNav').removeClass('is-visible is-fixed');
+                      }
+                    } else if (currentTop > this.previousTop) {
+                       //if scrolling down...
+                       $('#mainNav').removeClass('is-visible');
+                      if (currentTop > headerHeight && !$('#mainNav').hasClass('is-fixed')) $('#mainNav').addClass('is-fixed');
+                      }
+                    this.previousTop = currentTop;
+                });
+          }
+      })
+    </script>
+  </body>
+</html>
