@@ -28,6 +28,10 @@ section.headfirst h1 {
   font-size: 2.25rem;
 }
 
+section.headfirst p {
+  color: rgba(255, 255, 255, 0.75);
+}
+
 section.headfirst hr {
   max-width: 5rem;
   border-width: 0.2rem;
