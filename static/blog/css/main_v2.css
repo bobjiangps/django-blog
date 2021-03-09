@@ -78,6 +78,7 @@ section.headfirst hr {
   }
 }
 
+
 /* header second */
 section.headsecond {
   padding-top: 10rem;
@@ -107,6 +108,10 @@ section.headsecond .site-heading {
 
 section.headsecond h1 {
   font-size: 2.25rem;
+}
+
+section.headsecond p {
+  color: rgba(255, 255, 255, 0.75);
 }
 
 section.headsecond hr {
@@ -180,6 +185,10 @@ section.headthird .site-heading {
 
 section.headthird h1 {
   font-size: 2.25rem;
+}
+
+section.headthird p {
+  color: rgba(255, 255, 255, 0.75);
 }
 
 section.headthird hr {
