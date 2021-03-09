@@ -37,13 +37,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'top_viewed_posts' %}">首页</a>
+              <a class="nav-link" href="{% url 'top_viewed_posts' %}">笔记</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'post_list' %}">文章</a>
+              <a class="nav-link smooth-scroll" href="#jupyter-lab">编码</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'archives' %}">分类</a>
+              <a class="nav-link smooth-scroll" href="#travel-note">游记</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about_me' %}">关于</a>
@@ -60,15 +60,56 @@
             <div class="col-lg-8 col-md-10 mx-auto">
               <div class="site-heading">
                 <h1>在IT圈的工作笔记</h1>
+                <hr width="30%" />
                 <p class="subheading">包含但不限于：Python、Web开发、测试框架、自动化平台、机器学习等</p>
-                <a class="btn btn-warning btn-jump" href="{% url 'top_viewed_posts' %}">&ensp;&ensp;点击进入&ensp;&ensp;</a>
+                <a class="btn btn-warning btn-jump-first" href="{% url 'top_viewed_posts' %}">&ensp;&ensp;点击进入&ensp;&ensp;</a>
                 <p></p>
                 <span class="a-jump">
                   <p>点击下滑</p>
-                  <a class="fa-stack fa-lg" href="#jupyter-lab">
+                  <a class="fa-stack fa-lg smooth-scroll" href="#jupyter-lab">
                     <i class="fas fa-chevron-down fa-stack-2x fa-inverse"></i>
                   </a>
                 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <section class="headsecond" id="jupyter-lab">
+      <div class="overlay"></div>
+       <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <div class="site-heading">
+                <h1>在线编写代码</h1>
+                <hr width="30%" />
+                <p class="subheading">多语言支持, 交互式调试, 数据可视化, 个人使用</p>
+                <a class="btn btn-warning btn-jump-second" href="/jupyter">&ensp;&ensp;点击进入&ensp;&ensp;</a>
+                <p></p>
+                <span class="a-jump">
+                  <p>点击下滑</p>
+                  <a class="fa-stack fa-lg smooth-scroll" href="#travel-note">
+                    <i class="fas fa-chevron-down fa-stack-2x fa-inverse"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <section class="headthird" id="travel-note">
+      <div class="overlay"></div>
+       <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <div class="site-heading">
+                <h1>偶尔的日记游记</h1>
+                <hr width="30%" />
+                <p class="subheading">偶尔记录一些日常生活的点滴, 旅行的风景, 沿途的心情</p>
+                <a class="btn btn-warning btn-jump-third" href="/dairy">&ensp;&ensp;点击进入&ensp;&ensp;</a>
+                <p></p>
               </div>
             </div>
           </div>
@@ -86,6 +127,16 @@
     <script>
       $(function () {
         $("#beian").css("display", "block");
+
+        $('a.smooth-scroll[href*="#"]:not([href="#"])').click(function(e) {
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top}, 1000);
+        });
+
+        $('.smooth-scroll').click(function() {
+          $('.navbar-collapse').collapse('hide');
+        });
+
       })
     </script>
     <script>

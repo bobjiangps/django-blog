@@ -6,7 +6,8 @@ from utils.geoip_helper import GeoIpHelper
 
 def main_page(request):
     record_visit(request)
-    return render(request, 'main/main.html')
+    # return render(request, 'main/main.html')
+    return render(request, 'main/main_v2.html')
 
 
 def record_visit(request):
