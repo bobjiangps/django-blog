@@ -79,8 +79,8 @@
       <!--    {{ post.text|safe|slice:":200" }}-->
       {{ post.text|safe }}
     </div>
-    <div style="padding: 0px 10px 20px 10px;">
-        <div style="float: left;">
+    <div class="post-relation" style="padding: 0px 10px 20px 10px;">
+        <div class="post-next" style="float: left;">
             {% if post_next %}
             下一篇:&ensp;
             <a href="{% url 'post_detail' post_next.id %}">
@@ -88,7 +88,7 @@
             </a>
             {% endif %}
         </div>
-        <div style="float: right;">
+        <div class="post-prev" style="float: right;">
             {% if post_prev %}
             上一篇:&ensp;
             <a href="{% url 'post_detail' post_prev.id %}">
