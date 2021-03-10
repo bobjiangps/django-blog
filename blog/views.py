@@ -81,7 +81,9 @@ def post_detail(request, post_id):
     post.comments = post.comment_set.all().filter().order_by('-created_time')
     post.increase_views()
     # post.text = markdown.markdown(post.text, extensions=['markdown.extensions.extra','markdown.extensions.codehilite','markdown.extensions.toc'])
-    return render(request, 'blog/post_detail.html', {'post': post})
+    post_prev = Post.objects.filter(visiable__name='public').filter(id__lt=post_id).order_by('-id').first()
+    post_next = Post.objects.filter(visiable__name='public').filter(id__gt=post_id).order_by('id').first()
+    return render(request, 'blog/post_detail.html', {'post': post, 'post_prev': post_prev, 'post_next': post_next})
 
 
 def post_edit(request, post_id):
