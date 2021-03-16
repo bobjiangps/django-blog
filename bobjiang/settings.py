@@ -28,6 +28,10 @@ SECRET_KEY = STORED['secret_key']
 # DEBUG = True
 DEBUG = False
 
+RECORD_VISITOR = True
+# RECORD_VISITOR = False
+
+
 ALLOWED_HOSTS = ['*',]
 
 APPEND_SLASH = True
