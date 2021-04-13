@@ -22,11 +22,13 @@ def top_viewed_posts(request, amount=5):
     users = [u.username for u in User.objects.all()]
     login_user = request.user.username
     if login_user not in users:
-        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('views').reverse()
+        # posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('views').reverse()
         new_posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('published_date').reverse()
     else:
-        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
+        # posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
         new_posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    # for the posts which set to top
+    posts = Post.objects.filter(id__in=[64, 104, 61, 68, 78]).order_by("views").reverse()
 
     top_viewed_tag_sql = """
         SELECT sum(bp.views) as sum_view, bt.name FROM `blog_post` as bp 
