@@ -8,6 +8,8 @@ import decimal
 
 
 def index(request):
+    if not request.user.is_authenticated:
+        return render(request, 'error/403.html')
     today = datetime.date.today()
     all_accounts = Account.objects.all()
     currencies = Currency.objects.all()

@@ -80,6 +80,8 @@ def post_list_sort(request, sort_type):
 def post_detail(request, post_id):
     record_visit(request)
     post = get_object_or_404(Post, pk=post_id)
+    if post.visiable.name == "private" and request.user.is_authenticated == False:
+        return render(request, 'error/403.html')
     post.comments = post.comment_set.all().filter().order_by('-created_time')
     post.increase_views()
     # post.text = markdown.markdown(post.text, extensions=['markdown.extensions.extra','markdown.extensions.codehilite','markdown.extensions.toc'])
@@ -98,7 +100,8 @@ def post_edit(request, post_id):
             try:
                 post.author = request.user
             except ValueError:
-                return HttpResponse('<h1>please login first</h1>')
+                # return HttpResponse('<h1>please login first</h1>')
+                return render(request, 'error/403.html')
             post.save()
             form.save_m2m()
             return redirect(post_detail, post_id=post.id)
@@ -106,7 +109,8 @@ def post_edit(request, post_id):
         users = [u.username for u in User.objects.all()]
         login_user = request.user.username
         if login_user not in users:
-            return render(request, 'blog/unauthenticated.html')
+            # return render(request, 'blog/unauthenticated.html')
+            return render(request, 'error/403.html')
         else:
             form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
@@ -121,7 +125,8 @@ def create_new(request):
             try:
                 post.author = request.user
             except ValueError:
-                return HttpResponse('<h1>please login first</h1>')
+                # return HttpResponse('<h1>please login first</h1>')
+                return render(request, 'error/403.html')
             post.published_date = timezone.now()
             post.save()
             form.save_m2m()
@@ -130,7 +135,8 @@ def create_new(request):
         users = [u.username for u in User.objects.all()]
         login_user = request.user.username
         if login_user not in users:
-            return render(request, 'blog/unauthenticated.html')
+            # return render(request, 'blog/unauthenticated.html')
+            return render(request, 'error/403.html')
         else:
             form = PostForm()
     return render(request, 'blog/create_new.html', {'form': form})
@@ -322,10 +328,10 @@ def do_login(request):
                 return redirect(request.session['login_from'])  # go back to page before login
             else:
                 request.session['login_error'] = "未激活用户"
-                return render(request,'blog/login.html', {'username': userName, 'password': userPassword})
+                return render(request, 'blog/login.html', {'username': userName, 'password': userPassword})
         else:
             request.session['login_error'] = "错误的用户名或密码"
-            return render(request,'blog/login.html', {'username': userName, 'password': userPassword})
+            return render(request, 'blog/login.html', {'username': userName, 'password': userPassword})
 
 
 def do_logout(request):
@@ -456,7 +462,8 @@ def download_bak(request):
         else:
             return HttpResponse('<h1>Cannot find the file</h1>')
     else:
-        return HttpResponse('<h1>please login first</h1>')
+        # return HttpResponse('<h1>please login first</h1>')
+        return render(request, 'error/403.html')
 
 
 def page_not_found(request, exception):
