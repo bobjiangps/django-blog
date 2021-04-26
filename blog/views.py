@@ -457,3 +457,15 @@ def download_bak(request):
             return HttpResponse('<h1>Cannot find the file</h1>')
     else:
         return HttpResponse('<h1>please login first</h1>')
+
+
+def page_not_found(request, exception):
+    return render(request, 'error/404.html')
+
+
+def permission_denied(request, exception):
+    return render(request, 'error/403.html')
+
+
+def internal_error(request):
+    return render(request, 'error/500.html')

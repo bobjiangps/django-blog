@@ -18,6 +18,8 @@ from django.urls import path,include
 ##import ckeditor_uploader
 from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls import handler500, handler404, handler403
+from blog import views as blog_views
 #import xadmin
 
 
@@ -34,3 +36,7 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler403 = blog_views.permission_denied
+handler404 = blog_views.page_not_found
+handler500 = blog_views.internal_error
