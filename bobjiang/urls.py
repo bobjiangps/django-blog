@@ -18,7 +18,6 @@ from django.urls import path,include
 ##import ckeditor_uploader
 from django.conf.urls.static import static
 from django.conf import settings
-from django.conf.urls import handler500, handler404, handler403
 from blog import views as blog_views
 #import xadmin
 

@@ -12,6 +12,7 @@ from django.db.models import Count, Sum
 from django.contrib.auth.models import User
 from utils.geoip_helper import GeoIpHelper
 from bobjiang.settings import BASE_DIR, RECORD_VISITOR
+from django.contrib.auth.decorators import permission_required, login_required
 # import markdown
 import os
 import mimetypes
@@ -90,6 +91,7 @@ def post_detail(request, post_id):
     return render(request, 'blog/post_detail.html', {'post': post, 'post_prev': post_prev, 'post_next': post_next})
 
 
+@permission_required('blog.change_post', raise_exception=True)
 def post_edit(request, post_id):
     record_visit(request)
     post = get_object_or_404(Post, pk=post_id)
@@ -116,6 +118,7 @@ def post_edit(request, post_id):
     return render(request, 'blog/post_edit.html', {'form': form})
 
 
+@permission_required('blog.add_post', raise_exception=True)
 def create_new(request):
     record_visit(request)
     if request.method == "POST":
@@ -303,6 +306,7 @@ def about_site(request):
     return render(request, 'blog/about_site.html')
 
 
+@login_required
 def about_visitor(request):
     record_visit(request)
     return render(request, 'blog/about_visitor.html')
