@@ -15,6 +15,15 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-datetimepicker@2.5.21/build/jquery.datetimepicker.full.min.js"></script>
     <link rel="stylesheet" href="{% static 'accounting/css/accounting.css' %}">
     <title>记录收支</title>
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2edea8f92ce9ba61a91e036cffc15dcb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
 </head>
 <body>
     {% if user.is_authenticated %}
