@@ -114,7 +114,7 @@ server {
         }
 
 
-        location ~ /diary {
+        location ~ /memory {
             index index.php index.html index.htm;
             include /etc/nginx/mime.types;
             try_files $uri $uri/ /index.php?$is_args$args =404;
