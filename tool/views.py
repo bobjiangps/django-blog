@@ -17,6 +17,12 @@ def tool_main_page(request):
     return render(request, 'tool/main.html')
 
 
+def tool_share_page(request):
+    # port = request.META.get("SERVER_PORT")
+    # record_visit(request, page_suffix=f"/port={port}")
+    return render(request, 'tool/share.html')
+
+
 def tool_geoip(request):
     allowed_id = ["ProtectAnimal2020", "Ghost-13544325255"]
     query_data = {"ip": "", "location": ""}
