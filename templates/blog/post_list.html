@@ -30,7 +30,7 @@
             {% else %}
               <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
             {% endif %}
-            <h6 class="post-subtitle">{{ post.text|safe|truncatechars:120}}</h6>
+            <h6 class="post-subtitle">{{ post.text|safe|truncatechars:120}}...</h6>
             <div class="read-more" style="padding:0 0 20px 0;">
                 <!--<a href="{{ post.get_absolute_url }}" class="btn btn-primary">查看更多&rarr;</a>-->
                 <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary">继续阅读</a>

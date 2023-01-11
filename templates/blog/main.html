@@ -26,7 +26,7 @@
                               {% endif %}
                           </span>
                       </h2>
-                      <p class="mb-3">{{ post.text|safe|truncatechars:100}}
+                      <p class="mb-3">{{ post.text|safe|truncatechars:100}}...
                       </p>
                       <!--{% if post.tag.all %}
                           <div class="tag">
@@ -88,7 +88,7 @@
                               {% endif %}
                           </span>
                       </h2>
-                      <p class="mb-3">{{ post.text|safe|truncatechars:100}}
+                      <p class="mb-3">{{ post.text|safe|truncatechars:100}}...
                       </p>
                       <!--{% if post.tag.all %}
                           <div class="tag">
@@ -151,7 +151,7 @@
                       {% else %}
                         <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a><h3>
                       {% endif %}
-                      <h6>{{ post.text|safe|truncatechars:100}}</h6>
+                      <h6>{{ post.text|safe|truncatechars:100}}...</h6>
                   </div>
                   <div class="read-more" style="padding:0px 20px 10px 20px;">
                       <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary">继续阅读</a>
@@ -198,7 +198,7 @@
                       {% else %}
                         <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a><h3>
                       {% endif %}
-                      <h6>{{ post.text|safe|truncatechars:100}}</h6>
+                      <h6>{{ post.text|safe|truncatechars:100}}...</h6>
                   </div>
                   <div class="read-more" style="padding:0px 20px 10px 20px;">
                       <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary">继续阅读</a>

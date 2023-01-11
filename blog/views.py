@@ -29,7 +29,7 @@ def top_viewed_posts(request, amount=5):
         # posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
         new_posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     # for the posts which set to top
-    posts = Post.objects.filter(id__in=[104, 61, 68, 78, 203]).order_by("views").reverse()
+    posts = Post.objects.filter(id__in=[104, 61, 68, 78, 214]).order_by("views").reverse()
 
     top_viewed_tag_sql = """
         SELECT sum(bp.views) as sum_view, bt.name FROM `blog_post` as bp 
