@@ -294,7 +294,8 @@ def search_record(request):
         keyword = request.POST.get('keyword')
         categories = Category.objects.filter(name__icontains=keyword)
         subcategories = SubCategory.objects.filter(name__icontains=keyword)
-        hrs = HistoryRecord.objects.filter(Q(category__in=categories) | Q(sub_category__in=subcategories) | Q(comment__icontains=keyword) | Q(amount__icontains=keyword))
+        accounts = Account.objects.filter(name__icontains=keyword)
+        hrs = HistoryRecord.objects.filter(Q(category__in=categories) | Q(sub_category__in=subcategories) | Q(account__in=accounts) | Q(comment__icontains=keyword) | Q(amount__icontains=keyword))
         records = []
         for hr in hrs:
             day_occur = hr.time_of_occurrence.strftime("%Y-%m-%d %A")
