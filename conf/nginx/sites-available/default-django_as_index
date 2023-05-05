@@ -82,6 +82,10 @@ server {
             root /home/bob/djproject/bobjiang;
         }
 
+        location ~ ^/(robots.txt) {
+            root /home/bob/djproject/bobjiang;
+        }
+
         location ~ ^/(ads.txt) {
             root /home/bob/djproject/bobjiang;
         }
