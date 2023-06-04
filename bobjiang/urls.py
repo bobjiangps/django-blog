@@ -22,6 +22,13 @@ from blog import views as blog_views
 #import xadmin
 
 
+from rest_framework import routers
+from external.views import DebugViewSet
+
+router = routers.DefaultRouter()
+router.register(r'debug', DebugViewSet)
+
+
 urlpatterns = [
     path('bobjiang/admin/', admin.site.urls),
     #path('bobjiang/admin', xadmin.site.urls),
@@ -32,6 +39,8 @@ urlpatterns = [
     path('bobjiang/search/', include('haystack.urls')),
     path('tool/', include('tool.urls')),
     path('accounting/', include('accounting.urls')),
+    path('external/', include(router.urls)),
+    path('external/', include('external.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
