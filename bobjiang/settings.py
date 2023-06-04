@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'accounting',
     #'xadmin',
     #'crispy_forms',
+    'rest_framework',
+    'external',
 ]
 
 MIDDLEWARE = [
