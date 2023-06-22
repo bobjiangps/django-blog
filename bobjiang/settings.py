@@ -28,8 +28,8 @@ SECRET_KEY = STORED['secret_key']
 # DEBUG = True
 DEBUG = False
 
-RECORD_VISITOR = True
-# RECORD_VISITOR = False
+# RECORD_VISITOR = True
+RECORD_VISITOR = False
 
 
 ALLOWED_HOSTS = ['*',]
@@ -190,3 +190,35 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'standard': {
+#             'format': '\nTime: [%(asctime)s] | Level: [%(levelname)s] | Path: [%(pathname)s] | File_Name: [%(filename)s] | Function: [%(funcName)s] | Line: [%(lineno)d] | Log:\n[%(message)s]',
+#         },
+#         'simple': {
+#             'format': '\nTime: %(asctime)s | Level: %(levelname)s | Log: %(message)s',
+#         },
+#     },
+#     'filters': {
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         },
+#     },
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'simple',
+#         },
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'handlers': ['console'],
+#             'propagate': True,
+#             'level': 'DEBUG',
+#         },
+#     }
+# }
