@@ -73,7 +73,7 @@
                         <div class="form-inline my-2 my-lg-0">
                             <div name="search-elements" style="margin: 0px auto;">
                                 <input class="form-control mr-sm-2" type="search" id="search-keyword" placeholder="请输入内容">
-                                <button class="btn btn-info my-2 my-sm-0" id="search-record" type="submit"><i class="fa fa-search" aria-hidden="true">搜索账单</i></button>
+                                <button class="btn btn-info my-2 my-sm-0" id="search-record" type="submit"><span id="spinner-search-bill" style="display:none;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><i class="fa fa-search" aria-hidden="true">搜索账单</i></button>
                                 <a class="btn btn-info my-2 my-sm-0" href="/accounting" >回到主页</a>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                 </select>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <button id="show-custom-record" class="btn btn-info btn-block" type="submit">按日期筛选</button>
+                                <button id="show-custom-record" class="btn btn-info btn-block" type="submit"><span id="spinner-filter-by-date" style="display:none;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>按日期筛选</button>
                             </div>
                         </div>
                         <hr width="90%" class="main-separator"/>
@@ -415,6 +415,7 @@
         $('#show-custom-record').click(function(){
             var selected_year = $('#years-filter').children('option:selected').text();
             var selected_month = $('#months-filter').children('option:selected').text();
+            var spinner_filter_by_date = document.querySelector("#spinner-filter-by-date");
             var re = /^[0-9]+.?[0-9]*/;
         　　 if (re.test(selected_year) && re.test(selected_month)) {
                 $.ajax({
@@ -423,7 +424,13 @@
                     url: "{% url 'filter_record_by_date' %}",
                     cache: false,
                     dataType: "json",
+                    beforeSend: function() {
+                        spinner_filter_by_date.setAttribute("style", "");
+                    },
                     success: function (result) {
+                        setTimeout(() => {
+                            spinner_filter_by_date.setAttribute("style", "display:none;");
+                        }, 1000);
                         var cards = '';
                         if (Object.keys(result["records"]).length > 0) {
                             var cards = '';
@@ -541,6 +548,7 @@
 
         $('#search-record').click(function(){
             var search_keyword = $("#search-keyword").val();
+            var spinner_search_bill = document.querySelector("#spinner-search-bill");
             if (!search_keyword) {
                 alert("搜索词不能为空");
             }
@@ -551,7 +559,13 @@
                     url: "{% url 'search_record' %}",
                     cache: false,
                     dataType: "json",
+                    beforeSend: function() {
+                        spinner_search_bill.setAttribute("style", "");
+                    },
                     success: function (result) {
+                        setTimeout(() => {
+                            spinner_search_bill.setAttribute("style", "display:none;");
+                        }, 1000);
                         var cards = '';
                         if (result["records"].length > 0) {
                             var cards = '';
