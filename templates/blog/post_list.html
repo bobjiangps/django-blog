@@ -14,7 +14,7 @@
               <button type="button" class="btn btn-info" style="margin: 0px 2px 2px 0px;" id="sort-by-date">切换->按发布日期排序</button>
           </div>-->
           <div class="dropdown">
-            <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown">
+            <button type="button" id="dropdown_to_sort" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown">
               文章排序
             </button>
             <div class="dropdown-menu">
@@ -118,6 +118,14 @@
     }
 
     if (window.location.href.indexOf("sort-by-view") >= 0) {
+        var dropdown_btn = document.getElementById("dropdown_to_sort");
+        dropdown_btn.innerHTML = "按阅读量";
+    }
+    else if (window.location.href.indexOf("sort-by-date") >= 0) {
+        var dropdown_btn = document.getElementById("dropdown_to_sort");
+        dropdown_btn.innerHTML = "按发布日期";
+    }
+    /*if (window.location.href.indexOf("sort-by-view") >= 0) {
         var by_view_btn = document.getElementById("sort-by-view");
         var by_date_btn = document.getElementById("sort-by-date");
         by_date_btn.removeAttribute("disabled");
@@ -136,7 +144,7 @@
         by_date_btn.setAttribute("disabled", true);
         by_date_btn.innerHTML = "当前按发布日期排序";
         by_date_btn.setAttribute("class", "btn btn-outline-success");
-    }
+    }*/
 
     $('#sort-by-date').click(function(){
         no_sort_url = "";
