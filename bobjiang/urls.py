@@ -21,12 +21,15 @@ from django.conf import settings
 from blog import views as blog_views
 #import xadmin
 
-
+from rest_framework.schemas import get_schema_view
+from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
 from rest_framework import routers
 from external.views import DebugViewSet
 
 router = routers.DefaultRouter()
 router.register(r'debug', DebugViewSet)
+
+schema_view = get_schema_view(title='API DOC', renderer_classes=[SwaggerUIRenderer, OpenAPIRenderer])
 
 
 urlpatterns = [
@@ -40,7 +43,9 @@ urlpatterns = [
     path('tool/', include('tool.urls')),
     path('accounting/', include('accounting.urls')),
     path('external/', include(router.urls)),
-    path('external/', include('external.urls')),
+    path('external/docs/', schema_view, name='docs'),
+    # path('external/debug/', include('external.urls')),
+    path('external/api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

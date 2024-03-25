@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     #'xadmin',
     #'crispy_forms',
     'rest_framework',
+    'rest_framework_swagger',
+    'rest_framework.authtoken',
     'external',
 ]
 
