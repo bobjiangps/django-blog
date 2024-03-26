@@ -25,9 +25,10 @@ from rest_framework.schemas import get_schema_view
 from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
 from rest_framework import routers
 from external.views import DebugViewSet
+from external import views_auth_token as uat_views
 
 router = routers.DefaultRouter()
-router.register(r'debug', DebugViewSet)
+# router.register(r'debug', DebugViewSet)
 
 schema_view = get_schema_view(title='API DOC', renderer_classes=[SwaggerUIRenderer, OpenAPIRenderer])
 
@@ -42,10 +43,14 @@ urlpatterns = [
     path('bobjiang/search/', include('haystack.urls')),
     path('tool/', include('tool.urls')),
     path('accounting/', include('accounting.urls')),
-    path('external/', include(router.urls)),
-    path('external/docs/', schema_view, name='docs'),
-    # path('external/debug/', include('external.urls')),
-    path('external/api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    # restful api below
+    path('external/api/', include(router.urls)),
+    # path('external/api/debug/', include('external.urls')),
+    path('external/api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('external/api/api-token-auth/', uat_views.ObtainExpiringAuthToken.as_view(), name='api_token_auth'),
+    path('external/api/login/', uat_views.ObtainExpiringAuthToken.as_view(), name='login'),
+    path('external/api/logout/', uat_views.RevokeAuthToken.as_view(), name='logout'),
+    path('external/api/docs/', schema_view, name='docs'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

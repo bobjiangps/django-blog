@@ -142,7 +142,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -191,6 +191,51 @@ HAYSTACK_CONNECTIONS = {
 }
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'utils.authentication.ExpiringTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 15,
+    'SEARCH_PARAM': 's'
+}
+
+LOGIN_URL = 'rest_framework:login'
+LOGOUT_URL = 'rest_framework:logout'
+
+if "rest_framework.authentication.BasicAuthentication" not in REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"]:
+    SWAGGER_SETTINGS = {
+        'SECURITY_DEFINITIONS': {
+            'api_key': {
+                'type': 'apiKey',
+                'in': 'header',
+                'name': 'Authorization'
+            }
+        },
+        # 'LOGIN_URL': getattr(settings, 'LOGIN_URL', None),
+        # 'LOGOUT_URL': getattr(settings, 'LOGOUT_URL', None),
+        'DOC_EXPANSION': None,
+        'APIS_SORTER': None,
+        'OPERATIONS_SORTER': None,
+        'JSON_EDITOR': False,
+        'SHOW_REQUEST_HEADERS': False,
+        'SUPPORTED_SUBMIT_METHODS': [
+            'get',
+            'post',
+            'put',
+            'delete',
+            'patch'
+        ],
+        # 'VALIDATOR_URL': '',
+    }
 
 
 # LOGGING = {
