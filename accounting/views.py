@@ -11,11 +11,14 @@ def index(request):
     if not request.user.is_authenticated:
         return render(request, 'error/403.html')
     today = datetime.date.today()
-    all_accounts = Account.objects.all()
+    # all_accounts = Account.objects.all()
+    all_accounts = Account.objects.filter(user=request.user)
     currencies = Currency.objects.all()
     ie_types = Category.CATEGORY_TYPES
-    history_records = HistoryRecord.objects.filter(time_of_occurrence__year=today.year, time_of_occurrence__month=today.month).order_by("-time_of_occurrence")
-    transfer_records = TransferRecord.objects.filter(time_of_occurrence__year=today.year, time_of_occurrence__month=today.month).order_by("-time_of_occurrence")
+    # history_records = HistoryRecord.objects.filter(time_of_occurrence__year=today.year, time_of_occurrence__month=today.month).order_by("-time_of_occurrence")
+    history_records = HistoryRecord.objects.filter(time_of_occurrence__year=today.year, time_of_occurrence__month=today.month).filter(user=request.user).order_by("-time_of_occurrence")
+    # transfer_records = TransferRecord.objects.filter(time_of_occurrence__year=today.year, time_of_occurrence__month=today.month).order_by("-time_of_occurrence")
+    transfer_records = TransferRecord.objects.filter(time_of_occurrence__year=today.year, time_of_occurrence__month=today.month).filter(user=request.user).order_by("-time_of_occurrence")
     income = 0
     expense = 0
     day_has_record = []
@@ -69,7 +72,8 @@ def index(request):
 def retrieve_category(request):
     if request.user.is_authenticated:
         ie_type = request.POST.get('ie_type')
-        categories = Category.objects.filter(category_type=ie_type)
+        # categories = Category.objects.filter(category_type=ie_type)
+        categories = Category.objects.filter(category_type=ie_type).filter(Q(user=request.user) | Q(user__isnull=True))
         category_list = []
         for c in categories:
             category_list.append((c.id, c.name))
@@ -83,7 +87,8 @@ def retrieve_subcategory(request):
     if request.user.is_authenticated:
         category_type = request.POST.get('category_type')
         current_category = Category.objects.filter(name=category_type)[0]
-        subcategories = SubCategory.objects.filter(parent=current_category)
+        # subcategories = SubCategory.objects.filter(parent=current_category)
+        subcategories = SubCategory.objects.filter(parent=current_category).filter(Q(user=request.user) | Q(user__isnull=True))
         subcategory_list = []
         for sc in subcategories:
             subcategory_list.append((sc.id, sc.name))
@@ -110,6 +115,7 @@ def record_income_expense(request):
                                                amount=amount,
                                                comment=comment,
                                                time_of_occurrence=time_occur,
+                                               user=request.user,
                                                created_date=time_now,
                                                updated_date=time_now
                                                )
@@ -124,7 +130,10 @@ def record_income_expense(request):
             except Exception as e:
                 print("not valid in request with error: %s" % str(e))
         else:
-            form = HistoryRecordForm(request.POST)
+            # form = HistoryRecordForm(request.POST)
+            request_post = request.POST.copy()
+            request_post["user"] = request.user.id
+            form = HistoryRecordForm(request_post)
             if form.is_valid():
                 account = form.cleaned_data['account']
                 category = form.cleaned_data['category']
@@ -140,6 +149,7 @@ def record_income_expense(request):
                                                amount=amount,
                                                comment=comment,
                                                time_of_occurrence=time_occur,
+                                               user=request.user,
                                                created_date=time_now,
                                                updated_date=time_now
                                                )
@@ -177,7 +187,8 @@ def retrieve_current_month_income_expense(request):
         month_category_expense = {}
         month_total_income = 0
         month_total_expense = 0
-        month_history_records = HistoryRecord.objects.filter(time_of_occurrence__year=year, time_of_occurrence__month=month).order_by("time_of_occurrence")
+        # month_history_records = HistoryRecord.objects.filter(time_of_occurrence__year=year, time_of_occurrence__month=month).order_by("time_of_occurrence")
+        month_history_records = HistoryRecord.objects.filter(time_of_occurrence__year=year, time_of_occurrence__month=month).filter(user=request.user).order_by("time_of_occurrence")
         for day in days:
             day_history_records = month_history_records.filter(time_of_occurrence__day=int(day.split("-")[-1]))
             day_income = 0
@@ -230,7 +241,8 @@ def retrieve_current_year_income_expense(request):
         year_category_expense = {}
         year_total_income = 0
         year_total_expense = 0
-        year_history_records = HistoryRecord.objects.filter(time_of_occurrence__year=year).order_by("time_of_occurrence")
+        # year_history_records = HistoryRecord.objects.filter(time_of_occurrence__year=year).order_by("time_of_occurrence")
+        year_history_records = HistoryRecord.objects.filter(time_of_occurrence__year=year).filter(user=request.user).order_by("time_of_occurrence")
         for month in months:
             month_history_records = year_history_records.filter(time_of_occurrence__month=month)
             month_income = 0
@@ -269,8 +281,10 @@ def retrieve_current_year_income_expense(request):
 
 def retrieve_year_has_data(request):
     if request.user.is_authenticated:
-        hr_first = HistoryRecord.objects.order_by("time_of_occurrence").first()
-        hr_last = HistoryRecord.objects.order_by("time_of_occurrence").last()
+        # hr_first = HistoryRecord.objects.order_by("time_of_occurrence").first()
+        hr_first = HistoryRecord.objects.filter(user=request.user).order_by("time_of_occurrence").first()
+        # hr_last = HistoryRecord.objects.order_by("time_of_occurrence").last()
+        hr_last = HistoryRecord.objects.filter(user=request.user).order_by("time_of_occurrence").last()
         year_list = [y for y in range(hr_last.time_of_occurrence.year, hr_first.time_of_occurrence.year-1, -1)]
         return JsonResponse({"years": year_list})
     else:
@@ -280,7 +294,8 @@ def retrieve_year_has_data(request):
 def retrieve_month_has_data(request):
     if request.user.is_authenticated:
         year = request.POST.get('year')
-        hr = HistoryRecord.objects.filter(time_of_occurrence__year=year).order_by("time_of_occurrence")
+        # hr = HistoryRecord.objects.filter(time_of_occurrence__year=year).order_by("time_of_occurrence")
+        hr = HistoryRecord.objects.filter(time_of_occurrence__year=year).filter(user=request.user).order_by("time_of_occurrence")
         hr_first = hr.first()
         hr_last = hr.last()
         month_list = [m for m in range(hr_last.time_of_occurrence.month, hr_first.time_of_occurrence.month-1, -1)]
@@ -295,7 +310,8 @@ def search_record(request):
         categories = Category.objects.filter(name__icontains=keyword)
         subcategories = SubCategory.objects.filter(name__icontains=keyword)
         accounts = Account.objects.filter(name__icontains=keyword)
-        hrs = HistoryRecord.objects.filter(Q(category__in=categories) | Q(sub_category__in=subcategories) | Q(account__in=accounts) | Q(comment__icontains=keyword) | Q(amount__icontains=keyword))
+        # hrs = HistoryRecord.objects.filter(Q(category__in=categories) | Q(sub_category__in=subcategories) | Q(account__in=accounts) | Q(comment__icontains=keyword) | Q(amount__icontains=keyword))
+        hrs = HistoryRecord.objects.filter(Q(category__in=categories) | Q(sub_category__in=subcategories) | Q(account__in=accounts) | Q(comment__icontains=keyword) | Q(amount__icontains=keyword)).filter(user=request.user)
         records = []
         for hr in hrs:
             day_occur = hr.time_of_occurrence.strftime("%Y-%m-%d %A")
@@ -325,8 +341,10 @@ def filter_record_by_date(request):
     if request.user.is_authenticated:
         post_year = request.POST.get('year')
         post_month = request.POST.get('month')
-        history_records = HistoryRecord.objects.filter(time_of_occurrence__year=post_year, time_of_occurrence__month=post_month).order_by("-time_of_occurrence")
-        transfer_records = TransferRecord.objects.filter(time_of_occurrence__year=post_year, time_of_occurrence__month=post_month).order_by("-time_of_occurrence")
+        # history_records = HistoryRecord.objects.filter(time_of_occurrence__year=post_year, time_of_occurrence__month=post_month).order_by("-time_of_occurrence")
+        history_records = HistoryRecord.objects.filter(time_of_occurrence__year=post_year, time_of_occurrence__month=post_month).filter(user=request.user).order_by("-time_of_occurrence")
+        # transfer_records = TransferRecord.objects.filter(time_of_occurrence__year=post_year, time_of_occurrence__month=post_month).order_by("-time_of_occurrence")
+        transfer_records = TransferRecord.objects.filter(time_of_occurrence__year=post_year, time_of_occurrence__month=post_month).filter(user=request.user).order_by("-time_of_occurrence")
         day_has_record = []
         custom_month_records = {}
         for hr in history_records:
@@ -379,7 +397,10 @@ def filter_record_by_date(request):
 def transfer_between_accounts(request):
     if request.user.is_authenticated:
         time_now = timezone.now()
-        form = TransferRecordForm(request.POST)
+        # form = TransferRecordForm(request.POST)
+        request_post = request.POST.copy()
+        request_post["user"] = request.user.id
+        form = TransferRecordForm(request_post)
         if form.is_valid():
             from_account = form.cleaned_data['from_account']
             to_account = form.cleaned_data['to_account']
@@ -392,6 +413,7 @@ def transfer_between_accounts(request):
                                                  amount=transfer_amount,
                                                  comment=transfer_comment,
                                                  time_of_occurrence=time_occur,
+                                                 user=request.user,
                                                  created_date=time_now,
                                                  updated_date=time_now
                                                  )
