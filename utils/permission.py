@@ -1,7 +1,6 @@
 from rest_framework.permissions import BasePermission
 from rest_framework.permissions import DjangoModelPermissions
 from users.views_auth_token import ObtainExpiringAuthToken
-from users.models import Role
 
 
 SAFE_METHODS = ('GET', 'HEAD', 'OPTIONS')
