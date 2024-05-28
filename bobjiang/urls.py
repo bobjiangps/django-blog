@@ -24,11 +24,15 @@ from blog import views as blog_views
 from rest_framework.schemas import get_schema_view
 from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
 from rest_framework import routers
-from external.views import DebugViewSet
-from external import views_auth_token as uat_views
+from users import views as u_views
+from users import views_auth_token as uat_views
+
+from api_accounting.views import AccountViewSet
+from users.views import UserViewSet
 
 router = routers.DefaultRouter()
-# router.register(r'debug', DebugViewSet)
+router.register(r'accounts', AccountViewSet)
+router.register(r'users', UserViewSet)
 
 schema_view = get_schema_view(title='API DOC', renderer_classes=[SwaggerUIRenderer, OpenAPIRenderer])
 
@@ -51,6 +55,7 @@ urlpatterns = [
     path('external/api/login/', uat_views.ObtainExpiringAuthToken.as_view(), name='login'),
     path('external/api/logout/', uat_views.RevokeAuthToken.as_view(), name='logout'),
     path('external/api/docs/', schema_view, name='docs'),
+    path('external/api/me/', u_views.Me.as_view(), name='me'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
