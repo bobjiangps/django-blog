@@ -29,9 +29,11 @@ from users import views_auth_token as uat_views
 
 from accounting.views_api import AccountViewSet
 from users.views import UserViewSet
+# from external.views import DebugViewSet
 
 router = routers.DefaultRouter()
 router.register(r'accounts', AccountViewSet)
+# router.register(r'debug', DebugViewSet)
 router.register(r'users', UserViewSet)
 
 schema_view = get_schema_view(title='API DOC', renderer_classes=[SwaggerUIRenderer, OpenAPIRenderer])
