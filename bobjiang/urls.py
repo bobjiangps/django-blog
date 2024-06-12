@@ -27,7 +27,7 @@ from rest_framework import routers
 from users import views as u_views
 from users import views_auth_token as uat_views
 
-from api_accounting.views import AccountViewSet
+from accounting.views_api import AccountViewSet
 from users.views import UserViewSet
 
 router = routers.DefaultRouter()
