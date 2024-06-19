@@ -18,7 +18,8 @@ class ObtainExpiringAuthToken(ObtainAuthToken):
                                            context={'request': request})
         if serializer.is_valid(raise_exception=True):
             user = serializer.validated_data['user']
-            utc_now = datetime.datetime.utcnow().replace(tzinfo=timezone.utc)
+            # utc_now = datetime.datetime.utcnow().replace(tzinfo=timezone.utc)
+            utc_now = timezone.now()  # in this code, actual not utc, just use this name
             user.last_login = utc_now
             user.save()
             token, created = Token.objects.get_or_create(user=user)
@@ -30,10 +31,12 @@ class ObtainExpiringAuthToken(ObtainAuthToken):
                     print("re-generate token for old one is expired")
                     token.delete()
                     token = Token.objects.create(user=user)
-                    token.created = datetime.datetime.utcnow()
+                    # token.created = datetime.datetime.utcnow()
+                    token.created = timezone.now()
                     token.save()
                 else:
-                    token.created = datetime.datetime.utcnow()
+                    # token.created = datetime.datetime.utcnow()
+                    token.created = timezone.now()
                     token.save()
             if request.path_info.find("/login/") > 0:
                 return Response({"id": user.pk,
