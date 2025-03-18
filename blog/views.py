@@ -53,11 +53,11 @@ def post_list(request):
     users = [u.username for u in User.objects.all()]
     login_user = request.user.username
     if login_user not in users:
-        # posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('published_date').reverse()
-        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('views').reverse()
+        posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('published_date').reverse()
+        # posts = Post.objects.filter(published_date__lte=timezone.now()).filter(visiable__name='public').order_by('views').reverse()
     else:
-        # posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
+        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+        # posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('views').reverse()
     return pagination(request, posts)
 
 
