@@ -22,7 +22,7 @@ PyQt5==5.13.0
 PyQt5-sip==4.19.18
 python-dateutil==2.7.5
 pytz==2018.7
-PyYAML==4.2b1
+PyYAML==5.4
 requests==2.21.0
 selenium==3.141.0
 six==1.12.0
